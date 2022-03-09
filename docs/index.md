@@ -7,7 +7,7 @@ This approach enables analyses that allow us to identify causal relations betwee
 
 
 <figure>
-<img src="/figs/architecture_diagram.png" alt="HAIKU Architecture" style="width:90%">
+<img src="figs/architecture_diagram.png" alt="HAIKU Architecture" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> HAIKU Architecture. HAIKU augments conventional climate models with the Hybrid Koopman Climate Model (HKCM) by learning previously umodeled dynamics of error between simulated data and measurements.</figcaption>
 </figure>
 

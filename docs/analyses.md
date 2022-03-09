@@ -4,7 +4,7 @@ We highlight several planned analyses below, but envision the set of analyses gr
 These components are still in development and will be expanded upon as the implementation is finalized.
 
 <figure>
-<img src="/figs/Analysis_toolkit.png" alt="Analysis Toolkit" style="width:90%">
+<img src="../figs/Analysis_toolkit.png" alt="Analysis Toolkit" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> HAIKU includes an extensible analysis toolkit that leverages the FKPM to run millions of What-Ifs in support of explanatory, exploratory, and quantitative analyses.</figcaption>
 </figure>
 

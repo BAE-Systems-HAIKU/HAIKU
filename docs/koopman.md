@@ -11,7 +11,7 @@ More detail into Koopman Operator theory and how the various model components ar
 ##Koopman Operator Theory
 
 <figure>
-<img src="/figs/Koopman_diagram.png" alt="Koopman Diagram" style="width:80%">
+<img src="../figs/Koopman_diagram.png" alt="Koopman Diagram" style="width:80%">
 <figcaption align = "center" style="width:80%"><b>Figure 1:</b> Koopman models the dynamics of a reference system (1). Koopman transforms (2) the state space into an observable space and learns a linear operator (3) in the observable space. Various Koopman publications<sup>1,2,3</sup> contain more details.</figcaption>
 </figure>
 
@@ -23,7 +23,7 @@ The Koopman evolution equation, **Ψ**(t+1) = K **Ψ**(t), is the closed-form cl
 We plan to train a Koopman operator to learn the dynamics between the predictions from current climate models to actual measured records at each measured time step.  This has the potential to identify physics that may be important to the quantification of tipping points or runaway sea-ice loss (Figure 2).
 
 <figure>
-<img src="/figs/HKCM_diagram.png" alt="HKCM Diagram" style="width:90%">
+<img src="../figs/HKCM_diagram.png" alt="HKCM Diagram" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Hybrid AI Koopman-Climate Model (HKCM)—The Koopman Operator will predict the dynamics of the system given climate model output for the current step and the estimate of observables from the previous one. HKCM leverages modeled physics in the climate model while accounting for un-modeled physics.</figcaption>
 </figure>
 
@@ -32,7 +32,7 @@ By placing the Koopman model in series with the Climate Model, it learns the dyn
 ##Fast Koopman Proxy Model (FKPM)
 We will also train a full Koopman model to create a fast proxy model of the full climate simulation.  This will enable a suite of analytics that can extract causality and better characterize tipping points and their associated uncertainty that would take months or years to do with the current best climate models alone. This is shown below (Figure 3).
 <figure>
-<img src="/figs/FKPM_diagram.png" alt="FKPM Diagram" style="width:90%">
+<img src="../figs/FKPM_diagram.png" alt="FKPM Diagram" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Fast Koopman Proxy Model (FKPM)—The FKPM learns the full dynamics of the HKCM or stand-alone climate model, but is able to operate much faster than the either, enabling the analytic toolkit. Analysis of the eigenfunctions and eigenvalues will help identify tipping points and regions of interest for deeper analysis.</figcaption>
 </figure>
 

@@ -4,7 +4,7 @@ theme:
     name: readthedocs
     
 nav:
-    - 'overview.md'
+    - 'index.md'
     - 'data_models.md'
     - 'koopman.md'
     - 'analyses.md'
