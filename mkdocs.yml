@@ -1,0 +1,12 @@
+site_name: ACTM-HAIKU
+site_author: Michael Planer for BAE Systems, inc
+theme:
+    name: readthedocs
+    
+nav:
+    - 'overview.md'
+    - 'data_models.md'
+    - 'koopman.md'
+    - 'analyses.md'
+    - 'results.md'
+    - 'about.md'
