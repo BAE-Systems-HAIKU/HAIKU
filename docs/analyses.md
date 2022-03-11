@@ -12,7 +12,7 @@ These components are still in development and will be expanded upon as the imple
 The Semantic Graph Builder will build a causal network of key causal factors impacting forecasts, augmenting the set of model factors with user-defined factors computable from the model (e.g., annual variation in sea ice concentration). 
 The FKPM will generate many time series of these factors. We plan to leverage Granger Graphs to apply Granger causality to every pair of factors.  
 This captures the causality between factors given the generated time series. 
-This summary of the climate model will improve understanding by showing predictions and connections in terms of the variables most meaningful.
+This summary of the climate model will improve understanding by showing predictions and connections in terms of the variables that are most meaningful.
 
 ## Tipping Point Analysis
 The Tipping Analysis identifies regions of input space where significant, qualitative differences occur in model prediction under small changes in inputs. 
