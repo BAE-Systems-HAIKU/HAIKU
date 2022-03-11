@@ -132,7 +132,7 @@ Some projections indicate the Arctic climate system will approach the tipping po
 This tipping point primarily results from Arctic amplification which is believed to be driven by soaring anthropogenic forcing and associated positive feedback loops.</p>
 <p>Whereas conventional climate models enable impressive gains in understanding and forecasting, they suffer from several shortcomings. 
 Most notably, these include complex physics that are difficult to represent, large computation requirements, and limited explanatory power for emergent behavior, such as tipping points. 
-In the Arctic case, the global climate model (GCM) we propose to use, the Community Earth Science Model (CESM2), which requires about 6 hours of a 
+In the Arctic case, the global climate model (GCM) we propose to use, the Community Earth Science Model (CESM2), requires about 6 hours of a 
 supercomputing cluster per simulated year. 
 Moreover, conventional climate models have limitations with some examples being surface albedo<sup>2</sup>, sensitivity of ice loss to warming<sup>3</sup>, 
 cloud fraction<sup>4</sup>, and cloud radiative forcing<sup>5</sup>.</p>
@@ -140,10 +140,10 @@ cloud fraction<sup>4</sup>, and cloud radiative forcing<sup>5</sup>.</p>
 But the current climate models are only able to represent this coupling at a much weaker level and generally require much greater temperature increases than observed to generate the observed level of sea ice loss<sup>3</sup>. 
 A model that is able to represent this observed coupling and explain what physics interactions are missed by the current models would be a boon to the field. </p>
 <p>Additionally, sea ice volume cannot be monitored continuously; it is a challenge to record these measurements in such a remote location. 
-If we are able to assess the value of acquiring new locations in specific locations at specific times that will have an outsized impact on generating accurate models and predictions, we may be able to improve current models and better quantify and mitigate catastrophic sea ice disintegration in the Arctic.</p>
+If we are able to assess the value of acquiring new measurements in specific locations at specific times that will have an outsized impact on generating accurate models and predictions, we may be able to improve current models and better quantify and mitigate catastrophic sea ice disintegration in the Arctic.</p>
 <p>More details about the Global Climate Model and associated data can be found in the <a href="data_models">Data and Climate Models</a> section alongside the plans for their use in HAIKU.</p>
 <h2 id="koopman-modeling">Koopman Modeling</h2>
-<p>The Koopman evolution equation, <strong>Ψ</strong>(t+1) = K <strong>Ψ</strong>(t), is the closed-form climate dynamics equation we use. In a controlled climate system, we describe the evolution of climate states or observables as <strong>x</strong>(t+1)=F<sub>1</sub> (<strong>x</strong>(t),<strong>u</strong>(t),θ) where t is the time index, <strong>x</strong> is the climate model state vector, <strong>u</strong>, is the vector representing climate forcing, and <strong>θ</strong> is the vector representing strength of climate interactions. We apply a lifting function to go from the states or observables known to current climate models into a set of collective observables that Koopman can operate: <strong>Ψ</strong>(t+1)=A(θ)<strong>Ψ</strong>(t)+B(θ)<strong>u</strong>(t).</p>
+<p>The Koopman evolution equation, <strong>Ψ</strong>(t+1) = K <strong>Ψ</strong>(t), is the closed-form climate dynamics equation we use. In a controlled climate system, we describe the evolution of climate states or observables as <strong>x</strong>(t+1)=F<sub>1</sub> (<strong>x</strong>(t),<strong>u</strong>(t),θ) where t is the time index, <strong>x</strong> is the climate model state vector, <strong>u</strong>, is the vector representing climate forcing, and <strong>θ</strong> is the vector representing strength of climate interactions. We apply a lifting function to go from the states or observables known to current climate models into a set of collective observables that the Koopman operator can operate on: <strong>Ψ</strong>(t+1)=A(θ)<strong>Ψ</strong>(t)+B(θ)<strong>u</strong>(t).</p>
 <p>More details of Koopman Operator Theory and its application to HAIKU can be found int the <a href="koopman">Koopman Assisted Climate Models section</a>.</p>
 <h2 id="references">References</h2>
 <p><sup>0</sup> “Arctic Sea Ice Minimum.” NASA Global Climate Change. (https://climate.nasa.gov/vital-signs/arctic-sea-ice/) accessed 10/09/2021.</p>
@@ -206,5 +206,5 @@ If we are able to assess the value of acquiring new locations in specific locati
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-03-09 14:43:50.919439+00:00
+Build Date UTC : 2022-03-11 15:12:09.958670+00:00
 -->
