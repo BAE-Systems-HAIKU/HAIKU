@@ -26,7 +26,7 @@ The models are computationally expensive to run. Instead, we look at the CESM La
 
 <figure>
 <img src="../figs/CESM_data.png" alt="CESM data" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentrations in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
 </figure>
 
 ##Observational Data - NSIDC
@@ -37,5 +37,5 @@ We compare the results of the simulations with observational sea ice concentrati
 
 <figure>
 <img src="../figs/NSIDC_data.png" alt="NSIDC data" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
 </figure>

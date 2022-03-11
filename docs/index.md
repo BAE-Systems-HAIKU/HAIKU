@@ -15,7 +15,7 @@ The Fast Koopman Proxy Model (FKPM) is a learned fully Koopman based proxy model
 Finally, a graphical causal model allows users to visualize and interact with the FKPM and better understand the origin of tipping points and uncertainty in the model.
 
 ## Problem of Interest: Sea Ice Levels in the Arctic
-The recent decline in Arctic sea-ice coverage, thickness and volume has been dramatic, with the September sea-ice extent declining by about 40% during the past 40 years<sup>0</sup> and sea-ice volume by about 70% over the same time period<sup>1</sup>. 
+The recent decline in Arctic sea-ice coverage, thickness and volume has been dramatic, with the September sea-ice extent declining by about 40% during the past 40 years<sup>1</sup> and sea-ice volume by about 70% over the same time period<sup>2</sup>. 
 Some projections indicate the Arctic climate system will approach the tipping point of an irreversible catastrophic ice-sheet disintegration, sea-level rise, and the disappearance of the perennial sea ice within this century. 
 This tipping point primarily results from Arctic amplification which is believed to be driven by soaring anthropogenic forcing and associated positive feedback loops.
 
@@ -23,11 +23,11 @@ Whereas conventional climate models enable impressive gains in understanding and
 Most notably, these include complex physics that are difficult to represent, large computation requirements, and limited explanatory power for emergent behavior, such as tipping points. 
 In the Arctic case, the global climate model (GCM) we propose to use, the Community Earth Science Model (CESM2), requires about 6 hours of a 
 supercomputing cluster per simulated year. 
-Moreover, conventional climate models have limitations with some examples being surface albedo<sup>2</sup>, sensitivity of ice loss to warming<sup>3</sup>, 
-cloud fraction<sup>4</sup>, and cloud radiative forcing<sup>5</sup>.
+Moreover, conventional climate models have limitations with some examples being surface albedo<sup>3</sup>, sensitivity of ice loss to warming<sup>4</sup>, 
+cloud fraction<sup>5</sup>, and cloud radiative forcing<sup>6</sup>.
 
 Focusing on one example – limitation of sensitivity to ice loss warming: with current models of sea ice concentration in the Arctic is that in data, we see a very strong coupling between ocean temperature and sea ice level.
-But the current climate models are only able to represent this coupling at a much weaker level and generally require much greater temperature increases than observed to generate the observed level of sea ice loss<sup>3</sup>. 
+But the current climate models are only able to represent this coupling at a much weaker level and generally require much greater temperature increases than observed to generate the observed level of sea ice loss<sup>4</sup>. 
 A model that is able to represent this observed coupling and explain what physics interactions are missed by the current models would be a boon to the field. 
 
 Additionally, sea ice volume cannot be monitored continuously; it is a challenge to record these measurements in such a remote location. 
@@ -42,15 +42,15 @@ More details of Koopman Operator Theory and its application to HAIKU can be foun
 
 ##References
 
-<sup>0</sup> “Arctic Sea Ice Minimum.” NASA Global Climate Change. (https://climate.nasa.gov/vital-signs/arctic-sea-ice/) accessed 10/09/2021.
+<sup>1</sup> “Arctic Sea Ice Minimum.” NASA Global Climate Change. (https://climate.nasa.gov/vital-signs/arctic-sea-ice/) accessed 10/09/2021.
 
-<sup>1</sup> “PIOMAS Arctic Sea Ice Volume Reanalysis.” Polar Science Center. (http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/) accessed 10/09/2021.
+<sup>2</sup> “PIOMAS Arctic Sea Ice Volume Reanalysis.” Polar Science Center. (http://psc.apl.uw.edu/research/projects/arctic-sea-ice-volume-anomaly/) accessed 10/09/2021.
 
-<sup>2</sup> Karlsson, J., and Svensson, G. (2013), Consequences of poor representation of Arctic sea-ice albedo and cloud-radiation interactions in the CMIP5 model ensemble, Geophys. Res. Lett., 40, 4374– 4379, doi:10.1002/grl.50768.
+<sup>3</sup> Karlsson, J., and Svensson, G. (2013), Consequences of poor representation of Arctic sea-ice albedo and cloud-radiation interactions in the CMIP5 model ensemble, Geophys. Res. Lett., 40, 4374– 4379, doi:10.1002/grl.50768.
 
-<sup>3</sup> Rosenblum, E., and I. Eisenman, 2016: Faster Arctic sea ice retreat in CMIP5 than in CMIP3 due to volcanoes. J. Climate, 29, 9179–9188, doi:10.1175/JCLI-D-16-0391.1.
+<sup>4</sup> Rosenblum, E., and I. Eisenman, 2016: Faster Arctic sea ice retreat in CMIP5 than in CMIP3 due to volcanoes. J. Climate, 29, 9179–9188, doi:10.1175/JCLI-D-16-0391.1.
 
-<sup>4</sup> Taylor, P. C., Boeke, R. C., Li, Y., and Thompson, D. W. J. Arctic cloud annual cycle biases in climate models. Atmos. Chem. Phys., 19, 8759–8782, 2019 https://doi.org/10.5194/acp-19-8759-2019
+<sup>5</sup> Taylor, P. C., Boeke, R. C., Li, Y., and Thompson, D. W. J. Arctic cloud annual cycle biases in climate models. Atmos. Chem. Phys., 19, 8759–8782, 2019 https://doi.org/10.5194/acp-19-8759-2019
 
-<sup>5</sup> English, J. M., Gettelman, A., and Henderson, G.R. Arctic radiative fluxes: Present-day biases and future projections in CMIP5 models, J. Clim., 28(15), 6019– 6038, doi:10.1175/jcli-d-14-00801.1.
+<sup>6</sup> English, J. M., Gettelman, A., and Henderson, G.R. Arctic radiative fluxes: Present-day biases and future projections in CMIP5 models, J. Clim., 28(15), 6019– 6038, doi:10.1175/jcli-d-14-00801.1.
 
