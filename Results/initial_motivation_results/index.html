@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Michael Planer for BAE Systems, inc">
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Initial Results - ACTM-HAIKU</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Initial Results";
+    var mkdocs_page_input_path = "Results\\initial_motivation_results.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> ACTM-HAIKU</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../data_models/">Data and Climate models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../koopman/">Koopman Assisted Climate Models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../analyses/">Analysis Toolkit</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../software_framework/">Software Framework</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Results</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Initial Results</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#proof-of-concept-for-iding-modes-of-interest">Proof of concept for IDing Modes of interest</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#accuracy-of-fkpms">Accuracy of FKPMs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-climate-variables-improve-model-accuracy">Additional climate variables improve model accuracy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">ACTM-HAIKU</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Results &raquo;</li>
+        
+      
+    
+    <li>Initial Results</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="preliminary-results-from-simple-fast-koopman-proxy-model">Preliminary results from Simple Fast Koopman Proxy Model</h1>
+<p>We are initially investigating the simulation data from the CESM1 Large Ensemble Community Project as well as NSIDC data that covers the years 1979-2020. 
+When evaluating accuracy of climate forecasting, training and testing occur in separate 4 year windows: 1997-2000,2001-2004 respectively.</p>
+<p>All results shown here are of a FKPM that only models the dynamics of the Sea Ice levels provided as output from the full CESM1 simulation. 
+This means that we cannot extract causality or execute any what-if analyses outside of self-coupling of sea-ice concentration to itself, but those external forcing functions are represented intrinsically in the output of the CESM1 simulation output.</p>
+<h2 id="proof-of-concept-for-iding-modes-of-interest">Proof of concept for IDing Modes of interest</h2>
+<p>The lifting function and eigenfunctions of the Koopman Mode Decomposition currently used in the system is straigtforward to visualize. The FKPM learns spatial weights for each element through fitting the dynamical system. By identifying eigenvalues of interest, exponential modes with decadal time-scales and large coefficients, we can find spatial regions that may experience rapid ice loss.</p>
+<p>Training a FKPM on NSIDC Sea Ice Concentration (ICEFRAC) data, we are able to identify spatial regions that experience rapid ice loss as seen in Figure 1. A region of interest is highlighted in the Barents and Kara seas as having a large components of rapid exponential sea ice loss.</p>
+<figure>
+<img src="../../figs/results/NSIDC_1979-2020_exp_mode_both.png" alt="sample NSIDC exponential mode" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 1:</b> Example eigenfunctions for exponentially decaying Koopman modes in North (left) and left (right) hemispheres. This FKPM was trained using NSIDC data (sea ice concentration only) from 1979-2020.  </figcaption>
+</figure>
+<p>The FKPM generated only through Sea Ice Concentration time-series data are insufficient to capture all the relevant climate dynamics, so the above analysis should be considered a proof of concept.   </p>
+<h2 id="accuracy-of-fkpms">Accuracy of FKPMs</h2>
+<p><br/><br/><figure>
+<img src="../../figs/results/NSIDC_vs_CESM_1979-2020_mean-annual_comparison.png" alt="NSIDC FKPM vs CESM1 FKPM" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> The Koopman Mode Decomposition allows us to plot each separately and remove Mean and Annual modes for later analyses at any point during analysis. Two FKPM were trained on NSIDC (left) and CESM1 ensemble (right) data from 1979-2020. The two most prominent NSIDC Mean modes (left-most) can be compared to the two most prominent CESM Mean modes(middle-right) while the two most prominent NSIDC annual modes (middle-left) can be compared to the two most prominent CESM annual modes (right-most).  </figcaption>
+</figure></p>
+<p>We see that the extent of the eigenfunctions for Mean and Annual modes are qualitatively similar between a CESM-based and NSIDC-based FKPMs. Additionally, the regions of high annual variance are highlighted as expected in the annual mode eigenfunctions, while the regions of highest sea-ice concentration are highlighted in the mean mode eigenfunctions.  This all matches expectation and shows that qualitatively, the FKPM are able to capture the more well-behaved dynamics of the system.</p>
+<p>Next we move to a more quantitative analysis looking at the accuracy of FKPM trained on NSIDC data.</p>
+<p><br/><br/><figure>
+<img src="../../figs/results/Sea_ice_only_forecasting.png" alt="FKPM sea ice only monthly accuracy" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> A FKPM was trained on monthly NSIDC (sea ice concentration only) data from 1997-2000. The Koopman model was then run foreward to forecast monthly predictions from 2001-2004. The pointwise RMSE of the FKPM (blue), CESM1 (orange), and climatalogical mean (green) were then computed from the observed monthly NSIDC data. </figcaption>
+</figure></p>
+<p>We see that the FKPM trained only on Sea Ice data seems to mirror the climatological mean, while remaining slightly worse. The CESM1 model is generally not used for the purpose of month-month prediction, but it is worth noting that the relative cycles of error for the CESM1 simulation opposes those of the FKPM and climatalogical mean. This hints both the NSIDC based FKPM and the CESM1 may be good candidates for a hybrid model.</p>
+<p>It is unsurprising that the Sea Ice Concentration only FKPM would provide similar performance to the climatological mean. In essence, it forecasts based solely on the recent Sea Ice concentration and is unaware of other casual climate variables whose variance will impact Sea Ice levels directly.  In order to improve the accuracy of the HAIKU system, we must include additional climate variables into the FKPM.</p>
+<h2 id="additional-climate-variables-improve-model-accuracy">Additional climate variables improve model accuracy</h2>
+<p>We continue the development of the HAIKU system by including additional climate variables in the FKPM training. In particular, we include: Sea Ice Concentration, Sea Surface Temperature, and Atmoshperic Surface Temperature.  These generally improve the performance of the models and we plan to investigate the inclusion of additional variables (eg. 3D gridded atmospheric temperature, atmospheric C02).</p>
+<p>First, we train an FKPM with all three of these inputs for CESM1 data and observed data and compare to make sure the FKPM is providing qualitatively reasonable output. The mean modes are plotted in Figure 4 and match expectation for the typical average values of these variables across the training timespan.</p>
+<p><br/><br/><figure>
+<img src="../../figs/results/CESM_NSIDC_compare_multiple_variables_mean_mode.png" alt="CESM" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 4:</b> The Mean eigenfunctions are summed and visualized for the CESM1-based FKPM (top) and the observational-based FKPM (bottom). The results are qualitatively similar and also match physical expectations for annual variance of these variables.  </figcaption>
+</figure></p>
+<p>The annual modes are shown in Figure 5 and match expectation for the typical annual fluctuation of these variables across the training timespan.</p>
+<p><br/><br/><figure>
+<img src="../../figs/results/CESM_NSIDC_compare_multiple_variables_annual_mode.png" alt="CESM" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 5:</b> The annual eigenfunctions are summed and visualized for the CESM1-based FKPM (top) and the observational-based FKPM (bottom). The results are qualitatively similar and also match physical expectations for annual variance of these variables.  </figcaption>
+</figure></p>
+<p>We have preliminary evidence that the FKPM is accurately modeling the new climate variables and now want to quantitatively assess how much additional prediction power or modeling accuracy we gain by the inclusion of these variables. The RMSE is computed between the monthly predictions of various models and the NSIDC monthly sea ice concentration data in Figure 6. </p>
+<p><br/><br/><figure>
+<img src="../../figs/results/Koopman_accuracy_vs_variabls.png" alt="CESM" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 6:</b> Four FKPM were trained with differing sets of input variables (from observational data) and the pointwise RMSE of monthly Sea Ice concentration is shown (blue) compared to CESM1 data (orange) and the climatalogical mean (green). We see an accuracy gain when including ORAS5 Atmoshperic Temperature (right), but not when including ERA5 Sea Surface Temperature (bottom) compared to Sea Ice alone (top-left).   </figcaption>
+</figure></p>
+<p>From this result, it is clear that the the FKPM becomes more accurate with the inclusion of Atmospheric temperature. We speculate that the Sea Surface temperature has little positive impact because the ERA5 Sea Surface Temperature data is known to be fairly spotty.  Further analysis will leverage CESM1-based analysis to sea if more accurate Sea Surface data could improve the accuracy of these models.  This will be a nice proof of concept for our Phase II approach to identify new measurements that could improve the accuracy of models built from observational data.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Inclusion of just one additional variable has brought the FKPM monthly accuracy up to the level of the climatalogical mean. We plan to test the addition of a few new variables to get generate a more accurate model on a monthly timescale.  Additionally, we will present accuracy measurements on longer timescales to more directly compare the climatalogical accuracy and compare directly to the CESM model for identifying long-term Sea Ice Trends.  We expect that some tuning of the Koopman model itself will be involved (such as modifying the lifting functions or adding physical restrictions to the eigenfunctions and eigenvalues representing real physics interaction limitations.)</p>
+<p>Early summaries of causal models using the updated FKPM will come as well, allowing for further validation of the approach and the relevance of the produced models.</p>
+<p>We also plan to produce the first results of the Hybrid Koopman Proxy Model to verify that the approach described in section X can improve accuracy over the climate model itself (eg. CESM1).</p>
+<p><br/><br/></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../software_framework/" class="btn btn-neutral" title="Software Framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../software_framework/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Michael Planer for BAE Systems, inc">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Metrics to evaulate HAIKU capabilities - ACTM-HAIKU</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Metrics to evaulate HAIKU capabilities";
+    var mkdocs_page_input_path = "metrics.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> ACTM-HAIKU</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Metrics to evaulate HAIKU capabilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#accuracy-of-climate-projections">Accuracy of climate projections</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#proxy-model-speedup">Proxy Model Speedup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#causal-factor-discovery-and-confirmation">Causal Factor Discovery and Confirmation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tipping-point-accuracy-and-consistency">Tipping Point Accuracy and Consistency</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Results</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">ACTM-HAIKU</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Metrics to evaulate HAIKU capabilities</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="metrics-to-evaulate-haiku-capabilities">Metrics to evaulate HAIKU capabilities</h1>
+<p>In order to evaluate the utility of the HAIKU models and associated analytics compared to current climate modeling capabilities we plan to use several metrics including measuring the relative accuracy and speed of the Koopman Operator Theory based models, the accuracy/reliability of casual relationships extracted from HAIKU, and the accuracy/reliability of tipping points identified by HAIKU.</p>
+<h2 id="accuracy-of-climate-projections">Accuracy of climate projections</h2>
+<p>FKPM can be trained from observational or simulated data. 
+Initial accuracy metric will compare the relative accuracy of the FKPM (trained on observation) to Climate model's accuracy and that of the climatalogical mean.
+At present we compute relative error of each point at each time step for data outside of training set.</p>
+<figure>
+<figcaption align = "center" style="width:90%"><b>Equation 1:</b> MSE of a model across all spatial observations at a given time step. </figcaption>
+<img src="../figs/equations/MSE_error.png" alt="MSE error" style="width:35%">
+</figure>
+<p><br></br></p>
+<p>An example of this accuracy analysis in action can be seen on some preliminary results comparing forecasting from a FKPM trained only on sea ice concentration data to NSIDC data.</p>
+<figure>
+<img src="../../figs/results/Sea_ice_only_forecasting.png" alt="FKPM sea ice only monthly accuracy" style="width:80%">
+<figcaption align = "center" style="width:90%"><b>Figure 1:</b> A FKPM was trained on monthly NSIDC (sea ice concentration only) data from 1997-2000. The Koopman model was then run foreward to forecast monthly predictions from 2001-2004. The pointwise RMSE of the FKPM (blue), CESM1 (orange), and climatalogical mean (green) were then computed from the observed monthly NSIDC data. </figcaption> 
+</figure>
+
+<p><br/><br/> </p>
+<p>We plan to average over geographic and temporal step size to better quantify the utility of our models to the longer time scale climate trends as well as to mitigate the potential very small scale noise that the FKPM attempts to simulate.</p>
+<p>We plan for this metric to evolve as we continue evaluating the HAIKU system:</p>
+<ol>
+<li>Aggregate spatially before computing the RMSE</li>
+<li>Compare accuracy of larger scale dynamics to higher resolution</li>
+<li>Aggregate temporally (or remove annual variation directly)</li>
+</ol>
+<p>Main goal is to assess decadal scale trends and tipping points, we don’t want model to focus on modeling annual variation when overall trend is more important
+Compute accuracy per variable/spatial/temporal grids
+Will enable Phase II ability to identify measurements to improve overall accuracy</p>
+<h2 id="proxy-model-speedup">Proxy Model Speedup</h2>
+<p>The ability of the FKPM to accurately model the climate system is of primary importance, but in order to provide analytics not possible with current climate models, we must also be able to train and test orders of magnitude faster than the current full physics climate simulations. To that end, we propose a metric called Proxy Model Speedup which is the fraction of the time the CESM model takes to evaluate 50 years of climate forecasting at the fidelity described in our datasets section over the time taken for the Koopman model to do the same.</p>
+<figure>
+<b>Equation 2:</b> Metric to capture speedup of FKPM over standard climate models </figcaption>
+<img src="../figs/equations/proxy_model_speedup.png" alt="FKPM speedup metric" style="width:50%">
+<figcaption align = "center" style="width:90%">
+</figure>
+<p><br></br></p>
+<p>We will likely investigate variants on this metric. For instance, the Koopman model must be trained, so we may include that in the denominator. Additionally, the CESM model outputs are typically be averaged over several runs with varying initial conditions to see the decadal trends that climate scientists are interested in, so we may need to modify the numerator to account for this.  All variants will be presented alongside one another and clearly defined as they become relevant.</p>
+<h2 id="causal-factor-discovery-and-confirmation">Causal Factor Discovery and Confirmation</h2>
+<p>An important analytic in the HAIKU toolkit is to identify causally linked variables. </p>
+<p>Our current approach at causal discovery involves rapid what-if analyses using the FKPM to tweak potential causal variables and evaluate the change in potential effect variables. We can also identify the off-diagonal terms in the Koopman matrix to infer causality between modes. While our data is high dimensional, we can restrict potential causal links spatially and based on known physics. Once we’ve identified a set of proposed causal links using granger causality in a specific set of FKPMs we then propose a further set of experiments on the original reference climate model via a counterfactual experiment. The accuracy of causal links discovered by the FKPMs is then the fraction of causal links not refuted by high-fidelity models over the total number of proposed causal links.</p>
+<figure>
+<figcaption align = "center" style="width:90%"><b>Equation 3: </b> Metric to capture the accuracy of the causal links predicted by the Semantic Graph Generator</figcaption>
+<img src="../figs/equations/causal_link_accuracy.png" alt="accuracy of causal links" style="width:35%">
+</figure>
+<p><br></br></p>
+<p>Where CF is 0 if a causal links disproved by counterfactual evidence or 1 if it is validated and N is the total number of proposed causal links. If we assume that the sampling of CESM model parameters enclose the true observational parameters, measuring the distribution of Causal Link Accuracies of FKPMs trained on various CESM output should provide a reasonable estimate of the Causal Link Accuracy of a FKPM trained to more precisely emulate the observational data.
+An additional metric to track is the total number of causal relations discovered in the climate system. This will be presented, but we do not have a target value at this point. As the program develops and we present hypothesized causal relations to climate scientists, we expect the usefulness of these causal relations may come into play, but no quantitative metrics are currently planned for this.  </p>
+<h2 id="tipping-point-accuracy-and-consistency">Tipping Point Accuracy and Consistency</h2>
+<p>FKPM enables what-if analyses orders of magnitude faster than traditional climate models 
+Identify Koopman modes with exponential dynamics (likely to cause runaway behavior)
+Identify bifurcation by tracking the Koopman eigenvalues
+Leverage FKPM rapid what-if analyses to identify causal variables that experience runaway dynamics directly
+Given initial conditions and forcing terms, identify point in time where a bounded control is unable to counteract runaway dynamics</p>
+<p>Generating a metric to evaluate HAIKU’s ability to accurately predict tipping points is perhaps the most challenging aspect of metric definition. We don’t necessarily have direct observations of tipping points in our observational or simulated data. Identification of key locations and variables driving tipping points will be quantified, but cannot necessarily be verified directly. Specifically, we identify bifurcation by tracking the Koopman eigenvalues and the corresponding Koopman modes; what spatial location and which variables will experience tipping points? We then track the total number and through interactions with climate scientists, how many lead to useful insights or actions.</p>
+<p>Quantitative metrics are preferred, so we also aim to verify the accuracy of as many proposed tipping points as possible. We can quantify a stochastic (systematic) uncertainty in the tipping point by measuring the magnitude and causal thresholds that lead to the tipping point across several FKPM trained from data generated with different initial values (configurations) of the CESM.  </p>
+<p>For an FKPM trained on climate simulation data, we can go back to the original simulation to verify if a tipping point is present. The FKPM allows us to sample parameter space much more rapidly and the Koopman mode analysis also allows us to identify potential areas to explore. Once we’ve identified potential conditions that trigger a tipping point using our Analysis Toolkit, we return to the original simulations and verify if the predicted tipping point is present in the dynamics of the simulation. This Tipping Point accuracy is the fraction of verified tipping points over the total number of proposed tipping points. </p>
+<figure>
+<figcaption align = "center" style="width:90%"><b>Equation 4: </b> Metric to estimate accuracy of tipping points</figcaption>
+<img src="../figs/equations/tipping_point_accuracy.png" alt="accuracy of causal links" style="width:50%">
+</figure>
+<p><br></br></p>
+<p>Where VTP (verified tipping point) is 0 if the tipping point is not verified on the current FKPM and 1 if it is. We then range over N FKPMs and over M identified tipping points. </p>
+<p>Our currently selected observational data doesn’t have large scale tipping points, so as of now, this analysis is restricted to simulated dynamics. But as with our causal analysis accuracy, we expect that the capability of FKPM to model simulated climate models will be similar to its ability to model observational data. And as such, the Tipping Point Accuracy measured on simulated data should be indicative of that on observational data. Additionally, if a specific tipping point is present in several FKPMs derived across a variety of simulation parameters (high tipping point accuracy) and the accuracy of those FKPMs compared to the observational data is high (high model accuracy), we have reasonable support that this tipping point is properly modeled and is likely representative of a tipping point present in the real earth system.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../software_framework/" class="btn btn-neutral float-right" title="Software Framework">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../analyses/" class="btn btn-neutral" title="Analysis Toolkit"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../analyses/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../software_framework/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -59,6 +59,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#observational-data-nsidc">Observational Data - NSIDC</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dataset-access">Dataset Access</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -71,7 +73,16 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../results/">Results</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Results</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
                     </li>
                 </ul>
                 <ul>
@@ -129,7 +140,7 @@ We will need to work in a common projection and resolution to avoid interpolatio
 <h2 id="model-prediction-cesm-large-ensemble-project">Model Prediction - CESM Large Ensemble Project</h2>
 <p>The models are computationally expensive to run. Instead, we look at the CESM Large Ensemble Community Project. This project has produced a publicly available set of climate model simulations performed with the nominal 1-degree latitude/longitude version of the Community Earth System Model version 1 (CESM1) with CAM5.2 as its atmospheric component <a href="https://www.cesm.ucar.edu/projects/community-projects/LENS/data-sets.html">CESM data</a>. </p>
 <figure>
-<img src="../figs/CESM_data.png" alt="CESM data" style="width:90%">
+<img src="../figs/results/CESM_data.png" alt="CESM data" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
 </figure>
 
@@ -137,9 +148,13 @@ We will need to work in a common projection and resolution to avoid interpolatio
 <p>Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 1 | National Snow and Ice Data Center (nsidc.org)</p>
 <p>We compare the results of the simulations with observational sea ice concentration data obtained from the National Snow and Ice Data Center. These data include gridded daily (every other day for SMMR data) and monthly averaged sea ice concentrations for both the north and south polar regions. The dataset includes data since 26 October 1978. The data shows the brightness temperature data derived from a few different sensors (microwave radiometers that sense emitted microwave radiation) that represent the sea ice concentration. The data are provided in the polar stereographic projection at a grid cell size of 25 x 25 km. For grid cell sizes of 25 x 25km, the pixel intensities represent the fractional amount of sea ice covering that cell (scaled by 250).</p>
 <figure>
-<img src="../figs/NSIDC_data.png" alt="NSIDC data" style="width:90%">
+<img src="../figs/results/NSIDC_data.png" alt="NSIDC data" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
 </figure>
+
+<h2 id="dataset-access">Dataset Access</h2>
+<p>Instructions to download and preprocess datasets currently in use on HAIKU can be found on the <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">HAIKU github</a>. 
+This page will continue to be updated as the HAIKU code is built out, validated, and approved for public use and will contain instructions to get HAIKU operational on your system.</p>
               
             </div>
           </div>
