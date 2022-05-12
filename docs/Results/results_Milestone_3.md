@@ -10,19 +10,19 @@ Before moving to simulations from the CESM1 Large Ensemble Community Project, we
 These control simulations do not rely on historical data for forcing inputs and can therefore be simulated for long time horizons.
 
 <figure>
-<img src="../figs/CESM_control_run.png" alt="CESM control run" style="width:90%">
+<img src="../../figs/CESM_control_run.png" alt="CESM control run" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> Mean (left) and annual (right) Koopman modes obtained from performing KMD on a control run from 1979-2021 in the northern hemisphere.</figcaption>
 </figure>
 
 <br>Figure 2 shows the mean and annual Koopman modes obtained from performing KMD on CESM1 simulation runs #001 and #105 with historical forcing. Koopman models are produced for each ensemble member, while there are some differences in the spectral modes presented, the overall picture is quite similar between the two. The standard deviations of the mean and annual modes are shown in Figure 3. We can see where bias from a specific ensemble selection may come in while training an FKPM.  
 
 <figure>
-<img src="../figs/CESM_ensemble_runs.png" alt="CESM ensemble run" style="width:80%">
+<img src="../../figs/CESM_ensemble_runs.png" alt="CESM ensemble run" style="width:80%">
 <figcaption align = "center" style="width:80%"><b>Figure 2:</b> Mean (left) and annual (right) Koopman modes obtained from performing KMD on CESM1 simulations with historical forcing from 1979-2021 in the northern hemisphere. Two members were selected to show typical differences: the top plots show results from member #001 and the bottom plots show results from member #105.</figcaption>
 </figure>
 
 <br><figure>
-<img src="../figs/CESM_average_run.png" alt="CESM average run" style="width:90%">
+<img src="../../figs/CESM_average_run.png" alt="CESM average run" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Standard deviation of the mean (left) and annual (right) Koopman modes obtained from CESM1 simulations with historical forcing between all ensemble members.</figcaption>
 </figure>
 

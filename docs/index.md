@@ -1,5 +1,5 @@
 # HAIKU (Hybrid AI Integrating Koopman Units)
-##Overview
+## Overview
 As part of the AI-assisted Climate Tipping Point Modeling (ACTM) program through DARPA, the HAIKU's Climate Model augmentation and analyses (Figure 1) works to develop more accurate predictions of Climate Tipping-Points and their underlying causes. 
 This approach makes use of Koopman Operator Theory. 
 Koopman based models are able to represent complex dynamics with similar fidelity to much larger models with drastic improvements to speed while providing some intrinsic explainability. 
@@ -7,7 +7,7 @@ This approach enables analyses that allow us to identify causal relations betwee
 
 
 <figure>
-<img src="figs/architecture_diagram.png" alt="HAIKU Architecture" style="width:90%">
+<img src="figs/diagrams/architecture_diagram.png" alt="HAIKU Architecture" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> HAIKU Architecture. HAIKU augments conventional climate models with the Hybrid Koopman Climate Model (HKCM) by learning previously umodeled dynamics of error between simulated data and measurements.</figcaption>
 </figure>
 

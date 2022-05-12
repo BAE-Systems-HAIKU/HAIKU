@@ -8,5 +8,8 @@ nav:
     - 'data_models.md'
     - 'koopman.md'
     - 'analyses.md'
-    - 'results.md'
+    - 'metrics.md'
+    - 'software_framework.md'
+    - 'Results':
+        - "Initial Results": 'Results/initial_motivation_results.md'
     - 'about.md'
