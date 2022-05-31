@@ -1,5 +1,5 @@
 #Preliminary results from Simple Fast Koopman Proxy Model
-We are initially investigating the simulation data from the CESM1 Large Ensemble Community Project as well as NSIDC data that covers the years 1979-2020. 
+We are initially investigating the simulation data from the CESM1 Large Ensemble Community Project (LENS) as well as NSIDC data that covers the years 1979-2020. 
 When evaluating accuracy of climate forecasting, training and testing occur in separate 4 year windows: 1997-2000,2001-2004 respectively.
 
 All results shown here are of a FKPM that only models the dynamics of the Sea Ice levels provided as output from the full CESM1 simulation. 
