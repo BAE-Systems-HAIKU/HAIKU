@@ -44,22 +44,22 @@ We compare the results of the simulations with observational sea ice concentrati
 &nbsp;  
 ##Cloud Cover Data - to support Value of New Data Estimator
 
-In Phase II of the ACTM we aim to determine the value of potential new measurements that will have an outsized impact on improving the model forecasting accuracy, identification and characterization of tipping points, or improve model robustness.
+In Phase II of the ACTM program, we aim to determine the value of potential new measurements that will have an outsized impact on improving the model forecasting accuracy, identification and characterization of tipping points, or improve model robustness.
 If we are able to quantify the improvement to the HAIKU models of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
-Specifically, Cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the arctic region while likely having a large impact on the dynamics of sea ice concentration.
+Specifically, cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the arctic region while likely having a large impact on the dynamics of sea ice concentration.
 We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM.  
 Further motivation of this choice and the associated analyses can be found in the [Value of New Data Estimator](https://bae-systems-haiku.github.io/HAIKU/analyses/#value-of-new-data-estimator-vonde) section of this document.
 
-Considering the pros and cons of each dataset, we will primarily use cloud and surface heat flux data from ERA5 (1979-2022), MERRA-2 (1980-2022), Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observation (CALIPSO, 2006-2016), and Clouds and Earth's Radiant Energy System Energy Balanced And Filled (CERES-EBAF Ed4.0, 2006-2016) in ACTM Phase II to include cloud radiative influences in shaping the atmosphere-sea ice connection. ERA5 and MERRA-2 are considered as two best reanalysis products incorporating all available satellite and in-situ information and using the most updated 4- and 3-dimension assimilation schemes, respectively. 
+Considering the pros and cons of each dataset, we will primarily use cloud and surface heat flux data from ERA5 (1979-2022), MERRA-2 (1980-2022), Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observation (CALIPSO, 2006-2016), and Clouds and Earth's Radiant Energy System Energy Balanced And Filled (CERES-EBAF Ed4.0, 2006-2016) in ACTM Phase II to include cloud radiative influences in shaping the atmosphere-sea ice connection. ERA5 and MERRA-2 are considered the two best reanalysis products incorporating all available satellite and in-situ information and using the most updated 4- and 3-dimension assimilation schemes, respectively. 
 
 Collecting accurate measurements of cloud cover are challenging and costly:
 
    * Most cloud cover measurements are derived from satelite imagery which is insufficient to estimate the elevation of the clouds accurately. 
    * Ship based measurements are far more accurate, but are incredibly costly to procure. 
    * Station data can be used as a cross-comparison, but is limited to regions on land or at least very near a station.
-   * Additionally, procuring measurements in can be difficult within the zone of influence of certain countries. 
+   * Additionally, procuring measurements can be difficult within the zone of influence of certain countries. 
    
-By accurately assessing the value of new measurements in specific locations, with temporal frequency, and the needed precision of those measurements can provide the needed context to properly balance the direct cost of making the measurements with the improvement to climate forecasting of Sea Ice tipping points in the Arctic region.
+By accurately assessing the value of new measurements with specific locations, temporal frequencies, and specified precision can provide the needed context to properly balance the direct cost of making the measurements with the improvement to climate forecasting of Sea Ice tipping points in the Arctic region.
 
 ##Dataset Access
 

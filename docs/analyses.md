@@ -83,8 +83,7 @@ We rapidly train multiple FKPMs given different sets of noisy training data and 
 We rapidly train multiple FKPMs given different frequency of training data for the measurement class of interest and quantify how much improvement there is on various model metrics.
 3. **Increased spatial resolution**: We analysis how the output of the model varies as we change the spatial grid resolution for measurements or add in a new measurement at a specific location.
 We rapidly train multiple FKPMs given different spatial resolution of the training data for the measurement class of interest and quantify how much improvement there is on various model metrics.
-4. **Increased precision of model parameters/initial conditions**: We analyze how the output of the model varies as we shift the initial values and model parameters (such as forcing terms) within their measured uncertainty.
-Rerunning the FKPM many times and quantifying how the model metrics (mainly variability in output) change with respect to the variance in the model parameters or initial conditions.
+4. **Increased precision of model parameters/initial conditions**: We analyze how the output of the model varies as we shift the initial values and model parameters (such as forcing terms) within their measured uncertainty -- rerunning the FKPM many times and quantifying how the model metrics (mainly variability in output) change with respect to the variance in the model parameters or initial conditions.
 
 We then evaluate specific metrics against the above list of experiments to quantify the value of new data:
 
@@ -92,7 +91,7 @@ We then evaluate specific metrics against the above list of experiments to quant
 2. **Forecasting robustness**: Do the new measurements increase the robustness of the modeling forecast to perturbations in the initial conditions or model parameters?
 3. **Tipping point accuracy**: Do the new measurements increase the accuracy of the magnitude and timing of a forecasted tipping point?
 4. **Tipping point robustness**: Do the new measurements increase the robustness of the magnitude and timing of a forecasted tipping point to perturbations in the initial conditions or model parameters?
-5. **Causal Robustness**: Do the new measurements significantly alter the causal links discovered between climate variables of interest when comparing different FKPM?
+5. **Causal Robustness**: Do the new measurements significantly alter the causal links discovered between climate variables of interest when comparing different FKPMs?
 
 These Value of New Data analyses can then be compared with the expected cost of obtaining additional measurements or reducing uncertainty on existing measurements.
 This is a necessary capability to properly determine how best to invest funds in climate research.
@@ -100,10 +99,10 @@ This is a necessary capability to properly determine how best to invest funds in
 ###VoNDE datasets 
 We have identified several potential measurements that could improve modeling of sea ice concentration in the Arctic that are known to be relevant to the physics in question while being poorly estimated from observed data.
 If we are able to quantify the improvement to forecasting ability of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
-Specifically, Cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the Arctic region while likely having a large impact on the dynamics of sea ice concentration.
+Specifically, cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the Arctic region while likely having a large impact on the dynamics of sea ice concentration.
 We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM. 
 Details can be found [here](https://bae-systems-haiku.github.io/HAIKU/data_models/#cloud-cover-data-to-support-value-of-new-data-estimator)
-Additionally, we will use the current [Atmospheric Temperature datasets](https://bae-systems-haiku.github.io/HAIKU/data_models/) currently in the HAIKU analysis to validate our approach by reducing the fidelity of the dataset.
+Additionally, we will use the [Atmospheric Temperature datasets](https://bae-systems-haiku.github.io/HAIKU/data_models/) currently in the HAIKU analysis to validate our approach by reducing the fidelity of the dataset.
 
 ####Why cloud cover?
 In the Arctic climate system, physical properties of clouds, such as amount, height, optical thickness, size of cloud droplets and phase partitioning are known to be key factors in determining the surface heat budget over a broad range of time scales due to their radiative effects. 
@@ -113,9 +112,9 @@ Thus, summertime low-level clouds are one of the most important factors in the A
 
 ####Validation datasets
 We intend to apply the VoNDE approach to determine the value of measurements not currently available. 
-As such, we do not have an adequate dataset to validate the VoNDE approach on cloud cover dataset directly.
+As such, we do not have an adequate dataset to validate the VoNDE approach on cloud cover directly.
 We will use the [Atmospheric Temperature datasets](https://bae-systems-haiku.github.io/HAIKU/data_models/) (CESM and NSIDC) currently in use by HAIKU as a validation dataset instead.
 Specifically, we will train the HAIKU models with degraded versions of the validation dataset (add noise to each measurement, reduce spatial resolution of measurements, reduce temporal resolution of measurements).
 We then use the HAIKU rapid what-ifs generated by the FKPMs to estimate the reduction of uncertainty on tipping points and model accuracy if we reduce the improved the validation measurements in ways corresponding to the full dataset.
 We can then finally evaluate the Value of New Data estimation on this dataset.
-By measuring the accuracy of our VoND estimates across a range of “new” measurements, we can validate the approach and roughly estimate the accuracy of the VoNDE when applied to potential new measurements, such as improvements to cloud cover measurements.
+By measuring the accuracy of our VoNDE estimates across a range of “new” measurements, we can validate the approach and roughly estimate the accuracy of the VoNDE when applied to potential new measurements, such as improvements to cloud cover measurements.
