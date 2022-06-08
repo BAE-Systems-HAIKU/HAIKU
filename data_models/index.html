@@ -1,51 +1,57 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, inc" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Data and Climate models - ACTM-HAIKU</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Data and Climate models";
-        var mkdocs_page_input_path = "data_models.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Michael Planer for BAE Systems, inc">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Data and Climate models - ACTM-HAIKU</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Data and Climate models";
+    var mkdocs_page_input_path = "data_models.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> ACTM-HAIKU
-        </a><div role="search">
+        <a href=".." class="icon icon-home"> ACTM-HAIKU</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Data and Climate models</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Data and Climate models</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#initial-climate-models-and-datasets">Initial Climate Models and Datasets</a>
     </li>
@@ -53,58 +59,70 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#observational-data-nsidc">Observational Data - NSIDC</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cloud-cover-data-to-support-value-of-new-data-estimator">Cloud Cover Data - to support Value of New Data Estimator</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#dataset-access">Dataset Access</a>
     </li>
     </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
-                </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Results</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
-                  </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
-                </li>
-              </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Results</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">ACTM-HAIKU</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">ACTM-HAIKU</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Data and Climate models</li>
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Data and Climate models</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
+  
   <hr/>
 </div>
 
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h1 id="data-and-climate-models">Data and Climate models</h1>
 <p>The HAIKU program will focus on analyzing decade-scale predictions of Arctic sea ice concentrations. 
@@ -128,6 +146,7 @@ We will need to work in a common projection and resolution to avoid interpolatio
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
 </figure>
 
+<p>&nbsp;  </p>
 <h2 id="observational-data-nsidc">Observational Data - NSIDC</h2>
 <p>Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 1 | National Snow and Ice Data Center (nsidc.org)</p>
 <p>We compare the results of the simulations with observational sea ice concentration data obtained from the National Snow and Ice Data Center. These data include gridded daily (every other day for SMMR data) and monthly averaged sea ice concentrations for both the north and south polar regions. The dataset includes data since 26 October 1978. The data shows the brightness temperature data derived from a few different sensors (microwave radiometers that sense emitted microwave radiation) that represent the sea ice concentration. The data are provided in the polar stereographic projection at a grid cell size of 25 x 25 km. For grid cell sizes of 25 x 25km, the pixel intensities represent the fractional amount of sea ice covering that cell (scaled by 250).</p>
@@ -136,26 +155,50 @@ We will need to work in a common projection and resolution to avoid interpolatio
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
 </figure>
 
+<p>&nbsp;  </p>
+<h2 id="cloud-cover-data-to-support-value-of-new-data-estimator">Cloud Cover Data - to support Value of New Data Estimator</h2>
+<p>In Phase II of the ACTM we aim to determine the value of potential new measurements that will have an outsized impact on improving the model forecasting accuracy, identification and characterization of tipping points, or improve model robustness.
+If we are able to quantify the improvement to the HAIKU models of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
+Specifically, Cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the arctic region while likely having a large impact on the dynamics of sea ice concentration.
+We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM.<br />
+Further motivation of this choice and the associated analyses can be found in the <a href="https://bae-systems-haiku.github.io/HAIKU/analyses/#value-of-new-data-estimator-vonde">Value of New Data Estimator</a> section of this document.</p>
+<p>Considering the pros and cons of each dataset, we will primarily use cloud and surface heat flux data from ERA5 (1979-2022), MERRA-2 (1980-2022), Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observation (CALIPSO, 2006-2016), and Clouds and Earth's Radiant Energy System Energy Balanced And Filled (CERES-EBAF Ed4.0, 2006-2016) in ACTM Phase II to include cloud radiative influences in shaping the atmosphere-sea ice connection. ERA5 and MERRA-2 are considered as two best reanalysis products incorporating all available satellite and in-situ information and using the most updated 4- and 3-dimension assimilation schemes, respectively. </p>
+<p>Collecting accurate measurements of cloud cover are challenging and costly:</p>
+<ul>
+<li>Most cloud cover measurements are derived from satelite imagery which is insufficient to estimate the elevation of the clouds accurately. </li>
+<li>Ship based measurements are far more accurate, but are incredibly costly to procure. </li>
+<li>Station data can be used as a cross-comparison, but is limited to regions on land or at least very near a station.</li>
+<li>Additionally, procuring measurements in can be difficult within the zone of influence of certain countries. </li>
+</ul>
+<p>By accurately assessing the value of new measurements in specific locations, with temporal frequency, and the needed precision of those measurements can provide the needed context to properly balance the direct cost of making the measurements with the improvement to climate forecasting of Sea Ice tipping points in the Arctic region.</p>
 <h2 id="dataset-access">Dataset Access</h2>
-<p>Instructions to download and preprocess datasets currently in use on HAIKU can be found on the <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">HAIKU github</a>. 
+<p>Instructions to download and preprocess datasets currently in use on HAIKU can be found on the <a href="https://bae-systems-haiku.github.io/HAIKU/data_models/">HAIKU github</a>. 
 This page will continue to be updated as the HAIKU code is built out, validated, and approved for public use and will contain instructions to get HAIKU operational on your system.</p>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="HAIKU (Hybrid AI Integrating Koopman Units)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
         <a href="../koopman/" class="btn btn-neutral float-right" title="Koopman Assisted Climate Models">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="HAIKU (Hybrid AI Integrating Koopman Units)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+      
         </div>
       </div>
 
@@ -163,7 +206,7 @@ This page will continue to be updated as the HAIKU code is built out, validated,
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
+  <div class="rst-versions" role="note" aria-label="versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     

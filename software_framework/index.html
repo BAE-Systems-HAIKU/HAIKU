@@ -1,67 +1,73 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, inc" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Software Framework - ACTM-HAIKU</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Software Framework";
-        var mkdocs_page_input_path = "software_framework.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Michael Planer for BAE Systems, inc">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Software Framework - ACTM-HAIKU</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Software Framework";
+    var mkdocs_page_input_path = "software_framework.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> ACTM-HAIKU
-        </a><div role="search">
+        <a href=".." class="icon icon-home"> ACTM-HAIKU</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Software Framework</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Software Framework</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#climate-data">Climate Data</a>
     </li>
@@ -76,39 +82,49 @@
     <li class="toctree-l2"><a class="reference internal" href="#analytics-toolkit">Analytics Toolkit</a>
     </li>
     </ul>
-                </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Results</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
-                  </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
-                </li>
-              </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Results</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">ACTM-HAIKU</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">ACTM-HAIKU</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Software Framework</li>
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Software Framework</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
+  
   <hr/>
 </div>
 
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h1 id="software-framework">Software Framework</h1>
 <p>This is a summary of the structure of the python-based HAIKU software system currently in development.
@@ -123,7 +139,7 @@ and to get HAIKU operational on your system.</p>
 <img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
 <figcaption align = "center" style="width:80%"><b>Figure 1:</b> Main classes in the planned HAIKU software system.</figcaption>
 </figure>
-<p><br></br></p>
+<p>&nbsp;  </p>
 <p>The <strong><em>koopman_model</em></strong> class contains a trained Koopman model and all functions necessary for instantiation, training, and prediction.
 The local <em>parameters</em> member stores information about the training parameters and any information necessary to properly use the <strong><em>koopman_model</em></strong> object. During training, it takes a single <strong><em>climate_data</em></strong> object and learns the dynamics of this system.
 The <strong><em>koopman_model</em></strong> object can then be used to generate <strong><em>climate_data</em></strong> with a range of parameters.</p>
@@ -131,13 +147,13 @@ The <strong><em>koopman_model</em></strong> object can then be used to generate 
 <img src="../figs/diagrams/model_generation_flowchart.png" alt="Model generation software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
 </figure>
-<p><br></br></p>
+<p>&nbsp;  </p>
 <p>Finally, the <strong><em>koopman_model</em></strong> itself or the time-series data contained in a <strong><em>climate_data</em></strong> object can be passed into the Analytics Toolkit. A <strong><em>causal_model</em></strong> object is instantiated and can learn a causal structure from time-series data (<strong><em>climate_data</em></strong> object) using its internal methods or from the structure of the <strong><em>koopman_model</em></strong> itself. Similarly, the <strong><em>causal_model</em></strong>, <strong><em>climate_data</em></strong>, or <strong><em>koopman_model</em></strong> objects are used as input to different tipping-point analyses inside the toolkit. </p>
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
 </figure>
-<p><br></br></p>
+<p>&nbsp;  </p>
 <p>Rounding out the system, there are a variety of metrics that are evaluated either as member functions of the systems or as standalone code.</p>
 <h2 id="climate-data">Climate Data</h2>
 <p>The <strong><em>climate_data</em></strong> class instantiates a time-series member by reading in CESM, NSIDC, or Koopman generated time-series data and converting it to consistent representations (the same coordinate grid and sets of variables) while storing all relevant parameters as a member <strong><em>parameters</em></strong>.<br />
@@ -172,24 +188,32 @@ This time-series can then be used as input to train the <strong><em>causal_model
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
 </figure>
-<p><br></br></p>
+<p>&nbsp;  </p>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../metrics/" class="btn btn-neutral float-left" title="Metrics to evaulate HAIKU capabilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
         <a href="../Results/initial_motivation_results/" class="btn btn-neutral float-right" title="Initial Results">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../metrics/" class="btn btn-neutral" title="Metrics to evaulate HAIKU capabilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+      
         </div>
       </div>
 
@@ -197,7 +221,7 @@ This time-series can then be used as input to train the <strong><em>causal_model
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
+  <div class="rst-versions" role="note" aria-label="versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
