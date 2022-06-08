@@ -29,6 +29,7 @@ The models are computationally expensive to run. Instead, we look at the CESM La
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
 </figure>
 
+&nbsp;  
 ##Observational Data - NSIDC
 
 Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 1 | National Snow and Ice Data Center (nsidc.org)
@@ -38,12 +39,31 @@ We compare the results of the simulations with observational sea ice concentrati
 <figure>
 <img src="../figs/results/NSIDC_data.png" alt="NSIDC data" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
-</figure>
+</figure>  
 
+&nbsp;  
+##Cloud Cover Data - to support Value of New Data Estimator
+
+In Phase II of the ACTM we aim to determine the value of potential new measurements that will have an outsized impact on improving the model forecasting accuracy, identification and characterization of tipping points, or improve model robustness.
+If we are able to quantify the improvement to the HAIKU models of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
+Specifically, Cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the arctic region while likely having a large impact on the dynamics of sea ice concentration.
+We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM.  
+Further motivation of this choice and the associated analyses can be found in the [Value of New Data Estimator](https://bae-systems-haiku.github.io/HAIKU/analyses/#value-of-new-data-estimator-vonde) section of this document.
+
+Considering the pros and cons of each dataset, we will primarily use cloud and surface heat flux data from ERA5 (1979-2022), MERRA-2 (1980-2022), Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observation (CALIPSO, 2006-2016), and Clouds and Earth's Radiant Energy System Energy Balanced And Filled (CERES-EBAF Ed4.0, 2006-2016) in ACTM Phase II to include cloud radiative influences in shaping the atmosphere-sea ice connection. ERA5 and MERRA-2 are considered as two best reanalysis products incorporating all available satellite and in-situ information and using the most updated 4- and 3-dimension assimilation schemes, respectively. 
+
+Collecting accurate measurements of cloud cover are challenging and costly:
+
+   * Most cloud cover measurements are derived from satelite imagery which is insufficient to estimate the elevation of the clouds accurately. 
+   * Ship based measurements are far more accurate, but are incredibly costly to procure. 
+   * Station data can be used as a cross-comparison, but is limited to regions on land or at least very near a station.
+   * Additionally, procuring measurements in can be difficult within the zone of influence of certain countries. 
+   
+By accurately assessing the value of new measurements in specific locations, with temporal frequency, and the needed precision of those measurements can provide the needed context to properly balance the direct cost of making the measurements with the improvement to climate forecasting of Sea Ice tipping points in the Arctic region.
 
 ##Dataset Access
 
-Instructions to download and preprocess datasets currently in use on HAIKU can be found on the [HAIKU github](https://github.com/BAE-Systems-HAIKU/HAIKU). 
+Instructions to download and preprocess datasets currently in use on HAIKU can be found on the [HAIKU github](https://bae-systems-haiku.github.io/HAIKU/data_models/). 
 This page will continue to be updated as the HAIKU code is built out, validated, and approved for public use and will contain instructions to get HAIKU operational on your system.
 
 

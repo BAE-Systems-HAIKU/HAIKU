@@ -17,9 +17,8 @@ We have a generic **_parameters_** object that stores any relevant configuration
 <figure>
 <img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
 <figcaption align = "center" style="width:80%"><b>Figure 1:</b> Main classes in the planned HAIKU software system.</figcaption>
-</figure>  <br></br>
-
-
+</figure>  
+&nbsp;  
 
 The **_koopman_model_** class contains a trained Koopman model and all functions necessary for instantiation, training, and prediction.
 The local _parameters_ member stores information about the training parameters and any information necessary to properly use the **_koopman_model_** object. During training, it takes a single **_climate_data_** object and learns the dynamics of this system.
@@ -28,15 +27,16 @@ The **_koopman_model_** object can then be used to generate **_climate_data_** w
 <figure>
 <img src="../figs/diagrams/model_generation_flowchart.png" alt="Model generation software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
-</figure>  <br></br>
+</figure>
+&nbsp;  
 
 Finally, the **_koopman_model_** itself or the time-series data contained in a **_climate_data_** object can be passed into the Analytics Toolkit. A **_causal_model_** object is instantiated and can learn a causal structure from time-series data (**_climate_data_** object) using its internal methods or from the structure of the **_koopman_model_** itself. Similarly, the **_causal_model_**, **_climate_data_**, or **_koopman_model_** objects are used as input to different tipping-point analyses inside the toolkit. 
 
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
-</figure>  <br></br>
-
+</figure>
+&nbsp;  
 
 Rounding out the system, there are a variety of metrics that are evaluated either as member functions of the systems or as standalone code.
 
@@ -97,5 +97,5 @@ The initial implementation of the **_analysis_toolkit_** hinges around the **_ca
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
-</figure>  <br></br>
-
+</figure>  
+&nbsp;  

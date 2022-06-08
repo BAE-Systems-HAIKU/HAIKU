@@ -10,7 +10,8 @@ At present we compute relative error of each point at each time step for data ou
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 1:</b> MSE of a model across all spatial observations at a given time step. </figcaption>
 <img src="../figs/equations/MSE_error.png" alt="MSE error" style="width:35%">
-</figure>  <br></br>
+</figure>
+&nbsp;  
 
 An example of this accuracy analysis in action can be seen on some preliminary results comparing forecasting from a FKPM trained only on sea ice concentration data to NSIDC data.
 
@@ -18,8 +19,7 @@ An example of this accuracy analysis in action can be seen on some preliminary r
 <img src="../../figs/results/Sea_ice_only_forecasting.png" alt="FKPM sea ice only monthly accuracy" style="width:80%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> A FKPM was trained on monthly NSIDC (sea ice concentration only) data from 1997-2000. The Koopman model was then run foreward to forecast monthly predictions from 2001-2004. The pointwise RMSE of the FKPM (blue), CESM1 (orange), and climatalogical mean (green) were then computed from the observed monthly NSIDC data. </figcaption> 
 </figure> 
-
-<br/><br/> 
+&nbsp;  
 
 We plan to average over geographic and temporal step size to better quantify the utility of our models to the longer time scale climate trends as well as to mitigate the potential very small scale noise that the FKPM attempts to simulate.
 
@@ -42,7 +42,8 @@ The ability of the FKPM to accurately model the climate system is of primary imp
 <b>Equation 2:</b> Metric to capture speedup of FKPM over standard climate models </figcaption>
 <img src="../figs/equations/proxy_model_speedup.png" alt="FKPM speedup metric" style="width:50%">
 <figcaption align = "center" style="width:90%">
-</figure>  <br></br>
+</figure>
+&nbsp;  
 
 We will likely investigate variants on this metric. For instance, the Koopman model must be trained, so we may include that in the denominator. Additionally, the CESM model outputs are typically be averaged over several runs with varying initial conditions to see the decadal trends that climate scientists are interested in, so we may need to modify the numerator to account for this.  All variants will be presented alongside one another and clearly defined as they become relevant.
 
@@ -54,7 +55,8 @@ Our current approach at causal discovery involves rapid what-if analyses using t
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 3: </b> Metric to capture the accuracy of the causal links predicted by the Semantic Graph Generator</figcaption>
 <img src="../figs/equations/causal_link_accuracy.png" alt="accuracy of causal links" style="width:35%">
-</figure>  <br></br>
+</figure>
+&nbsp;  
 
 Where CF is 0 if a causal links disproved by counterfactual evidence or 1 if it is validated and N is the total number of proposed causal links. If we assume that the sampling of CESM model parameters enclose the true observational parameters, measuring the distribution of Causal Link Accuracies of FKPMs trained on various CESM output should provide a reasonable estimate of the Causal Link Accuracy of a FKPM trained to more precisely emulate the observational data.
 An additional metric to track is the total number of causal relations discovered in the climate system. This will be presented, but we do not have a target value at this point. As the program develops and we present hypothesized causal relations to climate scientists, we expect the usefulness of these causal relations may come into play, but no quantitative metrics are currently planned for this.  
@@ -76,7 +78,8 @@ For an FKPM trained on climate simulation data, we can go back to the original s
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 4: </b> Metric to estimate accuracy of tipping points</figcaption>
 <img src="../figs/equations/tipping_point_accuracy.png" alt="accuracy of causal links" style="width:50%">
-</figure>  <br></br>
+</figure>
+&nbsp;  
 
 Where VTP (verified tipping point) is 0 if the tipping point is not verified on the current FKPM and 1 if it is. We then range over N FKPMs and over M identified tipping points. 
 

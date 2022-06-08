@@ -10,6 +10,7 @@ This approach enables analyses that allow us to identify causal relations betwee
 <img src="figs/diagrams/architecture_diagram.png" alt="HAIKU Architecture" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> HAIKU Architecture. HAIKU augments conventional climate models with the Hybrid Koopman Climate Model (HKCM) by learning previously umodeled dynamics of error between simulated data and measurements.</figcaption>
 </figure>
+&nbsp; 
 
 The Fast Koopman Proxy Model (FKPM) is a learned fully Koopman based proxy model that enables causal analyses and experimentation by this speed-up. 
 Finally, a graphical causal model allows users to visualize and interact with the FKPM and better understand the origin of tipping points and uncertainty in the model.
