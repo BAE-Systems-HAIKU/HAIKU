@@ -29,6 +29,16 @@ The models are computationally expensive to run. Instead, we look at the CESM La
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
 </figure>
 
+Currently from the Monthly CESM Large Ensemble Community Project<sup>[KA15]</sup>, we extract several variables that we expect to be causally linked to Sea Ice concentration in the Arctic: 
+
+   * **ICEFRAC**: the Sea Ice coverage fraction over each spatial grid element
+   * **TS**: the atmospheric surface temperature 
+   * **SST**: the sea surface temperature 
+   * **HI**: the sea ice thickness
+   
+We are also looking at how to incorporate CESM model variables and forcing terms into the FKPM models.
+
+
 &nbsp;  
 ##Observational Data - NSIDC
 
@@ -40,6 +50,13 @@ We compare the results of the simulations with observational sea ice concentrati
 <img src="../figs/results/NSIDC_data.png" alt="NSIDC data" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
 </figure>  
+
+Currently from the Monthly NSIDC datasets, we extract several variables that we expect to be causally linked to Sea Ice concentration in the Arctic: 
+
+   * **seaice_conc**: the Sea Ice coverage fraction over each spatial grid element (NSIDC G02202_V3)<sup>[WA19]</sup>
+   * **T2M**: Average Air Temperature at each spatial grid point 2 meters above sea surface (ERA5)<sup>[He19]</sup>
+   * **SST**: Sea Surface Temperature: ocean temperature at surface of water (ORAS5)<sup>[Zu19]</sup>
+   * **Sea Ice Thickness**: Sea Ice Thickness (PIOMAS v2.1)<sup>[SC11, ZH03]</sup>
 
 &nbsp;  
 ##Cloud Cover Data - to support Value of New Data Estimator
@@ -67,5 +84,29 @@ Instructions to download and preprocess datasets currently in use on HAIKU can b
 This page will continue to be updated as the HAIKU code is built out, validated, and approved for public use and will contain instructions to get HAIKU operational on your system.
 
 
+##Data Citations
 
+#####CESM Large Ensemble data
+
+<sup>[KA15]</sup>  Kay, J. E., Deser, C., Phillips, A., Mai, A., Hannay, C., Strand, G., Arblaster, J., Bates, S., Danabasoglu, G., Edwards, J., Holland, M. Kushner, P., Lamarque, J.-F., Lawrence, D., Lindsay, K., Middleton, A., Munoz, E., Neale, R., Oleson, K., Polvani, L., and M. Vertenstein (2015), The Community Earth System Model (CESM) Large Ensemble Project: A Community Resource for Studying Climate Change in the Presence of Internal Climate Variability, Bulletin of the American Meteorological Society, doi: 10.1175/BAMS-D-13-00255.1, 96, 1333-1349
+
+#####NSIDC Sea Ice Concentration data
+
+<sup>[WA19]</sup> Walsh, J. E., W. L. Chapman, F. Fetterer, and J. S. Stewart. 2019. Gridded Monthly Sea Ice Extent and Concentration, 1850 Onward, Version 2. [NSIDC G02202_V3]. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/jj4s-tq79. [Date Accessed].
+
+#####ERA5 Monthly
+
+<sup>[HE19]</sup> Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on < DD-MMM-YYYY >), 10.24381/cds.f17050d7
+
+#####ORAS5
+
+<sup>[ZU19]</sup> Zuo, H., Balmaseda, M. A., Tietsche, S., Mogensen, K., and Mayer, M.: The ECMWF operational ensemble reanalysis–analysis system for ocean and sea ice: a description of the system and assessment, Ocean Sci., 15, 779–808, https://doi.org/10.5194/os-15-779-2019, 2019.
+
+#####PIOMAS Volume time series and uncertainties
+
+<sup>[SC11]</sup> Schweiger, A., R. Lindsay, J. Zhang, M. Steele, H. Stern, Uncertainty in modeled arctic sea ice volume, J. Geophys. Res., doi:10.1029/2011JC007084, 2011
+
+#####PIOMAS Model details
+
+<sup>[ZH03]</sup> Zhang, J.L. and D.A. Rothrock, “Modeling global sea ice with a thickness and enthalpy distribution model in generalized curvilinear coordinates“, Mon. Weather Rev., 131, 845-861, 2003
 
