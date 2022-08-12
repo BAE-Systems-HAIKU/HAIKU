@@ -9,69 +9,75 @@ and to get HAIKU operational on your system.
 
  <font size="5">**Overall structure** </font>
 
-We generate a **_climate_data_** object that can reads in CESM, NSIDC, or Koopman generated data and converts them all to consistent representations (the same coordinate grid and sets of variables) while storing the provenance as a member. 
+<figure>
+<img src="../figs/diagrams/haiku-core-classes-diagram.png" alt="Software capability summary" style="width:95%">
+<figcaption align = "center" style="width:80%"><b>Figure 1:</b> Classes representing core functionality in the HAIKU software system.</figcaption>
+</figure>
+&nbsp;
 
-We have a generic **_parameters_** object that stores any relevant configuration data or other parameters needed in later processing or analysis. For the **_climate_data_** object, this includes this like provenance and time range.
+
+
+We generate a **_climate_data_** object that encapsulates CESM, NSIDC, or Koopman generated data and converts them all to consistent representations (the same coordinate grid and sets of variables) while storing the provenance as a member.
+
 
 
 <figure>
 <img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
-<figcaption align = "center" style="width:80%"><b>Figure 1:</b> Main classes in the planned HAIKU software system.</figcaption>
-</figure>  
-&nbsp;  
+<figcaption align = "center" style="width:80%"><b>Figure 2:</b> Main classes in the planned HAIKU software system.</figcaption>
+</figure>
+&nbsp;
 
-The **_koopman_model_** class contains a trained Koopman model and all functions necessary for instantiation, training, and prediction.
-The local _parameters_ member stores information about the training parameters and any information necessary to properly use the **_koopman_model_** object. During training, it takes a single **_climate_data_** object and learns the dynamics of this system.
-The **_koopman_model_** object can then be used to generate **_climate_data_** with a range of parameters.
+The **_koopman_model_** class contains a trained Koopman model as well as any training parameters associated with the stored data. During training, it takes a single **_climate_data_** object and learns the dynamics of this system.
+
+The **_predictor_** object is used to operate on **_koopman_model_** objects and generate **_climate_data_** with a range of parameters.
+
+The **_plotter_** object takes either a **_koopman_model_** or **_climate_data_** as input, along with runtime parameters, and generates visualizations representing the stored data. As such, this object is also used to visualize predictions.
 
 <figure>
 <img src="../figs/diagrams/model_generation_flowchart.png" alt="Model generation software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 2:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
 </figure>
-&nbsp;  
+&nbsp;
 
-Finally, the **_koopman_model_** itself or the time-series data contained in a **_climate_data_** object can be passed into the Analytics Toolkit. A **_causal_model_** object is instantiated and can learn a causal structure from time-series data (**_climate_data_** object) using its internal methods or from the structure of the **_koopman_model_** itself. Similarly, the **_causal_model_**, **_climate_data_**, or **_koopman_model_** objects are used as input to different tipping-point analyses inside the toolkit. 
+Finally, the **_koopman_model_** itself or the time-series data contained in a **_climate_data_** object can be passed into the Analytics Toolkit. A **_causal_model_** object is instantiated and can learn a causal structure from time-series data (**_climate_data_** object) using its internal methods or from the structure of the **_koopman_model_** itself. Similarly, the **_causal_model_**, **_climate_data_**, or **_koopman_model_** objects are used as input to different tipping-point analyses inside the toolkit.
 
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 4:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
 </figure>
-&nbsp;  
+&nbsp;
 
 Rounding out the system, there are a variety of metrics that are evaluated either as member functions of the systems or as standalone code.
 
 
 
 ##Climate Data
-The **_climate_data_** class instantiates a time-series member by reading in CESM, NSIDC, or Koopman generated time-series data and converting it to consistent representations (the same coordinate grid and sets of variables) while storing all relevant parameters as a member **_parameters_**.  
-The time-series data is stored in a numpy array and is by default monthly data, polar gridded, climate variable data.
-It has internal functions to convert between polar and lat-lon coordinates, to interpolate missing datapoints, and to produce time-series matching the lifted Koopman observables (given a **_koopman_model_**).
+**_climate_data_** objects are instantiated by the **_climate_data_loader_** class which reads in CESM or NSIDC time-series data and converts it to consistent representations (the same coordinate grid and sets of variables). Similarly, **_climate_data_** can also be produced from a **_koopman_model_** object by running the model through the **_predictor_** object.
+The time-series data is stored in a numpy array and is by default monthly climate variable data.
+Internal processing converts between polar and lat-lon coordinates, interpolates missing datapoints, and produces time-series matching the lifted Koopman observables (given a **_koopman_model_**).
 
-The **_climate_data_** also has a some plotting methods to investigate visually the temporal and spatial behavior of the data.
-
-The time-series itself is a time-series of a much smaller dictionary, **_climate_state_** which is an array holding the values for climate variables as defined by the gridding of the **_climate_data_**.**_parameters_**.
+**_plotter_** operates on **_climate_data_** to visually investigate the temporal and spatial behavior of the data.
 
 
 ##Koopman Models
-The **_koopman_model_** class contains a trained Koopman model and all functions necessary for instantiation, training, and prediction of the Koopman model on **_climate_data_** time-series.
+The **_koopman_model_** class contains a trained Koopman model. The **_koopman_trainer_** class contains functions necessary for training a Koopman model based on provided **_climate_data_**. It is used in conjunction with the **_predictor_** class to generate prediction time-series data in the form of **_climate_data_**.
 
-Several model hyperparameters are set at instantiation by default in the **_koopman_model_**.**_parameters_** object. 
-The model is trained through the **_koopman_model_**._train(**_climate_data_**)_ function.
+Several model hyperparameters are set at instantiation through the configuration file.
 
-The **_koopman_model_** has a member function, **_koopman_model_**._predict_state(**_climate_state_**:x,dt)_, which returns the predicted **_climate_state_** after the **_koopman_model_** has run the original state, x, forward by time dt. This function lifts the original climate state into the Koopman Observables space before propagating the state forward using matrix multiplication, reversing the lifting function, and producing the predicted state in the original **_climate_state_** format.  There is an associated function for bulk processing of the **_koopman_model_**._predict_state()_ function which can provide a full **_climate_data_** object as output.  This is more commonly used in most analytics.  Currently, the lifting function is a relatively straightforward aggregation of the **_climate_data_**, but we are investigating other approaches as the development continues.
+The **_predictor_** has a member function, **_predictor_**.predict(**_koopman_model**,dt), which returns the predicted **_climate_state_** after the **_koopman_model_** has run the original state, x, forward by time dt. This function lifts the original climate state into the Koopman Observables space before propagating the state forward using matrix multiplication, reversing the lifting function, and producing the predicted state in the original **_climate_state_** format.  There is an associated function for bulk processing of the **_koopman_model_**._predict_state()_ function which can provide a full **_climate_data_** object as output.  This is more commonly used in most analytics.  Currently, the lifting function is a relatively straightforward aggregation of the **_climate_data_**, but we are investigating other approaches as the development continues.
 
 The **_koopman_model_** also has external plotting functions to summarize the model structure including plots of eigenfunctions of selected modes and the distribution of eigenvalues for the **_koopman_model_**.
 
 The forecasting done by the Koopman Models enables the Analytics Toolkit or can produce stand-alone climate forecasts for public consumption.
 
 ##Hybrid Modeling
-We're still designing the structure of the Hybrid Koopman-Climate Model (HKPM) implementation. 
+We're still designing the structure of the Hybrid Koopman-Climate Model (HKPM) implementation.
 For the scope of this project we intend to apply a correction on top of pregenerated data from CESM or another climate model rather than running the full CESM climate model locally and applying the correction in place.
 This will likely be sufficient to test the HKCM as a proof-of-concept.
 
 The HKPM itself is the correction to apply at each time-step of a climate model.
 Input to this system are two **_climate_data_** time-series with the same variables and over the same time-period.
-A **_koopman_model_** object is trained on each of the **_climate_data_** objects constraining them to have the same eigenvalues so that they can be compared directly to one another.  The final result is a **_koopman_model_** which is the difference of these two. 
+A **_koopman_model_** object is trained on each of the **_climate_data_** objects constraining them to have the same eigenvalues so that they can be compared directly to one another.  The final result is a **_koopman_model_** which is the difference of these two.
 
 This **_koopman_model_** can then be used directly to provide a correction factor to **_climate_data_** used as input through the **_koopman_model_**._predict_state()_ function.  Alternatively, it enables analytics (currently done manually) to better understand the causal differences between the two models. It is possible to generate a **_causal_model_** object from this data, which may further enable understanding of the physical difference between the original datasets, but further study is required.
 
@@ -79,8 +85,8 @@ This **_koopman_model_** can then be used directly to provide a correction facto
 
 ###Causal Model
 
-This class requires **_climate_data_** as well as its own member **_parameters_** (which helps define variable transformation from more fine-grained to user oriented causal variables). 
-The **_causal_model_**._transform_data(**_climate_data_**) function generates a user oriented **_climate_data_** time-series with many fewer variables. 
+This class requires **_climate_data_** as well as its own member **_parameters_** (which helps define variable transformation from more fine-grained to user oriented causal variables).
+The **_causal_model_**._transform_data(**_climate_data_**) function generates a user oriented **_climate_data_** time-series with many fewer variables.
 This time-series can then be used as input to train the **_causal_model_** where it uses pairwise Granger Causality coupled with LASSO to limit number of edges, remove edges explained by other pathways.
 
 This **_causal_model_** can then be viewed via a **_causal_model_**._print()_ method.
@@ -96,6 +102,35 @@ The initial implementation of the **_analysis_toolkit_** hinges around the **_ca
 
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
-</figure>  
-&nbsp;  
+<figcaption align = "center" style="width:90%"><b>Figure 5:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
+</figure>
+&nbsp;
+
+##Configuring HAIKU on your System
+
+HAIKU expects a Linux environment running Python 3.8 or higher. We recommend using a Python Virtual Environment to isolate HAIKU dependencies from the rest of your system. To create this environment, run `python3.8 -m venv ./haiku-venv`. Then, activate the virtual environment with `source ./haiku-venv/bin/activate`.
+
+There are Python library dependencies users need to download before running the system. To do so, users should use `pip` in conjunction with the `requirements.txt` file found in the base directory of the public GitHub repository. The command to install the Python dependencies is:
+
+```
+pip install -r requirements.txt
+```
+
+An additional dependency required is the Climate Data Operators (CDO) binary found here: https://code.mpimet.mpg.de/projects/cdo
+
+On Ubuntu 20.04, this binary can be downloaded directly from the package repositories with `apt install cdo`. If you prefer, the binary can be downloaded directly from the website linked above. If choosing this route, ensure the downloaded binary is placed on your system path (e.g., in `/usr/bin`). HAIKU expects a globally accesible CDO binary.
+
+Finally, the system `PYTHONPATH` environment variable must include the root directory of the haiku software. For example, if this codebase was located at `/home/test/core/haiku`, it could be added to the system `PYTHONPATH` with the following command: `export PYTHONPATH=$PYTHONPATH:/home/test/core/haiku`. This command can be added to `~/.bashrc` on a Linux system so that it is applied automatically whenever a terminal is launched.
+
+##Training a Koopman Model
+
+Once a user has downloaded either the CESM or NSIDC datasets, they can use HAIKU to train a Koopman Model. The following steps outline how to do so:
+
+1. Copy the `configs/example_config.yml` file
+2. Update the new configuration file appropriately for your environment
+    - Data directories can contain either CESM or NSIDC dataset files
+    - Specifying data directories containing different dataset types (e.g., ICEFRAC and SST) will result in a model combining the two variable types
+3. Run `scripts/train.py path_to_configuration_file`
+    - System output will be directed to the log file specified in the configuration file
+4. The generated model can then be operated on using the `prediction` and `plotting` modules
+    - Examples for using the Koopman models are located in `scripts/plotting`
