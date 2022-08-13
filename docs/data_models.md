@@ -36,7 +36,10 @@ Currently from the Monthly CESM Large Ensemble Community Project<sup>[KA15]</sup
    * **SST**: the sea surface temperature 
    * **HI**: the sea ice thickness
    
-We are also looking at how to incorporate CESM model variables and forcing terms into the FKPM models.
+We have also begun including forcing terms into the model. 
+These measurements and their impact on other observables are learned when the Koopman models are trained, but then when the KoopmanModel is used to forecast forward, a predefined time-series of the forcing terms can be passed in.  
+Currently CO2 is treated as a forcing term and we use historically measured forcing and predicted CO2 based on anthropogenic mechanisms. This allows analysis of how reducing C02 can affect the FKPM predictions for Sea Ice concentration in the Arctic. 
+A preliminary analysis can be found in the [initial results](Results/initial_motivation_results) section.  More detail of the implementation of forcing terms in the Koopman model, can be found in the [Koopman Modeling](koopman) section.
 
 
 &nbsp;  

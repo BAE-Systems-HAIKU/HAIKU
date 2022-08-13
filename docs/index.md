@@ -20,6 +20,11 @@ The recent decline in Arctic sea-ice coverage, thickness and volume has been dra
 Some projections indicate the Arctic climate system will approach the tipping point of an irreversible catastrophic ice-sheet disintegration, sea-level rise, and the disappearance of the perennial sea ice within this century. 
 This tipping point primarily results from Arctic amplification which is believed to be driven by soaring anthropogenic forcing and associated positive feedback loops.
 
+<figure>
+<img src="figs/results/nsidc_observations_intro.png" alt="observation_data" style="width:90%">
+</figure>
+&nbsp; 
+
 Whereas conventional climate models enable impressive gains in understanding and forecasting, they suffer from several shortcomings. 
 Most notably, these include complex physics that are difficult to represent, large computation requirements, and limited explanatory power for emergent behavior, such as tipping points. 
 In the Arctic case, the global climate model (GCM) we propose to use, the Community Earth Science Model (CESM2), requires about 6 hours of a 

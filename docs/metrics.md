@@ -35,17 +35,44 @@ Compute accuracy per variable/spatial/temporal grids
 Will enable Phase II ability to identify measurements to improve overall accuracy
 
 
+##Robustness of HAIKU models
+FKPM models are trained on simulated or observational data, both of these sources have measurement uncertainty in the quantities we aim to model. By quantifying the impact variance on these inputs have in the predictions the koopman model is able to generate, we can define a bounds on the uncertainty of the FKPM predictions.
+Specifically, this is done by training multiple koopman models while varying the training inputs within the bounds of their uncertainty. The speed of the training of the Koopman models allows 10s of models to be trained to get a good estimate of the distribution of Koopman models over the parameters of interest.
+
+<figure>
+<img src="../figs/diagrams/robustness_flowchart.png" alt="Robustness diagram" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Software diagram describing the robustness analytic algorithm in action. </figcaption>
+</figure>
+&nbsp;  
+
+Analytics of interest include:
+   
+   1. Robustness to measurement uncertainty 
+   2. Robustness to training data parameter choice (CESM variables or NSIDC versions)
+   3. Robustness to training window (eg. varying the start/stop of training window by 1 year)
+   
+Given an FKPM of interest, we can run the above robustness analytics to estimate uncertainty bounds on the forecast of the Koopman models. This will naturally extend itself into the phase 2 value of new data analytic.
+
+
 ##Proxy Model Speedup
 The ability of the FKPM to accurately model the climate system is of primary importance, but in order to provide analytics not possible with current climate models, we must also be able to train and test orders of magnitude faster than the current full physics climate simulations. To that end, we propose a metric called Proxy Model Speedup which is the fraction of the time the CESM model takes to evaluate 50 years of climate forecasting at the fidelity described in our datasets section over the time taken for the Koopman model to do the same.
 
 <figure>
 <b>Equation 2:</b> Metric to capture speedup of FKPM over standard climate models </figcaption>
-<img src="../figs/equations/proxy_model_speedup.png" alt="FKPM speedup metric" style="width:50%">
 <figcaption align = "center" style="width:90%">
+<img src="../figs/equations/proxy_model_speedup.png" alt="FKPM speedup metric" style="width:50%">
 </figure>
 &nbsp;  
 
-We will likely investigate variants on this metric. For instance, the Koopman model must be trained, so we may include that in the denominator. Additionally, the CESM model outputs are typically be averaged over several runs with varying initial conditions to see the decadal trends that climate scientists are interested in, so we may need to modify the numerator to account for this.  All variants will be presented alongside one another and clearly defined as they become relevant.
+<figure>
+Measurement of Proxy Model speedup with HAIKU beta version:</figcaption>
+<img src="../figs/results/timing_study_july.png" alt="FKPM speedup measurements" style="width:100%">
+</figure>
+&nbsp;  
+
+The measured speedup when leveraging Koopman models allows HAIKU to quickly run many predictions with modified forcing terms, input values, etc to generate the large number of time-series required for causal discovery
+
+The fast training time allows us to modify the fidelity/resolution of training data to evaluate the importance of new data (Phase II).
 
 ##Causal Factor Discovery and Confirmation
 An important analytic in the HAIKU toolkit is to identify causally linked variables. 

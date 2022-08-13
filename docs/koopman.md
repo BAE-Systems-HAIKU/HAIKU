@@ -25,6 +25,15 @@ The Koopman evolution equation, **Ψ**(t+1) = K **Ψ**(t), is the closed-form cl
 </figure>
 &nbsp;  
 
+For the beta software release, the functionality to include forcing terms in both the training and prediction of Koopman models has been added. 
+
+<figure>
+<figcaption align = "center" style="width:80%"><b>Equation 1:</b> The Koopman model learns the impact of different inputs on the observables in a linear framework where g are the observables and u are the forcings.</figcaption>
+<img src="../figs/equations/forcing.png" alt="forcing equation" style="width:80%">
+</figure>
+
+Global Climate Models (GCMs) such as the CESM are driven by forcing terms such as greenhouse gases and other anthropogenic factors. We can apply the same forcings to our models to understand the impact of different scenarios on our climate systems.
+
 ##Hybrid AI Koopman-Climate Model (HKCM)
 We plan to train a Koopman operator-based model to learn the dynamics of the difference between the predictions from current climate models and the actual measured records at each measured time step.  This has the potential to identify physics that may be important to the quantification of tipping points or runaway sea-ice loss (Figure 2).
 
@@ -51,8 +60,6 @@ A preliminary investigation (Figure 4) shows the eigenfunctions of the Mean, Ann
 &nbsp;  
 
 This is a very preliminary result and is meant simply to be illustrative of how the Koopman mode analysis of these differential models can be helpful in identifying missing physics. This correction-FKPM can likely improve the standard Climate Model's accuracy and an analysis of the FKPM's structure can help identify characteristics of the missing physics contained in the correction-FKPM. For instance, if the FKPM has 3 climate variables and we sea that no correction is needed to predict Air Temperature, but we see that the cross-term that models the impact of Air Temperature onto Sea Ice Concentration is large, then we know something is missing in the original climate model involving the how Air Temperature impacts Sea Ice Concentration.  We can further look at the Eigenfunctions to identify spatial regions (perhaps this involves an east to west flow) and the eigenvalues (for what timescales is this relevant?).
-
-
 
 
 ##Fast Koopman Proxy Model (FKPM)
