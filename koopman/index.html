@@ -138,6 +138,13 @@ The Koopman Operator (Figure 1) represents the dynamics of a nonlinear, complex,
 <img src="../figs/diagrams/Koopman_mode_decomposition_math.png" alt="Koopman Equation" style="width:60%">
 </figure>
 <p>&nbsp;  </p>
+<p>For the beta software release, the functionality to include forcing terms in both the training and prediction of Koopman models has been added. </p>
+<figure>
+<figcaption align = "center" style="width:80%"><b>Equation 1:</b> The Koopman model learns the impact of different inputs on the observables in a linear framework where g are the observables and u are the forcings.</figcaption>
+<img src="../figs/equations/forcing.png" alt="forcing equation" style="width:80%">
+</figure>
+
+<p>Global Climate Models (GCMs) such as the CESM are driven by forcing terms such as greenhouse gases and other anthropogenic factors. We can apply the same forcings to our models to understand the impact of different scenarios on our climate systems.</p>
 <h2 id="hybrid-ai-koopman-climate-model-hkcm">Hybrid AI Koopman-Climate Model (HKCM)</h2>
 <p>We plan to train a Koopman operator-based model to learn the dynamics of the difference between the predictions from current climate models and the actual measured records at each measured time step.  This has the potential to identify physics that may be important to the quantification of tipping points or runaway sea-ice loss (Figure 2).</p>
 <figure>
