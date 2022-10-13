@@ -1,0 +1,87 @@
+---
+
+# data within these bounds (inclusive)
+# will be included in the training
+start_dateInt: 19790101
+stop_dateInt: 20091201
+
+# Options: ["N", "S"]
+hemiVals: ["N"]
+
+# Options: ["CESM1", "NSIDC", "err"]
+# determines which data files are loaded
+# and used for training
+dataSourceVals: ["CESM1", "NSIDC"]
+
+# Options: ["40memberLargeEnsemble", "CoupledControlRun", "AvgOfLargeEnsemble"]
+runTypeVals: ["40memberLargeEnsemble"]
+
+# Options: ["ICEFRAC", "SST", "HI", "TS"]
+CESM1variableNameVals: ["ICEFRAC", "SST", "HI", "TS"]
+
+# Options: ["merged", "sst", "t2m", "thickness"]
+#NSIDCvariableNameVals: ["merged","sst", "thickness","t2m"]
+NSIDCvariableNameVals: ["merged","sst", "thickness","t2m"]
+
+# sea ice concentration <= this value will be set to zero
+concentrationToConsiderZero: 15
+
+# round sea ice concentration value to the nearest percent
+roundConc: True
+
+# save all plots as .png images
+flag_save_plots: True
+
+# close each plot after it is made
+flag_close_all_plots: True
+
+# option to include missing data in KMD
+flag_use_missing: True
+
+# scale the eigenvalue plots in size/color
+flag_eval_scale_plot: True
+
+flag_plot_predictions: True
+flag_plot_comparisons: True
+
+# enable plotting of modes and eigenvalues
+# number plotted controlled by
+# Nvalues_to_plot and Nmodes_to_plot
+flag_plot_all_modes_and_eigenvalues: True
+
+# number of Koopman eigenvalues to visualize
+Nvalues_to_plot: 50
+
+# number of Koopman modes to visualize
+Nmodes_to_plot: 50
+
+# Options: ["eigenfunction", "mode_power"]
+sorting: "eigenfunction"
+
+# Options: ["monthly"]
+dataFreq: "monthly"
+
+# set boundaries where the northern hemisphere
+# is defined as above north_lat_bound
+# and the southern hemisphere is defined as below south_lat_bound
+north_lat_bound: 40
+south_lat_bound: -40
+
+# set ensemble members for the Large Ensemble Project
+ensembleNums: [2]
+
+# do not need to plot any bulk variables
+isBulk: False
+
+# directories are organized as follows:
+#
+# store data as    :  baseDir/simdata/CESM1/dataFreq/LargeEnsemble
+# or as            :  baseDir/simdata/CESM1/dataFreq/CoupledControlRun
+# or as            :  baseDir/simdata/NSIDC/dataFreq/north_regrid
+# or as            :  baseDir/simdata/NSIDC/dataFreq/south_regrid
+#
+# results saved in :  baseDir/Results
+#baseDir/DataDirName currently must be the parent directory for CESM1 and NSIDC datasets
+baseDir: "/data"
+dataDirName: "simdata"
+resultsDirName: "refactoredtestresults"

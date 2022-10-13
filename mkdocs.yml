@@ -1,0 +1,18 @@
+site_name: ACTM-HAIKU
+site_author: Michael Planer for BAE Systems, Inc
+theme:
+    name: readthedocs
+
+nav:
+    - 'index.md'
+    - 'data_models.md'
+    - 'koopman.md'
+    - 'analyses.md'
+    - 'metrics.md'
+    - 'software_framework.md'
+    - 'Tutorials':
+        - 'Configure HAIKU': 'Tutorials/configure_haiku.md'
+        - 'Quickstart': 'Tutorials/quickstart.md'
+    - "Results":
+        - "Initial Results": 'Results/initial_motivation_results.md'
+    - 'about.md'
