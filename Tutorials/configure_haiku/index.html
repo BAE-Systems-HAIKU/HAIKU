@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Configure HAIKU - ACTM-HAIKU</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configure HAIKU";
+        var mkdocs_page_input_path = "Tutorials\\configure_haiku.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ACTM-HAIKU
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../data_models/">Data and Climate models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../koopman/">Koopman Assisted Climate Models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../analyses/">Analysis Toolkit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../software_framework/">Software Framework</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Configure HAIKU</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#cloning-haiku">Cloning HAIKU</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setting-up-python-env">Setting up python env</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installing-cdo-optional">Installing CDO (optional)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data-download">Data Download</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ncar-data">NCAR data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nsidc-data">NSIDC data</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/initial_motivation_results/">Initial Results</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/additional_variables_and_forcing/">Expanded Inputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/modeling_subregions/">Modeling Subregions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/next_steps/">Next Steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../About/about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ACTM-HAIKU</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Tutorials &raquo;</li><li>Configure HAIKU</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configuring-haiku-on-your-system">Configuring HAIKU on your System</h1>
+<h2 id="cloning-haiku">Cloning HAIKU</h2>
+<p>First, clone the github HAIKU repository:</p>
+<pre><code>git clone https://github.com/BAE-Systems-HAIKU/HAIKU.git HAIKU
+cd HAIKU
+</code></pre>
+<h2 id="setting-up-python-env">Setting up python env</h2>
+<p>Next setup the python environment:
+HAIKU expects a Linux environment running Python 3.8 or higher. We recommend using a Python Virtual Environment to isolate HAIKU dependencies from the rest of your system. You can use your favorite approach to set this up, but we provide instructions assuming python venv and pip as environment and package managers. To create this environment, run <code>python3.8 -m venv ./haiku-venv</code>. Then, activate the virtual environment with <code>source ./haiku-venv/bin/activate</code>.</p>
+<p>There are Python library dependencies users need to download before running the system. To do so, users should use <code>pip</code> in conjunction with the <code>requirements.txt</code> file found in the base directory of the public GitHub repository. The command to install the Python dependencies is:</p>
+<pre><code>pip install -r requirements.txt
+</code></pre>
+<p>Finally, the system <code>PYTHONPATH</code> environment variable must include the root directory of the haiku software. For example, if this codebase was located at <code>/home/test/core/haiku</code>, it could be added to the system <code>PYTHONPATH</code> with the following command: <code>export PYTHONPATH=$PYTHONPATH:/home/test/core/haiku</code>. This command can be added to <code>~/.bashrc</code> on a Linux system so that it is applied automatically whenever a terminal is launched.</p>
+<h2 id="installing-cdo-optional">Installing CDO (optional)</h2>
+<p>We execute this data alignment with the Climate Data Operators (cd0) tool available <a href="https://code.mpimet.mpg.de/projects/cdo/">here</a>. This is required only if one needs to regrid the .nc climate data.  This code must be compiled before it can be run and requires the c++14 standard. Additionally, the data is in netCDF format, which means cdo must be compiled with <a href="https://github.com/Unidata/netcdf-c">netDCF</a> which itself requires <a href="https://github.com/HDFGroup/hdf5">hdf5</a>.  To accomplish the remapping from stereographic projection cdo requires <a href="https://proj.org/">proj</a> (which requires a new enough version of <a href="https://github.com/sqlite">sqlite</a> to compile.  <code>make_install_cdo.sh</code> should handle downloading and compiling all the appropriate files as well as executing the appropriate regridding of all netCDF files. CDO requires an input parameter file to specific details of the target grid.  The required target parameter file is given in <code>configs/target_grid.txt</code>. The NSIDC sea ice concentration data V4 has an underspecified grid defined in its .nc data file, so we also include the fully defined northern hemisphere and southern hemisphere grid definition for the stereographic grid (<code>configs/nh_icefrac_grid.txt</code>) and southern hemisphere (<code>configs/sh_icefrac_grid.txt</code>). The <code>data_downloader.sh</code> script will automatically regrid the NSIDC data.</p>
+<p>On Ubuntu 20.04, this binary can be downloaded directly from the package repositories with <code>apt install cdo</code>. If you prefer, the binary can be downloaded directly from the website linked above. If choosing this route, ensure the downloaded binary is placed on your system path (e.g., in <code>/usr/bin</code>). HAIKU expects a globally accesible CDO binary.</p>
+<h2 id="data-download">Data Download</h2>
+<p>The data currently used in this system is described in detail in <a href="/data_models">HAIKU data</a> . We include a <code>data_downloader.sh</code> that automates downloading of all the CESM1 (simulation) data and some of the observation/reanalysis data. Unfortunately, much of the reanalysis data must be downloaded by hand, but descriptions of exactly what parameters to use to download the data are listed in the <code>data_downloader.sh</code> script. We will release a set of preprocessed data in the near future to reduce user effort and avoid possible issues in configuring the data, but will also maintain description of the full process for reproduceability. </p>
+<h3 id="ncar-data">NCAR data</h3>
+<p>We extract several variables from the NCAR getway hosted <a href="https://www.cesm.ucar.edu/projects/community-projects/LENS/data-sets.html">here</a>.
+This data is free to download, but required registering a user account first. With a user account, an API Token
+is provided to access data hosted by NCAR/earthsystemsgrid.org. You can access this token by browsing to
+"Account Home" (listed under your username). This API token must be provided to <code>data_downloader.sh</code> as the single argument.</p>
+<h3 id="nsidc-data">NSIDC data</h3>
+<p>The NSIDC data are hosted <a href="ftp://sidads.colorado.edu/pub/DATASETS/NOAA/G02202_V4/">here</a> covering 1987-present
+at a monthly temporal resolution. This data is hosted on an ftp server and no additional login information
+is required to download it. However, the coordinate system of the NSIDC data do not align with the CESM1 data
+and currently must be converted to latitude/longitude to make a direct comparison to the CESM1 output.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../software_framework/" class="btn btn-neutral float-left" title="Software Framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../quickstart/" class="btn btn-neutral float-right" title="Quickstart">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../software_framework/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../quickstart/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

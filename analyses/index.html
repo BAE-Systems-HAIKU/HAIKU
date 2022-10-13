@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Analysis Toolkit - ACTM-HAIKU</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Analysis Toolkit";
+        var mkdocs_page_input_path = "analyses.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ACTM-HAIKU
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Analysis Toolkit</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#semantic-graph-builder">Semantic Graph Builder</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tipping-point-analysis">Tipping Point Analysis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#explainer">Explainer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#value-of-new-data-estimator-vonde">Value of New Data Estimator (VoNDE)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#vonde-approach">VoNDE approach</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vonde-datasets">VoNDE datasets</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#why-cloud-cover">Why cloud cover?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#validation-datasets">Validation datasets</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/configure_haiku/">Configure HAIKU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/additional_variables_and_forcing/">Expanded Inputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/modeling_subregions/">Modeling Subregions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/next_steps/">Next Steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../About/about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ACTM-HAIKU</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Analysis Toolkit</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="analysis-toolkit">Analysis Toolkit</h1>
+<p>Our extensible toolkit leverages data from the fast counterfactual simulation of the FKPM (Figure 1). 
+We highlight several planned analyses below, but envision the set of analyses growing to meet the needs of our key analytic questions. FKPM provides the computational engine enabling the analyses, and we leverage HKCM as a validation tool. 
+These components are still in development and will be expanded upon as the implementation is finalized.</p>
+<figure>
+<img src="../figs/diagrams/Analysis_toolkit.png" alt="Analysis Toolkit" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 1:</b> HAIKU includes an extensible analysis toolkit that leverages the FKPM to run millions of What-Ifs in support of explanatory, exploratory, and quantitative analyses.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<h2 id="semantic-graph-builder">Semantic Graph Builder</h2>
+<p>The Semantic Graph Builder will build a causal network of key causal factors impacting forecasts, augmenting the set of model factors with user-defined factors computable from the model (e.g., annual variation in sea ice concentration). 
+The FKPM will generate many time series of these factors. We plan to leverage Granger Graphs to apply Granger causality to every pair of factors.<br />
+This captures the causality between factors given the generated time series. 
+This summary of the climate model will improve understanding by showing predictions and connections in terms of the variables that are most meaningful.</p>
+<figure>
+<img src="../figs/diagrams/causal_model_generation.png" alt="causal model generation" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Illustration of the Semantic Graph generation which provides a human interpretable representation of climate dynamics in a compact causal graph.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>The model will be built out by initially calling on the FKPM to generate a large bank of time series for all outputs of interest. This data is then processed by a semi-automated variable transformation which aims to reduce the gridding of the input data to something both meaningful and manageable to a human operator.  We anticipate this being mainly manually defined to begin with (eg. spatial averaging over seas, spatial averaging over length scale of interest, etc.).</p>
+<p>We then compute pairwise Granger causality between variables and leverage LASSO to limit the number of edges and remove edges explained by other pathways. Similarly, we allow for some physics/expert based constraints on causality (eg. spatial proximity requirements).</p>
+<p>We also envision that the definition of causal variables and discovery of causation between them may be beneficial as a feedback mechanism to tune the parameters of the FKPM itself. Specifically, we may identify regions which could be grouped together in the lifting or eigenfunctions of the FKPM to reduce complexity while maintaining causal prediction power.</p>
+<p>We anticipate this tool being useful for exploration and understanding of why climate models or climate data behaves as it does. One can quickly vet new models to make sure that the causality present in the Semantic Graph Builder follows physics. Similarly, one can compare a causal model generated from FKPM based on a climate model (CESM) to one on observational data directly to identify potential differences between the two at a high level. </p>
+<h2 id="tipping-point-analysis">Tipping Point Analysis</h2>
+<p>The Tipping Analysis identifies regions of input space where significant, qualitative differences occur in model prediction under small changes in inputs. 
+HAIKU will exploit the linearity of the Koopman Operator to utilize classical results from dynamical systems and control theory, specifically through the eigendecomposition. The eigenvalues identify unstable modes through the sign of the real part. 
+Tipping point analysis uses this eigendecomposition in three separate ways to 
+1) characterize initial conditions that excite runaway behavior; 
+2) locate changes in model parameters that introduce new unstable modes; or 
+3) identify points in time that a control, bounded in magnitude, cannot be designed to counteract an unstable mode.</p>
+<p>When identifying changes in model parameters or initial conditions that incite runaway behavior, we plan to vary the control values and monitor the change in variables of interest where we may see a tipping point.  We can leverage a shooting method (Figure 3) alongside the speed of the FKPM to quickly sample variable space and identify under what conditions tipping points occur and can be mitigated.</p>
+<figure>
+<img src="../figs/diagrams/Tipping_point_shoot_image.png" alt="target practice" style="width:70%">
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> The shooting method reduces boundary value problems to initial value problems. By modifying a control parameter and running the FKPM forward, we can home in on the boundary value where a tipping point occurs</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>The possible output of such a shooting method can be seen in Figure 4. </p>
+<figure>
+<img src="../figs/diagrams/Tipping_point_sample_graph_image.png" alt="example tipping point analysis" style="width:60%" >
+<figcaption align = "center" style="width:90%"><b>Figure 4:</b> In this case, we find that the overall sea ice concentration can be modified through certain controls and we can identify values that lead to irrecoverable sea ice loss.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>Through the use of multiple FKPM trained with appropriate input noise or on different data subsets, we can estimate the uncertainty on both magnitude and timing for when a tipping point will occur using a similar approach.</p>
+<h2 id="explainer">Explainer</h2>
+<p>Explainer augments projection models with traceback information to identify key drivers of quantities of interest in the Semantic Graph. 
+For example, if a projection shows sea ice concentration decreasing, Explainer identifies the pathways through the graph that accounts for that change. 
+Explainer adds interpretability both to ‘baseline’ model projection as well as What-if runs.</p>
+<p>The functional details of what will be available in the HAIKU system will be investigated as it is further built out. 
+This is viewed as an optional component as this information can be viewed directly by interrogating the causal model itself. 
+We intend to keep the model at a manageable size so this function is likely not needed directly.</p>
+<h2 id="value-of-new-data-estimator-vonde">Value of New Data Estimator (VoNDE)</h2>
+<p>The Value of New Data Estimator will estimate the value of new data and help identify where to focus resources for future data collection. 
+To improve accuracy of climate forecasts and tipping point estimates, HAIKU assesses how new data will contribute to new, previously unseen model parameters or reduces the uncertainly of target specific downstream effects. 
+Either case indicates the new data are valuable.</p>
+<h3 id="vonde-approach">VoNDE approach</h3>
+<p>We can identify potential measurements by tracing the causality of high variability target forecasts back through the structure of the FKPM cross-terms and the Causal Model to identify important climate variables.
+These suggest candidate measurements that are likely to be high value, but further analysis is required to verify the effect increased fidelity of these measurements would have on the target forecast.</p>
+<p>There are a few types of new measurements we consider:</p>
+<ol>
+<li><strong>Increased accuracy of current measurements</strong>: We analyze how the output of the model varies as we add noise to the training data.
+We rapidly train multiple FKPMs given different sets of noisy training data and quantify how much improvement there is on various model metrics.</li>
+<li><strong>Increased temporal resolution of measurements</strong>: We analyze how the output of the model varies as we change the frequency of measurements.
+We rapidly train multiple FKPMs given different frequency of training data for the measurement class of interest and quantify how much improvement there is on various model metrics.</li>
+<li><strong>Increased spatial resolution</strong>: We analysis how the output of the model varies as we change the spatial grid resolution for measurements or add in a new measurement at a specific location.
+We rapidly train multiple FKPMs given different spatial resolution of the training data for the measurement class of interest and quantify how much improvement there is on various model metrics.</li>
+<li><strong>Increased precision of model parameters/initial conditions</strong>: We analyze how the output of the model varies as we shift the initial values and model parameters (such as forcing terms) within their measured uncertainty -- rerunning the FKPM many times and quantifying how the model metrics (mainly variability in output) change with respect to the variance in the model parameters or initial conditions.</li>
+</ol>
+<p>We then evaluate specific metrics against the above list of experiments to quantify the value of new data:</p>
+<ol>
+<li><strong>Forecasting accuracy</strong>: Do the new measurements increase the accuracy of the modeling forecast with respect to the observed data for the target climate variables of interest?</li>
+<li><strong>Forecasting robustness</strong>: Do the new measurements increase the robustness of the modeling forecast to perturbations in the initial conditions or model parameters?</li>
+<li><strong>Tipping point accuracy</strong>: Do the new measurements increase the accuracy of the magnitude and timing of a forecasted tipping point?</li>
+<li><strong>Tipping point robustness</strong>: Do the new measurements increase the robustness of the magnitude and timing of a forecasted tipping point to perturbations in the initial conditions or model parameters?</li>
+<li><strong>Causal Robustness</strong>: Do the new measurements significantly alter the causal links discovered between climate variables of interest when comparing different FKPMs?</li>
+</ol>
+<p>These Value of New Data analyses can then be compared with the expected cost of obtaining additional measurements or reducing uncertainty on existing measurements.
+This is a necessary capability to properly determine how best to invest funds in climate research.</p>
+<h3 id="vonde-datasets">VoNDE datasets</h3>
+<p>We have identified several potential measurements that could improve modeling of sea ice concentration in the Arctic that are known to be relevant to the physics in question while being poorly estimated from observed data.
+If we are able to quantify the improvement to forecasting ability of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
+Specifically, cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the Arctic region while likely having a large impact on the dynamics of sea ice concentration.
+We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM. 
+Details can be found <a href="https://bae-systems-haiku.github.io/HAIKU/data_models/#cloud-cover-data-to-support-value-of-new-data-estimator">here</a>
+Additionally, we will use the <a href="https://bae-systems-haiku.github.io/HAIKU/data_models/">Atmospheric Temperature datasets</a> currently in the HAIKU analysis to validate our approach by reducing the fidelity of the dataset.</p>
+<h4 id="why-cloud-cover">Why cloud cover?</h4>
+<p>In the Arctic climate system, physical properties of clouds, such as amount, height, optical thickness, size of cloud droplets and phase partitioning are known to be key factors in determining the surface heat budget over a broad range of time scales due to their radiative effects. 
+These properties display distinct seasonal variations and are subject to complex interactions with the atmosphere, ocean, sea ice, aerosols and large-scale circulation. A better understanding of the role of the summer low-level cloud in shaping sea ice is particularly critical since low-level clouds (bases &lt;3 km) have a greater impact on the Arctic surface energy budget than clouds at higher levels, owing to their proximity to the surface, frequent occurrence, higher emission temperatures, as well as the possibility that they are more often composed of supercooled liquid. 
+These features make summertime low-level clouds more effective at emitting downwelling longwave radiation, while high reflectivity of low-level clouds can also alter downwelling shortwave through changing cloud transmittance and multiple-reflection between the surface and low clouds. 
+Thus, summertime low-level clouds are one of the most important factors in the Arctic climate system since they can effectively modulate the net surface radiation and consequently the rate of summer sea ice melt.</p>
+<h4 id="validation-datasets">Validation datasets</h4>
+<p>We intend to apply the VoNDE approach to determine the value of measurements not currently available. 
+As such, we do not have an adequate dataset to validate the VoNDE approach on cloud cover directly.
+We will use the <a href="https://bae-systems-haiku.github.io/HAIKU/data_models/">Atmospheric Temperature datasets</a> (CESM and NSIDC) currently in use by HAIKU as a validation dataset instead.
+Specifically, we will train the HAIKU models with degraded versions of the validation dataset (add noise to each measurement, reduce spatial resolution of measurements, reduce temporal resolution of measurements).
+We then use the HAIKU rapid what-ifs generated by the FKPMs to estimate the reduction of uncertainty on tipping points and model accuracy if we reduce the improved the validation measurements in ways corresponding to the full dataset.
+We can then finally evaluate the Value of New Data estimation on this dataset.
+By measuring the accuracy of our VoNDE estimates across a range of “new” measurements, we can validate the approach and roughly estimate the accuracy of the VoNDE when applied to potential new measurements, such as improvements to cloud cover measurements.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../koopman/" class="btn btn-neutral float-left" title="Koopman Assisted Climate Models"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../metrics/" class="btn btn-neutral float-right" title="Metrics to evaulate HAIKU capabilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../koopman/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../metrics/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

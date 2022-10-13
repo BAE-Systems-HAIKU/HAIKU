@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Software Framework - ACTM-HAIKU</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Software Framework";
+        var mkdocs_page_input_path = "software_framework.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ACTM-HAIKU
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Software Framework</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#climate-data">Climate Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#koopman-models">Koopman Models</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hybrid-modeling">Hybrid Modeling</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#causal-model">Causal Model</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#analytics-toolkit">Analytics Toolkit</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/configure_haiku/">Configure HAIKU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/additional_variables_and_forcing/">Expanded Inputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/modeling_subregions/">Modeling Subregions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/next_steps/">Next Steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../About/about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ACTM-HAIKU</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Software Framework</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="software-framework">Software Framework</h1>
+<p>This is a summary of the structure of the python-based HAIKU software system currently in development.
+As the system is developed, a beta version will be available on our public <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">github page</a>.
+This page will include steps required to download and preprocess training data,
+and to get HAIKU operational on your system.</p>
+<p>* <strong><em>classes</em></strong> and <em>member functions</em> are denoted as such section.</p>
+<p><font size="5"><strong>Overall structure</strong> </font></p>
+<figure>
+<img src="../figs/diagrams/haiku-core-classes-diagram.png" alt="Software capability summary" style="width:95%">
+<figcaption align = "center" style="width:80%"><b>Figure 1:</b> Classes representing core functionality in the HAIKU software system.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>We generate a <strong><em>ClimateData</em></strong> object that encapsulates CESM, NSIDC, or Koopman generated data and converts them all to consistent representations (the same coordinate grid and sets of variables) while storing the provenance as a member.</p>
+<figure>
+<img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
+<figcaption align = "center" style="width:80%"><b>Figure 2:</b> Central objects to the HAIKU system.  The analytics causal analysis and analysis toolkit are still being built out and are not present in the current release.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>The <strong><em>KoopmanModel</em></strong> class contains a trained Koopman model as well as any training parameters associated with the stored data. During training, it takes a single <strong><em>ClimateData</em></strong> object and learns the dynamics of this system.</p>
+<p>The <strong><em>Predictor</em></strong> object is used to operate on <strong><em>KoopmanModel</em></strong> objects and generate <strong><em>ClimateData</em></strong> with a range of parameters.</p>
+<p>The <strong><em>Plotter</em></strong> object takes either a <strong><em>KoopmanModel</em></strong> or <strong><em>ClimateData</em></strong> as input, along with runtime parameters, and generates visualizations representing the stored data. As such, this object is also used to visualize predictions.</p>
+<figure>
+<img src="../figs/diagrams/model_generation_flowchart.png" alt="Model generation software flowchart" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>Finally, the <strong><em>KoopmanModel</em></strong> itself or the time-series data contained in a <strong><em>ClimateData</em></strong> object can be passed into the Analytics Toolkit. A <strong><em>CausalModel</em></strong> object is instantiated and can learn a causal structure from time-series data (<strong><em>ClimateData</em></strong> object) using its internal methods or from the structure of the <strong><em>KoopmanModel</em></strong> itself. Similarly, the <strong><em>CausalModel</em></strong>, <strong><em>ClimateData</em></strong>, or <strong><em>KoopmanModel</em></strong> objects are used as input to different tipping-point analyses inside the toolkit.</p>
+<figure>
+<img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 4:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>Rounding out the system, there are a variety of metrics that are evaluated either as member functions of the systems or as standalone code.</p>
+<h2 id="climate-data">Climate Data</h2>
+<p><strong><em>ClimateData</em></strong> objects are instantiated by the <strong><em>ClimateDataLoader</em></strong> class which reads in CESM or NSIDC time-series data and converts it to consistent representations (the same coordinate grid and sets of variables). Similarly, <strong><em>ClimateData</em></strong> can also be produced from a <strong><em>KoopmanModel</em></strong> object by running the model through the <strong><em>Predictor</em></strong> object.
+The time-series data is stored in a numpy array and is by default monthly climate variable data.
+Internal processing converts between polar and lat-lon coordinates, interpolates missing datapoints, and produces time-series matching the lifted Koopman observables (given a <strong><em>KoopmanModel</em></strong>).</p>
+<p><strong><em>Plotter</em></strong> operates on <strong><em>ClimateData</em></strong> to visually investigate the temporal and spatial behavior of the data.</p>
+<h2 id="koopman-models">Koopman Models</h2>
+<p>The <strong><em>KoopmanModel</em></strong> class contains a trained Koopman model. The <strong><em>KoopmanModelTrainer</em></strong> class contains functions necessary for training a Koopman model based on provided <strong><em>ClimateData</em></strong>. It is used in conjunction with the <strong><em>Predictor</em></strong> class to generate prediction time-series data in the form of <strong><em>ClimateData</em></strong>.</p>
+<p>Several model hyperparameters are set at instantiation through the configuration file.</p>
+<p>The <strong><em>Predictor</em></strong> has a member function, <strong><em>Predictor</em></strong>.predict(<strong>_KoopmanModel</strong>,dt), which returns the predicted <strong><em>climate_state</em></strong> after the <strong><em>KoopmanModel</em></strong> has run the original state, x, forward by time dt. This function lifts the original climate state into the Koopman Observables space before propagating the state forward using matrix multiplication, reversing the lifting function, and producing the predicted state in the original <strong><em>climate_state</em></strong> format.  There is an associated function for bulk processing of the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function which can provide a full <strong><em>ClimateData</em></strong> object as output.  This is more commonly used in most analytics.  Currently, the lifting function is a relatively straightforward aggregation of the <strong><em>ClimateData</em></strong>, but we are investigating other approaches as the development continues.</p>
+<p>The <strong><em>KoopmanModel</em></strong> also has external plotting functions to summarize the model structure including plots of eigenfunctions of selected modes and the distribution of eigenvalues for the <strong><em>KoopmanModel</em></strong>.</p>
+<p>The forecasting done by the Koopman Models enables the Analytics Toolkit or can produce stand-alone climate forecasts for public consumption.</p>
+<h2 id="hybrid-modeling">Hybrid Modeling</h2>
+<p>We're still designing the structure of the Hybrid Koopman-Climate Model (HKPM) implementation.
+For the scope of this project we intend to apply a correction on top of pregenerated data from CESM or another climate model rather than running the full CESM climate model locally and applying the correction in place.
+This will likely be sufficient to test the HKCM as a proof-of-concept.</p>
+<p>The HKPM itself is the correction to apply at each time-step of a climate model.
+Input to this system are two <strong><em>ClimateData</em></strong> time-series with the same variables and over the same time-period.
+A <strong><em>KoopmanModel</em></strong> object is trained on each of the <strong><em>ClimateData</em></strong> objects constraining them to have the same eigenvalues so that they can be compared directly to one another.  The final result is a <strong><em>KoopmanModel</em></strong> which is the difference of these two.</p>
+<p>This <strong><em>KoopmanModel</em></strong> can then be used directly to provide a correction factor to <strong><em>ClimateData</em></strong> used as input through the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function.  Alternatively, it enables analytics (currently done manually) to better understand the causal differences between the two models. It is possible to generate a <strong><em>CausalModel</em></strong> object from this data, which may further enable understanding of the physical difference between the original datasets, but further study is required.</p>
+<h3 id="causal-model">Causal Model</h3>
+<p>This class requires <strong><em>ClimateData</em></strong> as well as its own member <strong><em>parameters</em></strong> (which helps define variable transformation from more fine-grained to user oriented causal variables).
+The <strong><em>CausalModel</em></strong>._transform_data(<strong><em>ClimateData</em></strong>) function generates a user oriented <strong><em>ClimateData</em></strong> time-series with many fewer variables.
+This time-series can then be used as input to train the <strong><em>CausalModel</em></strong> where it uses pairwise Granger Causality coupled with LASSO to limit number of edges, remove edges explained by other pathways.</p>
+<p>This <strong><em>CausalModel</em></strong> can then be viewed via a <strong><em>CausalModel</em></strong>.<em>print()</em> method.</p>
+<p>Other analytics are still being considered that may do things like allow a user to request the variable or pathway with the greatest impact on another variable.</p>
+<h2 id="analytics-toolkit">Analytics Toolkit</h2>
+<p>The initial implementation of the <strong><em>analysis_toolkit</em></strong> hinges around the <strong><em>CausalModel</em></strong> class. The <strong><em>analysis_toolkit</em></strong> class is envisioned to hold many various analysis method, but not to hold any objects itself.</p>
+<figure>
+<img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 5:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>The analytics toolkit allows for generation of the causal model class and enables the time-series based what-if analyses that can be conducted on the causal variables themselves.</p>
+<p>The analytics toolkit will also enable the metrics described in the <a href="metrics">Metrics</a> section.  Specifically, a user will be able to select the metric of interest (eg. robustness to training window bounds) and will automatically run the relevant analysis over the specified parameters and present figures and estimates of the metric in question.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../metrics/" class="btn btn-neutral float-left" title="Metrics to evaulate HAIKU capabilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Tutorials/configure_haiku/" class="btn btn-neutral float-right" title="Configure HAIKU">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../metrics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Tutorials/configure_haiku/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

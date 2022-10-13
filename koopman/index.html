@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Koopman Assisted Climate Models - ACTM-HAIKU</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Koopman Assisted Climate Models";
+        var mkdocs_page_input_path = "koopman.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ACTM-HAIKU
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data_models/">Data and Climate models</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Koopman Assisted Climate Models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#koopman-operator-theory">Koopman Operator Theory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hybrid-ai-koopman-climate-model-hkcm">Hybrid AI Koopman-Climate Model (HKCM)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fast-koopman-proxy-model-fkpm">Fast Koopman Proxy Model (FKPM)</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/configure_haiku/">Configure HAIKU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/additional_variables_and_forcing/">Expanded Inputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/modeling_subregions/">Modeling Subregions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/next_steps/">Next Steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../About/about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ACTM-HAIKU</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Koopman Assisted Climate Models</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="koopman-assisted-climate-models">Koopman Assisted Climate Models</h1>
+<p>The Hybrid AI Koopman-Climate Model (HKCM) aims to augment the ability of current climate models (CICE5 to start) to more accurately model real world measurements by training a Koopman model in series with the climate model to apply missing dynamics at each time step.  But from the programmatic level, we have two other components which should fall under this category as well, the Fast Koopman Proxy Model (FKPM) and our Analysis Toolkit.  These work together leveraging a Koopman proxy model of the full climate system that can be trained and run in minutes instead of days.  This enables our analysis toolkit and allows users to quickly test hypothesis and automatically determine uncertainty on forecasts as well as driving causal factors and potential interventions to avoid tipping points.</p>
+<p>Across both the HKCM and the FKPM, we will map from the inputs described in Section 3 into Koopman observables space and back.  We will also specify the mapping between model parameters (or Koopman observables) and variables of interest described in the same section.  By leveraging pregenerated data from the models of interest, we reduce the initial computational cost considerably, while hopefully maintaining sufficient diversity of model parameters to properly train the Koopman operators.  Once we’ve validated this approach, we will revisit running the full climate models with specific parameter values as necessary to explore potential tipping points and causal factors.</p>
+<p>The FKPM and mapping to factors of interest are required for us to present an understandable result and allow for expert interaction through the Analysis Toolkit, which consists of a semantic graph of those factors, an explainer that shows pathways that drive specific factors (like rapid sea ice loss), and an identification of which variables will reach a tipping point (along with further statistics of when, how, and why).</p>
+<p>More detail into Koopman Operator theory and how the various model components are constructed and serve the climate analyses of interest follow.</p>
+<h2 id="koopman-operator-theory">Koopman Operator Theory</h2>
+<figure>
+<img src="../figs/diagrams/Koopman_diagram.png" alt="Koopman Diagram" style="width:80%">
+<figcaption align = "center" style="width:80%"><b>Figure 1:</b> Koopman models the dynamics of a reference system (1). Koopman transforms (2) the state space into an observable space and learns a linear operator (3) in the observable space. Various Koopman publications<sup>1,2,3</sup> contain more details.</figcaption>
+</figure>
+
+<p>&nbsp;<br />
+The Koopman Operator (Figure 1) represents the dynamics of a nonlinear, complex, and uncertain system with an infinite-dimensional space (called “observable space”) that evolves under a linear operator. The lifting function that maps the system into observable space can incorporate prior knowledge, resulting in an abstracted, but understandable representation of the system. The Koopman operator-based compressed linear form enables extremely rapid simulations to explore numerous what-if scenarios and generate data for causal discovery of semantic causal factors. Moreover, specific eigenmodes of the system describe its long run behavior and can be used directly for tipping point analysis. Compared to other data-driven approaches (e.g., neural networks), the Koopman operator extrapolates well. Even though it preserves complex non-linear dynamics, it is linear in observable space and is explainable because the operator can be expressed algebraically relating variables of interest, like ice cover. Additionally, the Koopman operator-based model learns on sparse data.</p>
+<p>The Koopman evolution equation, <strong>Ψ</strong>(t+1) = K <strong>Ψ</strong>(t), is the closed-form climate dynamics equation we use. In a controlled climate system, we describe the evolution of climate states or observables as <strong>x</strong>(t+1)=F<sub>1</sub> (<strong>x</strong>(t),<strong>u</strong>(t),θ) where t is the time index, <strong>x</strong> is the climate model state vector, <strong>u</strong>, is the vector representing climate forcing, and θ is the vector representing strength of climate interactions. We apply a lifting function to go from the states or observables known to current climate models into a set of collective observables on which the Koopman operator can act: <strong>Ψ</strong>(t+1)=A(θ)<strong>Ψ</strong>(t)+B(θ)<strong>u</strong>(t).</p>
+<figure>
+<img src="../figs/diagrams/Koopman_mode_decomposition_math.png" alt="Koopman Equation" style="width:60%">
+</figure>
+<p>&nbsp;  </p>
+<p>For the beta software release, the functionality to include forcing terms in both the training and prediction of Koopman models has been added. </p>
+<figure>
+<figcaption align = "center" style="width:80%"><b>Equation 1:</b> The Koopman model learns the impact of different inputs on the observables in a linear framework where g are the observables and u are the forcings.</figcaption>
+<img src="../figs/equations/forcing.png" alt="forcing equation" style="width:80%">
+</figure>
+
+<p>Global Climate Models (GCMs) such as the CESM are driven by forcing terms such as greenhouse gases and other anthropogenic factors. We can apply the same forcings to our models to understand the impact of different scenarios on our climate systems.</p>
+<h2 id="hybrid-ai-koopman-climate-model-hkcm">Hybrid AI Koopman-Climate Model (HKCM)</h2>
+<p>We plan to train a Koopman operator-based model to learn the dynamics of the difference between the predictions from current climate models and the actual measured records at each measured time step.  This has the potential to identify physics that may be important to the quantification of tipping points or runaway sea-ice loss (Figure 2).</p>
+<figure>
+<img src="../figs/diagrams/HKCM_diagram.png" alt="HKCM Diagram" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Hybrid AI Koopman-Climate Model (HKCM)—The Koopman Operator will predict the dynamics of the system given climate model output for the current step and the estimate of observables from the previous one. HKCM leverages modeled physics in the climate model while accounting for un-modeled physics.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>By placing the Koopman model in series with the Climate Model, it learns the dynamics of any missing physics and to account for any mismodeled physics. The details of which modes are excited in this Koopman model can be used to trace back to the original climate level variables and help identify which physics properties have been mismodeled.  Our initial goal is to verify that the HKCM can learn the missing dynamics in sea ice concentration and to investigate the relevant modes to potentially determine the missing physics interactions in the climate model.</p>
+<figure>
+<img src="../figs/diagrams/HKCM_algo_diagram.png" alt="HKCM algorithm Diagram" style="width:60%">
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Separate FKPMs can be trained to model both the climate model and the observational data. By forcing alignment of their eigenvalues, the two FKPM can be compared directly and a third FKPM can be defined from their difference. This difference can then be used to apply a correction factor directly to the climate model output to bring it in line with the observational data.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>A preliminary investigation (Figure 4) shows the eigenfunctions of the Mean, Annual, and selected exponential decay modes of the correction-FKPM trained on the difference between CESM1 and NSIDC sea ice concentration data.</p>
+<figure>
+<img src="../figs/results/Koopman_missing_physics_modes.png" alt="FKPM difference example" style="width:30%">
+<figcaption align = "center" style="width:90%"><b>Figure 4:</b> The resultant modes from a preliminary FKPM to apply a correction to the CESM1 model. The Berents and Kara sea are the main region of discrepancy. We find a missing exponential component with a decay time of 20 years. </figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>This is a very preliminary result and is meant simply to be illustrative of how the Koopman mode analysis of these differential models can be helpful in identifying missing physics. This correction-FKPM can likely improve the standard Climate Model's accuracy and an analysis of the FKPM's structure can help identify characteristics of the missing physics contained in the correction-FKPM. For instance, if the FKPM has 3 climate variables and we sea that no correction is needed to predict Air Temperature, but we see that the cross-term that models the impact of Air Temperature onto Sea Ice Concentration is large, then we know something is missing in the original climate model involving the how Air Temperature impacts Sea Ice Concentration.  We can further look at the Eigenfunctions to identify spatial regions (perhaps this involves an east to west flow) and the eigenvalues (for what timescales is this relevant?).</p>
+<h2 id="fast-koopman-proxy-model-fkpm">Fast Koopman Proxy Model (FKPM)</h2>
+<p>We will also train a full Koopman model to create a fast proxy model of the full climate simulation.  This will enable a suite of analytics that can extract causality and better characterize tipping points and their associated uncertainty that would take months or years to do with the current best climate models alone. This is shown below (Figure 3).</p>
+<figure>
+<img src="../figs/diagrams/FKPM_diagram.png" alt="FKPM Diagram" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Fast Koopman Proxy Model (FKPM)—The FKPM learns the full dynamics of the HKCM or stand-alone climate model, but is able to operate much faster than the either, enabling the analytic toolkit. Analysis of the eigenfunctions and eigenvalues will help identify tipping points and regions of interest for deeper analysis.</figcaption>
+</figure>
+<p>&nbsp;  </p>
+<p>Initially, we will train a FKPM using the climate model on its own so we can begin developing the Analysis Toolkit, but as the HKCM becomes more capable, we will train an improved FKPM that leverages it as well and compare the analytics for robustness.</p>
+<p><sup>1</sup>Arbabi, H., &amp; Mezic, I. (2017). Ergodic theory, dynamic mode decomposition, and computation of spectral properties of the Koopman operator. SIAM Journal on Applied Dynamical Systems, 16(4):2096–2126.
+<sup>2</sup>Mezic, I. (2005). Spectral properties of dynamical systems, model reduction and decompositions. Nonlinear Dynamics, 41(1-3), 309-325.
+<sup>3</sup></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../data_models/" class="btn btn-neutral float-left" title="Data and Climate models"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../analyses/" class="btn btn-neutral float-right" title="Analysis Toolkit">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../data_models/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../analyses/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

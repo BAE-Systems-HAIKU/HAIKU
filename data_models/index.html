@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Data and Climate models - ACTM-HAIKU</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Data and Climate models";
+        var mkdocs_page_input_path = "data_models.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ACTM-HAIKU
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">HAIKU (Hybrid AI Integrating Koopman Units)</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Data and Climate models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#initial-climate-models-and-datasets">Initial Climate Models and Datasets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#model-prediction-cesm-large-ensemble-project">Model Prediction - CESM Large Ensemble Project</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#observational-data-nsidc">Observational Data - NSIDC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cloud-cover-data-to-support-value-of-new-data-estimator">Cloud Cover Data - to support Value of New Data Estimator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dataset-access">Dataset Access</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data-citations">Data Citations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cesm-large-ensemble-data">CESM Large Ensemble data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nsidc-sea-ice-concentration-data">NSIDC Sea Ice Concentration data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#era5-monthly">ERA5 Monthly</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#oras5">ORAS5</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#piomas-volume-time-series-and-uncertainties">PIOMAS Volume time series and uncertainties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#piomas-model-details">PIOMAS Model details</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../koopman/">Koopman Assisted Climate Models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../analyses/">Analysis Toolkit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics to evaulate HAIKU capabilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../software_framework/">Software Framework</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/configure_haiku/">Configure HAIKU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Tutorials/quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Results</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/initial_motivation_results/">Initial Results</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/additional_variables_and_forcing/">Expanded Inputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/modeling_subregions/">Modeling Subregions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Results/next_steps/">Next Steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../About/about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ACTM-HAIKU</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Data and Climate models</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="data-and-climate-models">Data and Climate models</h1>
+<p>The HAIKU program will focus on analyzing decade-scale predictions of Arctic sea ice concentrations. 
+We plan to initially use the pre-generated data across a variety of CICE4 parameters to initially construct the HAIKU models, but expect to need to run the CICE4 model eventually before transitioning to the full CESM model. 
+We also plan to leverage real measurement data to train our Hybrid Koopman-Climate Model which will learn to model dynamics present in real data that is not present in the models and their associated pre-generated data. </p>
+<p>To enable rapid early results and validate our approach, we begin with a stand-alone sea ice model: the Los Alamos sea ice model <a href="https://www.cesm.ucar.edu/models/cesm1.0/cice/">CICE4</a> and associated <a href="http://www.ccpo.odu.edu/~klinck/Reprints/PDF/cicedoc2015.pdf">documentation</a>.</p>
+<p>At the midpoint of Phase 1, we plan to move to the full Community Earth System Model (CESM2) to better model the coupled climate variability. CESM2 integrates CICE5 along with atmosphere (CAM6), ocean (POP2), land (CLM5), and ice sheet (CISM2) models of the NCAR modeling framework.</p>
+<h2 id="initial-climate-models-and-datasets">Initial Climate Models and Datasets</h2>
+<p>The CICE5 model requires atmospheric data, including: monthly downward shortwave radiation data at the surface, precipitation, cloud fraction, and four times daily data of 2m air temperature, 2m specific humidity, 10m wind, and 10m air density. 
+Most of the atmospheric data will be derived from the ERA5 reanalysis accessible via the ECWMF data portal (<a href="https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5">ERA5</a>).</p>
+<p>The CICE5 model also requires oceanic data, including: monthly sea surface temperature, sea surface salinity, sea surface height, mixed layer depth, and ocean currents. 
+The oceanic forcing will come from several indicators available at the ECMWF Ocean Reanalysis System 5 (<a href="https://www.ecmwf.int/en/forecasts/dataset/ocean-reanalysis-system-5">ORAS5 via ECWMF</a>).
+In addition, the CICE5 model requires data for vertical heat transport from the deep ocean, obtainable as CESM model output available via <a href="https://www.earthsystemgrid.org/">NCAR climate data gateway</a>. </p>
+<p>The first step is to confirm sensitivity observations concluded by the climatology community. 
+Before investigative sensitivity, we will first need to find a correspondence between model outputs and observational data for validation. Observational data for sea ice concentration can be obtained from the <a href="https://nsidc.org/data/NSIDC-0051/versions/1">National Snow and Ice Data Center</a>  (NSIDC).
+We will need to work in a common projection and resolution to avoid interpolation.</p>
+<h2 id="model-prediction-cesm-large-ensemble-project">Model Prediction - CESM Large Ensemble Project</h2>
+<p>The models are computationally expensive to run. Instead, we look at the CESM Large Ensemble Community Project. This project has produced a publicly available set of climate model simulations performed with the nominal 1-degree latitude/longitude version of the Community Earth System Model version 1 (CESM1) with CAM5.2 as its atmospheric component <a href="https://www.cesm.ucar.edu/projects/community-projects/LENS/data-sets.html">CESM data</a>. </p>
+<figure>
+<img src="../figs/results/CESM_data.png" alt="CESM data" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 1:</b> Sea ice concentration percentage in the northern hemisphere generated from the CESM Large Ensemble Community Project. The data is shown in longitude-latitude coordinates. </figcaption>
+</figure>
+
+<p>Currently from the Monthly CESM Large Ensemble Community Project<sup>[KA15]</sup>, we extract several variables that we expect to be causally linked to Sea Ice concentration in the Arctic: </p>
+<ul>
+<li><strong>ICEFRAC</strong>: the Sea Ice coverage fraction over each spatial grid element</li>
+<li><strong>TS</strong>: the atmospheric surface temperature </li>
+<li><strong>SST</strong>: the sea surface temperature </li>
+<li><strong>HI</strong>: the sea ice thickness</li>
+</ul>
+<p>We have also begun including forcing terms into the model. 
+These measurements and their impact on other observables are learned when the Koopman models are trained, but then when the KoopmanModel is used to forecast forward, a predefined time-series of the forcing terms can be passed in.<br />
+Currently CO2 is treated as a forcing term and we use historically measured forcing and predicted CO2 based on anthropogenic mechanisms. This allows analysis of how reducing C02 can affect the FKPM predictions for Sea Ice concentration in the Arctic. 
+A preliminary analysis can be found in the <a href="Results/initial_motivation_results">initial results</a> section.  More detail of the implementation of forcing terms in the Koopman model, can be found in the <a href="koopman">Koopman Modeling</a> section.</p>
+<p>&nbsp;  </p>
+<h2 id="observational-data-nsidc">Observational Data - NSIDC</h2>
+<p>Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 1 | National Snow and Ice Data Center (nsidc.org)</p>
+<p>We compare the results of the simulations with observational sea ice concentration data obtained from the National Snow and Ice Data Center. These data include gridded daily (every other day for SMMR data) and monthly averaged sea ice concentrations for both the north and south polar regions. The dataset includes data since 26 October 1978. The data shows the brightness temperature data derived from a few different sensors (microwave radiometers that sense emitted microwave radiation) that represent the sea ice concentration. The data are provided in the polar stereographic projection at a grid cell size of 25 x 25 km. For grid cell sizes of 25 x 25km, the pixel intensities represent the fractional amount of sea ice covering that cell (scaled by 250).</p>
+<figure>
+<img src="../figs/results/NSIDC_data.png" alt="NSIDC data" style="width:90%">
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Sea ice concentrations in the northern and southern hemisphere from satellite data obtained from NSIDC. The data is shown in a polar projection and 250 on the color scale corresponds to 100% coverage.</figcaption>
+</figure>
+
+<p>Currently from the Monthly NSIDC datasets, we extract several variables that we expect to be causally linked to Sea Ice concentration in the Arctic: </p>
+<ul>
+<li><strong>seaice_conc</strong>: the Sea Ice coverage fraction over each spatial grid element (NSIDC G02202_V3)<sup>[WA19]</sup></li>
+<li><strong>T2M</strong>: Average Air Temperature at each spatial grid point 2 meters above sea surface (ERA5)<sup>[He19]</sup></li>
+<li><strong>SST</strong>: Sea Surface Temperature: ocean temperature at surface of water (ORAS5)<sup>[Zu19]</sup></li>
+<li><strong>Sea Ice Thickness</strong>: Sea Ice Thickness (PIOMAS v2.1)<sup>[SC11, ZH03]</sup></li>
+</ul>
+<p>&nbsp;  </p>
+<h2 id="cloud-cover-data-to-support-value-of-new-data-estimator">Cloud Cover Data - to support Value of New Data Estimator</h2>
+<p>In Phase II of the ACTM program, we aim to determine the value of potential new measurements that will have an outsized impact on improving the model forecasting accuracy, identification and characterization of tipping points, or improve model robustness.
+If we are able to quantify the improvement to the HAIKU models of sea ice, particularly related to tipping points, we can then weigh the cost of collecting more measurements or developing better methods of estimating those measurements from current data.
+Specifically, cloud cover measurements, under ice water temperature measurements, and atmospheric heat flux measurements are poorly estimated and rarely directly measured for the arctic region while likely having a large impact on the dynamics of sea ice concentration.
+We will focus on cloud cover measurements for their potential to improve the sea ice concentration models in Phase II of DARPA ACTM.<br />
+Further motivation of this choice and the associated analyses can be found in the <a href="https://bae-systems-haiku.github.io/HAIKU/analyses/#value-of-new-data-estimator-vonde">Value of New Data Estimator</a> section of this document.</p>
+<p>Considering the pros and cons of each dataset, we will primarily use cloud and surface heat flux data from ERA5 (1979-2022), MERRA-2 (1980-2022), Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observation (CALIPSO, 2006-2016), and Clouds and Earth's Radiant Energy System Energy Balanced And Filled (CERES-EBAF Ed4.0, 2006-2016) in ACTM Phase II to include cloud radiative influences in shaping the atmosphere-sea ice connection. ERA5 and MERRA-2 are considered the two best reanalysis products incorporating all available satellite and in-situ information and using the most updated 4- and 3-dimension assimilation schemes, respectively. </p>
+<p>Collecting accurate measurements of cloud cover are challenging and costly:</p>
+<ul>
+<li>Most cloud cover measurements are derived from satelite imagery which is insufficient to estimate the elevation of the clouds accurately. </li>
+<li>Ship based measurements are far more accurate, but are incredibly costly to procure. </li>
+<li>Station data can be used as a cross-comparison, but is limited to regions on land or at least very near a station.</li>
+<li>Additionally, procuring measurements can be difficult within the zone of influence of certain countries. </li>
+</ul>
+<p>By accurately assessing the value of new measurements with specific locations, temporal frequencies, and specified precision can provide the needed context to properly balance the direct cost of making the measurements with the improvement to climate forecasting of Sea Ice tipping points in the Arctic region.</p>
+<h2 id="dataset-access">Dataset Access</h2>
+<p>Instructions to download and preprocess datasets currently in use on HAIKU can be found on the <a href="https://bae-systems-haiku.github.io/HAIKU/data_models/">HAIKU github</a>. 
+This page will continue to be updated as the HAIKU code is built out, validated, and approved for public use and will contain instructions to get HAIKU operational on your system.</p>
+<h2 id="data-citations">Data Citations</h2>
+<h5 id="cesm-large-ensemble-data">CESM Large Ensemble data</h5>
+<p><sup>[KA15]</sup>  Kay, J. E., Deser, C., Phillips, A., Mai, A., Hannay, C., Strand, G., Arblaster, J., Bates, S., Danabasoglu, G., Edwards, J., Holland, M. Kushner, P., Lamarque, J.-F., Lawrence, D., Lindsay, K., Middleton, A., Munoz, E., Neale, R., Oleson, K., Polvani, L., and M. Vertenstein (2015), The Community Earth System Model (CESM) Large Ensemble Project: A Community Resource for Studying Climate Change in the Presence of Internal Climate Variability, Bulletin of the American Meteorological Society, doi: 10.1175/BAMS-D-13-00255.1, 96, 1333-1349</p>
+<h5 id="nsidc-sea-ice-concentration-data">NSIDC Sea Ice Concentration data</h5>
+<p><sup>[WA19]</sup> Walsh, J. E., W. L. Chapman, F. Fetterer, and J. S. Stewart. 2019. Gridded Monthly Sea Ice Extent and Concentration, 1850 Onward, Version 2. [NSIDC G02202_V3]. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/jj4s-tq79. [Date Accessed].</p>
+<h5 id="era5-monthly">ERA5 Monthly</h5>
+<p><sup>[HE19]</sup> Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on &lt; DD-MMM-YYYY &gt;), 10.24381/cds.f17050d7</p>
+<h5 id="oras5">ORAS5</h5>
+<p><sup>[ZU19]</sup> Zuo, H., Balmaseda, M. A., Tietsche, S., Mogensen, K., and Mayer, M.: The ECMWF operational ensemble reanalysis–analysis system for ocean and sea ice: a description of the system and assessment, Ocean Sci., 15, 779–808, https://doi.org/10.5194/os-15-779-2019, 2019.</p>
+<h5 id="piomas-volume-time-series-and-uncertainties">PIOMAS Volume time series and uncertainties</h5>
+<p><sup>[SC11]</sup> Schweiger, A., R. Lindsay, J. Zhang, M. Steele, H. Stern, Uncertainty in modeled arctic sea ice volume, J. Geophys. Res., doi:10.1029/2011JC007084, 2011</p>
+<h5 id="piomas-model-details">PIOMAS Model details</h5>
+<p><sup>[ZH03]</sup> Zhang, J.L. and D.A. Rothrock, “Modeling global sea ice with a thickness and enthalpy distribution model in generalized curvilinear coordinates“, Mon. Weather Rev., 131, 845-861, 2003</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="HAIKU (Hybrid AI Integrating Koopman Units)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../koopman/" class="btn btn-neutral float-right" title="Koopman Assisted Climate Models">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../koopman/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
