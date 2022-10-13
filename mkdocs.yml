@@ -15,4 +15,8 @@ nav:
         - 'Quickstart': 'Tutorials/quickstart.md'
     - "Results":
         - "Initial Results": 'Results/initial_motivation_results.md'
-    - 'about.md'
+        - "Expanded Inputs": 'Results/additional_variables_and_forcing.md'
+        - "Modeling Subregions": 'Results/modeling_subregions.md'
+        - "Next Steps": 'Results/next_steps.md'
+    - "About":
+        - "About": 'About/about.md'
