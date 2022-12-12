@@ -72,7 +72,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#setting-up-python-env">Setting up python env</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#installing-cdo-optional">Installing CDO (optional)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#installing-cdo">Installing CDO</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#data-download">Data Download</a>
         <ul>
@@ -84,24 +84,19 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../running_the_code/">Running HAIKU</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quickstart</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Results</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/initial_motivation_results/">Initial Results</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/additional_variables_and_forcing/">Expanded Inputs</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/modeling_subregions/">Modeling Subregions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/next_steps/">Next Steps</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/initial_motivation_results/">Results</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../About/about/">About</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                </li>
               </ul>
       </div>
     </div>
@@ -135,13 +130,21 @@ cd HAIKU
 </code></pre>
 <h2 id="setting-up-python-env">Setting up python env</h2>
 <p>Next setup the python environment:
-HAIKU expects a Linux environment running Python 3.8 or higher. We recommend using a Python Virtual Environment to isolate HAIKU dependencies from the rest of your system. You can use your favorite approach to set this up, but we provide instructions assuming python venv and pip as environment and package managers. To create this environment, run <code>python3.8 -m venv ./haiku-venv</code>. Then, activate the virtual environment with <code>source ./haiku-venv/bin/activate</code>.</p>
-<p>There are Python library dependencies users need to download before running the system. To do so, users should use <code>pip</code> in conjunction with the <code>requirements.txt</code> file found in the base directory of the public GitHub repository. The command to install the Python dependencies is:</p>
-<pre><code>pip install -r requirements.txt
+HAIKU expects a Linux environment running Python 3.8 or higher. We recommend using a Python Virtual Environment to isolate HAIKU dependencies from the rest of your system. You can use your favorite approach to set this up, but we provide instructions assuming python venv and pip as environment and package managers. There are Python library dependencies users need to download before running the system. To do so, users should use <code>pip</code> in conjunction with the <code>requirements.txt</code> file found in the base directory of the public GitHub repository. 
+To create this environment and install dependencies, run:</p>
+<pre><code>#create the environment
+python3.8 -m venv ./haiku-venv
+#activate the python environment
+source ./haiku-venv/bin/activate
+#install HAIKU dependencies in local virtual environment
+pip install -r requirements.txt
 </code></pre>
-<p>Finally, the system <code>PYTHONPATH</code> environment variable must include the root directory of the haiku software. For example, if this codebase was located at <code>/home/test/core/haiku</code>, it could be added to the system <code>PYTHONPATH</code> with the following command: <code>export PYTHONPATH=$PYTHONPATH:/home/test/core/haiku</code>. This command can be added to <code>~/.bashrc</code> on a Linux system so that it is applied automatically whenever a terminal is launched.</p>
-<h2 id="installing-cdo-optional">Installing CDO (optional)</h2>
-<p>We execute this data alignment with the Climate Data Operators (cd0) tool available <a href="https://code.mpimet.mpg.de/projects/cdo/">here</a>. This is required only if one needs to regrid the .nc climate data.  This code must be compiled before it can be run and requires the c++14 standard. Additionally, the data is in netCDF format, which means cdo must be compiled with <a href="https://github.com/Unidata/netcdf-c">netDCF</a> which itself requires <a href="https://github.com/HDFGroup/hdf5">hdf5</a>.  To accomplish the remapping from stereographic projection cdo requires <a href="https://proj.org/">proj</a> (which requires a new enough version of <a href="https://github.com/sqlite">sqlite</a> to compile.  <code>make_install_cdo.sh</code> should handle downloading and compiling all the appropriate files as well as executing the appropriate regridding of all netCDF files. CDO requires an input parameter file to specific details of the target grid.  The required target parameter file is given in <code>configs/target_grid.txt</code>. The NSIDC sea ice concentration data V4 has an underspecified grid defined in its .nc data file, so we also include the fully defined northern hemisphere and southern hemisphere grid definition for the stereographic grid (<code>configs/nh_icefrac_grid.txt</code>) and southern hemisphere (<code>configs/sh_icefrac_grid.txt</code>). The <code>data_downloader.sh</code> script will automatically regrid the NSIDC data.</p>
+<p>Finally, the system <code>PYTHONPATH</code> environment variable must include the root directory of the haiku software. For example, if this codebase was located at <code>/home/test/core/haiku</code>, it could be added to the system <code>PYTHONPATH</code> with the following command:</p>
+<pre><code>export PYTHONPATH=$PYTHONPATH:/home/test/core/haiku
+</code></pre>
+<p>This command can be added to <code>~/.bashrc</code> on a Linux system so that it is applied automatically whenever a terminal is launched.</p>
+<h2 id="installing-cdo">Installing CDO</h2>
+<p>We execute this data alignment with the Climate Data Operators (cd0) tool available <a href="https://code.mpimet.mpg.de/projects/cdo/">here</a>. This is required to compare observational data to CESM data, this is a default part of the HAIKU analyses.  This code must be compiled before it can be run and requires the c++14 standard. Additionally, the data is in netCDF format, which means cdo must be compiled with <a href="https://github.com/Unidata/netcdf-c">netDCF</a> which itself requires <a href="https://github.com/HDFGroup/hdf5">hdf5</a>.  To accomplish the remapping from stereographic projection cdo requires <a href="https://proj.org/">proj</a> (which requires a new enough version of <a href="https://github.com/sqlite">sqlite</a> to compile.  <code>make_install_cdo.sh</code> should handle downloading and compiling all the appropriate files as well as executing the appropriate regridding of all netCDF files. CDO requires an input parameter file to specific details of the target grid.  The required target parameter file is given in <code>configs/target_grid.txt</code>. The NSIDC sea ice concentration data V4 has an underspecified grid defined in its .nc data file, so we also include the fully defined northern hemisphere and southern hemisphere grid definition for the stereographic grid (<code>configs/nh_icefrac_grid.txt</code>) and southern hemisphere (<code>configs/sh_icefrac_grid.txt</code>). The <code>data_downloader.sh</code> script will automatically regrid the NSIDC data.</p>
 <p>On Ubuntu 20.04, this binary can be downloaded directly from the package repositories with <code>apt install cdo</code>. If you prefer, the binary can be downloaded directly from the website linked above. If choosing this route, ensure the downloaded binary is placed on your system path (e.g., in <code>/usr/bin</code>). HAIKU expects a globally accesible CDO binary.</p>
 <h2 id="data-download">Data Download</h2>
 <p>The data currently used in this system is described in detail in <a href="/data_models">HAIKU data</a> . We include a <code>data_downloader.sh</code> that automates downloading of all the CESM1 (simulation) data and some of the observation/reanalysis data. Unfortunately, much of the reanalysis data must be downloaded by hand, but descriptions of exactly what parameters to use to download the data are listed in the <code>data_downloader.sh</code> script. We will release a set of preprocessed data in the near future to reduce user effort and avoid possible issues in configuring the data, but will also maintain description of the full process for reproduceability. </p>
@@ -153,14 +156,13 @@ is provided to access data hosted by NCAR/earthsystemsgrid.org. You can access t
 <h3 id="nsidc-data">NSIDC data</h3>
 <p>The NSIDC data are hosted <a href="ftp://sidads.colorado.edu/pub/DATASETS/NOAA/G02202_V4/">here</a> covering 1987-present
 at a monthly temporal resolution. This data is hosted on an ftp server and no additional login information
-is required to download it. However, the coordinate system of the NSIDC data do not align with the CESM1 data
-and currently must be converted to latitude/longitude to make a direct comparison to the CESM1 output.</p>
+is required to download it. However, the coordinate system of the NSIDC data do not align with the CESM1 data. Currently, the preprocessing step will convert coordinate systems using python CDO bindings to (default) polar stereographic or lon-lat coordinates. These steps are described in <a href="/Tutorials/running_the_code#data-preprocessing-and-climatedata-objects">Running HAIKU</a>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../../software_framework/" class="btn btn-neutral float-left" title="Software Framework"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../quickstart/" class="btn btn-neutral float-right" title="Quickstart">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../running_the_code/" class="btn btn-neutral float-right" title="Running HAIKU">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -186,7 +188,7 @@ and currently must be converted to latitude/longitude to make a direct compariso
       <span><a href="../../software_framework/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../quickstart/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../running_the_code/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

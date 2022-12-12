@@ -68,32 +68,31 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../configure_haiku/">Configure HAIKU</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../running_the_code/">Running HAIKU</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Quickstart</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#quickstart-set-up-haiku-and-python-env">Quickstart: set up HAIKU and python env</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quickstart-data-download-and-regridding">Quickstart: Data Download and Regridding</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quickstart-data-download">Quickstart: Data Download</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quickstart-data-preprocessing-and-climatedata-objects">Quickstart: Data Preprocessing and ClimateData objects</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quickstart-training-a-koopman-model">Quickstart: Training a Koopman Model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quickstart-evaluating-robustness-of-koopman-models-to-noise-and-other-parameters">Quickstart: Evaluating Robustness of Koopman models to noise (and other parameters)</a>
     </li>
     </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Results</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/initial_motivation_results/">Initial Results</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/additional_variables_and_forcing/">Expanded Inputs</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/modeling_subregions/">Modeling Subregions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Results/next_steps/">Next Steps</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Results/initial_motivation_results/">Results</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../About/about/">About</a>
-                  </li>
+                <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                </li>
               </ul>
       </div>
     </div>
@@ -129,13 +128,20 @@ source ./haiku-venv/bin/activate
 pip install -r requirements.txt
 #export PYTHONPATH=$PYTHONPATH:/your/absolute/path/to/HAIKU
 </code></pre>
-<h2 id="quickstart-data-download-and-regridding">Quickstart: Data Download and Regridding</h2>
+<h2 id="quickstart-data-download">Quickstart: Data Download</h2>
 <ol>
 <li>Install CDO: <code>bash make_install_cdo.sh</code></li>
 <li>Navigate to <a href="https://www.earthsystemgrid.org/ac/user/apiTokenDisplay.html">NCAR User API token</a> to copy your API token (you will need to make and account/login)</li>
 <li><code>bash data_downloader.sh pasted_api_token</code> to download and preprocess the relevant data.</li>
 <li>The resultant files are split into the data/CESM1/ and data/NSIDC/ directories with subdirectories related to the data frequency and variables of interest are ready to be ingested by the HAIKU code</li>
 <li><code>data_downloader.sh</code> will also spit out text describing urls and rough instructions for any additional observational/reanalysis data that we've used in our analysis</li>
+</ol>
+<h2 id="quickstart-data-preprocessing-and-climatedata-objects">Quickstart: Data Preprocessing and ClimateData objects</h2>
+<p>The HAIKU software works with ClimateData objects that are defined <a href="/software_framework/#climate-data">here</a> for both plotting and modeling.
+To convert the downloaded climate data into ClimateData objects (including formatting, temporal interpolation, etc) execute the following steps for each downloaded dataset of interest:</p>
+<ol>
+<li><code>python scripts/preprocessing/preprocess.py input_directory target_grid_file output_directory</code></li>
+<li>Do step 1 for all variables of interest for your downstream plotting or analysis</li>
 </ol>
 <h2 id="quickstart-training-a-koopman-model">Quickstart: Training a Koopman Model</h2>
 <p>Once a user has downloaded either the CESM or NSIDC datasets, they can use HAIKU to train a Koopman Model. The following steps outline how to do so:</p>
@@ -158,12 +164,33 @@ pip install -r requirements.txt
 </ul>
 </li>
 </ol>
+<h2 id="quickstart-evaluating-robustness-of-koopman-models-to-noise-and-other-parameters">Quickstart: Evaluating Robustness of Koopman models to noise (and other parameters)</h2>
+<p>Once a Koopman model has been trained, as in the previous step, we'd like to evaluate it's ability to predict more quantitatively. One way to do this with the limited validation data is to measure the robustness of its predictions to various perturbations or assumptions we made in the data process. We currently have one such robustness analysis defined (robustness to measurement noise), but others are in the works and described in more detail <a href="/metrics/#robustness-of-haiku-models">here</a>.</p>
+<ol>
+<li>Copy the <code>configs/example_config.yml</code> file</li>
+<li>Update the new configuration file appropriately for your environment<ul>
+<li>Data directories can contain either CESM or NSIDC dataset files</li>
+<li>Specifying data directories containing different dataset types (e.g., ICEFRAC and SST) will result in a model combining the two variable types</li>
+</ul>
+</li>
+<li>Run <code>python scripts/robustness.py path_to_configuration_file</code><ul>
+<li>System output will be directed to the log file specified in the configuration file</li>
+<li>This will produce n ClimateData objects (saved to disk) with the magnitude of random noise defined in your configuration file applied.</li>
+<li>This will also produce n Koopman models for each ClimateData object. We can then analysis the distribution of Koopman models and their predictions to understand how robust HIAKU is to the input noise for this dataset. Sub-folders for each Koopman model parameter can be found</li>
+</ul>
+</li>
+<li>The generated models can then be operated on using the <code>robustness_plotting</code> module<ul>
+<li><code>python scripts/robustness_plots.py path_to_configuration_file.yaml path_to_robustness_models/ path_to_default_koopman_model.pkl YYYYMM01 output_directory_for_plots/</code></li>
+<li>This will produce a set of diagnostic plots related to the robustness of the Koopman model over the training data window extended to the data listed (YYYYMM01: 20201201 for instance)</li>
+</ul>
+</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../configure_haiku/" class="btn btn-neutral float-left" title="Configure HAIKU"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../Results/initial_motivation_results/" class="btn btn-neutral float-right" title="Initial Results">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../running_the_code/" class="btn btn-neutral float-left" title="Running HAIKU"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../Results/initial_motivation_results/" class="btn btn-neutral float-right" title="Results">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -186,7 +213,7 @@ pip install -r requirements.txt
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../configure_haiku/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../running_the_code/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../../Results/initial_motivation_results/" style="color: #fcfcfc">Next &raquo;</a></span>

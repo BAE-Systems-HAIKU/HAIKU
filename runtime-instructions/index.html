@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Michael Planer for BAE Systems, Inc" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>HOW TO RUN ON CENTOS 7 - ACTM-HAIKU</title>
+    <title>Runtime Instructions - ACTM-HAIKU</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "HOW TO RUN ON CENTOS 7";
-        var mkdocs_page_input_path = "how-to-run-haiku-on-centos7.md";
+        var mkdocs_page_name = "Runtime Instructions";
+        var mkdocs_page_input_path = "runtime-instructions.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -95,7 +95,7 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>HOW TO RUN ON CENTOS 7</li>
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Runtime Instructions</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -105,64 +105,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-run-on-centos-7">HOW TO RUN ON CENTOS 7</h1>
-<h2 id="overview">OVERVIEW</h2>
-<p>CentOS 7 offers fewer required dependencies in its upstream repositories than Ubuntu,
-so we need to build some things from scratch. The following steps were followed and
-verified on a barebones CentOS 7 system.</p>
-<h2 id="steps">STEPS</h2>
-<h3 id="installing-yum-dependencies">Installing YUM Dependencies</h3>
-<pre><code>yum install -y epel-release
-yum update -y
-yum groupinstall -y &quot;Development Tools&quot;
-yum install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel netcdf netcdf-devel
-</code></pre>
-<h3 id="installing-python-3810">Installing Python 3.8.10</h3>
-<p>Note: If you already have Python 3.8.10 installed (whether it's through conda or other means), then skip this step.
-This step is simply for getting Python running on your system.</p>
-<pre><code>cd /opt
-wget https://www.python.org/ftp/python/3.8.10/Python-3.8.10.tgz
-tar xzf Python-3.8.10.tgz
-cd Python-3.8.10
-./configure --with-optimizations
-make altinstall
-ln -s /usr/local/bin/python3.8 /usr/local/bin/python3
-</code></pre>
-<p>You should now confirm your <code>python</code> version with the command: <code>python3 --version</code></p>
-<h3 id="installing-cdo-from-source">Installing CDO from Source</h3>
-<p>The CDO binary is required for Haiku to run. On CentOS 7, we need to build this library from source.</p>
-<p>We are using CDO version 1.9.9</p>
-<pre><code>cd /opt
-wget https://code.mpimet.mpg.de/attachments/download/23323/cdo-1.9.9.tar.gz
-tar xzf cdo-1.9.9.tar.gz
-cd cdo-1.9.9
-./configure --with-netcdf
-make
-make install
-</code></pre>
-<p>You should now confirm your <code>cdo</code> version with the command: <code>cdo --version</code></p>
-<h3 id="installing-python-dependencies">Installing Python Dependencies</h3>
-<p>For now, we will be using <code>pip</code> to install <code>python</code> dependencies (Poetry support can be added later)</p>
-<p>If you are not using <code>conda</code>, then create a <code>python</code> virtual environment and activate it.
-If you are using <code>conda</code>, you can most likely skip this step (although I have not tested with <code>conda</code>)</p>
-<pre><code>python3 -m venv ./venv
-source ./venv/bin/activate
-</code></pre>
-<p>Next, install the <code>pip</code> dependencies using the <code>requirements.txt</code> file in this repo's base directory:</p>
-<pre><code>pip install -r requirements.txt
-</code></pre>
-<h3 id="configuring-pythonpath">Configuring PYTHONPATH</h3>
-<p>You need to make sure the project's repository base directory is located on the <code>PYTHONPATH</code> environment variable.</p>
-<p>For example, if I checkout this repository to <code>/home/test/haiku</code>, then I can accomplish this with the following:</p>
-<pre><code>export PYTHONPATH=$PYTHONPATH:/home/test
-</code></pre>
-<p>I recommend pasting this line at the end of the <code>~/.bashrc</code> file, so it is run automatically with each new terminal window.
-Otherwise, you'll need to run it yourself every time you open a new terminal window.</p>
-<h3 id="running-the-code">Running the Code</h3>
-<p>With the above completed, you should now be able to run the code.</p>
-<p>First, copy <code>configs/example_config.yml</code> and update the fields accordingly.</p>
-<p>Then, run training with <code>python scripts/train.py configs/your_config.yml</code></p>
-<p>Execution output can be found in the log file specified in the configuration file.</p>
+                <h1 id="runtime-instructions">Runtime Instructions</h1>
+<h2 id="overview">Overview</h2>
+<p>This document provides an overview of the HAIKU runtimes and supported data formats.</p>
+<h2 id="data-sources-and-variables">Data Sources and Variables</h2>
+<p>The following are a list of currently supported data sources and variables.</p>
+<p><strong>Observational (NSIDC)</strong>
+- Sea Ice Concentration
+    - Goddard Merged
+    - Goddard NASA Team
+    - Goddard Bootstrap
+- Sea Surface Temperature (ORAS5)
+- 2 Meter Temperature (ERA5)
+- Thickness (PIOMAS)</p>
+<p><strong>Simulated (CESM1)</strong>
+- Sea Ice Concentration
+- Sea Surface Temperature
+- Surface Temperature
+- Forcing
+    - ch4 volume mixing ratio
+    - co2 volume mixing ratio
+    - f11 volume mixing ratio
+    - f12 volume mixing ratio
+    - n20 volume mixing ratio
+    - Total solar irradiance (W/m2)</p>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>The first step of running HAIKU is data preprocessing.</p>
+<p>In this step, HAIKU extracts variables from the data source datasets and formats it for training. The software accomplishes this with the following steps:</p>
+<ol>
+<li>
+<p>Loading</p>
+<ul>
+<li>Extract variables of interest from dataset, load them into memory, and discard the rest</li>
+</ul>
+</li>
+<li>
+<p>Sorting</p>
+<ul>
+<li>Data is sorted chronologically once loaded into memory</li>
+</ul>
+</li>
+<li>
+<p>Temporal Interpolation</p>
+<ul>
+<li>If data is missing timesteps, the data is interpolated linearly and a log message is recorded</li>
+<li>If data is on a different lat/lon grid</li>
+</ul>
+</li>
+<li>
+<p>Aggregation</p>
+<ul>
+<li>There are two supported runtimes for aggregate:<ul>
+<li>Combine<ul>
+<li>Data for the same variable types are combined into the same data structure</li>
+<li>Use case: Some datasets are split into multiple files when stored on disk</li>
+<li>Assumption: Data does not overlap timesteps across the split files</li>
+</ul>
+</li>
+<li>Average<ul>
+<li>All loaded data is averaged into a single dataset</li>
+<li>Use case: CESM1 Large Ensemble datasets</li>
+<li>Assumption: All data being averaged is the same variable and has the same number of timesteps</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Spatial Interpolation</p>
+<ul>
+<li>Data is remapped to match a prespecified grid</li>
+</ul>
+</li>
+<li>
+<p>Serialization</p>
+<ul>
+<li>Formatted data is serialized to disk as a <code>pickle</code> file</li>
+<li>This output is used subsequently as input to the next step</li>
+</ul>
+</li>
+</ol>
               
             </div>
           </div><footer>
