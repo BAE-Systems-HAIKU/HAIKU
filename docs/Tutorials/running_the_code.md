@@ -41,7 +41,7 @@ After this step is finished (which may take a while due to the remapping step), 
 
 <center>
 <figure>
-<img src="/figs/results/2-d_snapshot_example.png" alt="example_climate_data_object" style="width:80%">
+<img src="../../figs/results/2-d_snapshot_example.png" alt="example_climate_data_object" style="width:80%">
 <figcaption align = "center" style="width:80%"><b>Figure 1:</b> One of these images will be generated for each of the timesteps after a ClimateData object is created and saved for processing. In this case, the POLAR grid is the default option, but N or S will store the data and plot in latitude and longitudinal coordinates if prefered.</figcaption>
 </figure>
 </center>
@@ -61,7 +61,7 @@ python scripts/create_mask.py data_file.nc output_mask_file.pkl 0 100 --variable
 You can check that this code worked correctly by reviewing the image of the mask that is saved alongside the .pkl file (example shown in Figure 2).
 
 <figure>
-<img src="/figs/results/example_mask.png" alt="example_mask_object" style="width:80%">
+<img src="../../figs/results/example_mask.png" alt="example_mask_object" style="width:80%">
 <figcaption align = "center" style="width:80%"><b>Figure 2:</b> Automatically generated image of the mask. You should verify that it has the same coordinate system as the data produced in the previous step and that the red region on the right corresponds to the region you'd like unmasked.</figcaption>
 </figure>
 </center>
@@ -91,7 +91,7 @@ By default, some diagnostic plots will be produced during the training step alon
 ###Model characteristics Diagnostic Plots
 
 <figure>
-<img src="/figs/results/eigenvaluesCT_merged_sst.png" alt="auto_eigenvalues" style="width:60%">
+<img src="../../figs/results/eigenvaluesCT_merged_sst.png" alt="auto_eigenvalues" style="width:60%">
 <figcaption align = "center" style="width:60%"><b>Figure 3:</b> Eigenvalues plot. This plot is automatically generated during the Koopman model training step. The distribution of eigenvalues and their relative magnitudes can be seen. 
 </figure>
 &nbsp;
@@ -101,7 +101,7 @@ Figure 1 shows the distribution of eigenvalues and their relative magnitudes fro
 Figure 4 highlights the largest mode, the mean mode and shows the spatial distribution of the sea ice averages in the arctic region as learned by the Koopman model.
 
 <figure>
-<img src="/figs/results/mode1_cdr_seaice.png" alt="auto_mean_mode" style="width:60%">
+<img src="../../figs/results/mode1_cdr_seaice.png" alt="auto_mean_mode" style="width:60%">
 <figcaption align = "left" style="width:60%"><b>Figure 3:</b> Spatial distribution of Mean mode. This plot is automatically generated during the Koopman model training step. This shows the spatial distribution of the Mean mode for the NOAA sea ice concentration (a separate plot will be produced for each mode and each variable included in Koopman model training).
 </figure>
 &nbsp;
@@ -111,8 +111,8 @@ It should be noted that each individual mode, especially in the case of the annu
 Plots of the most interest to this program are the highest magnitude exponential modes (spatial distribution in Figure 3). By identifying regions of interest, we can cross-check predictions and potentially identify spatial regions of interest as described in [Section X](TODO).
 
 <figure>
-<img src="/figs/results/exponential_mode_cdr_seaice_conc_monthly.png" alt="auto_exponential_mode" style="width:45%">
-<img src="/figs/results/exponential_mode_sosst.png" alt="auto_exponential_sst_mode" style="width:45%">
+<img src="../../figs/results/exponential_mode_cdr_seaice_conc_monthly.png" alt="auto_exponential_mode" style="width:45%">
+<img src="../../figs/results/exponential_mode_sosst.png" alt="auto_exponential_sst_mode" style="width:45%">
 <figcaption align = "center" style="width:90%"><b>Figure 4:</b> Spatial distribution of largest exponential mode. A large exponential mode is the sign of a tipping point in the variable of interest. <b>Left:</b> a region of exponential decay in the Sea Ice Coverage variable in the Barents Sea region. <b>Right:</b> some correlation here in the Sea Surface Temperature and the Sea Ice Coverage. In particular, there is some rapid warming predicted by the Koopman model in the same region as the potential tipping point region. 
 
 </figure>
@@ -133,8 +133,8 @@ When the prediction code is run, several default plots will be produced. The fir
 It is hard to quickly understand how the Koopman model prediction is doing when looking at individual time steps, especially at the decadal time-scale of interest in this program. To cover that portion, the prediction script also generates a series of time series comparisons over composed variables of interest. In this case, the most interesting variable is likely sea ice extent (or the number of square kilometers that are coverage by sea ice in the arctic) seen in Figure 6.
 
 <figure>
-<img src="/figs/results/Month_3_Sea_Ice_Extent.png" alt="Sea Ice Extent March" style="width:48%">
-<img src="/figs/results/Month_9_Sea_Ice_Extent.png" alt="Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_3_Sea_Ice_Extent.png" alt="Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_9_Sea_Ice_Extent.png" alt="Sea Ice Extent March" style="width:48%">
 <figcaption align = "center" style="width:96%"><b>Figure 6:</b> Sea Ice Extent as predicted by the Koopman model as compared to NSIDC observation, Climatalogical Mean, and CESM1 Large Ensemble member 002. This plot is automatically generated during the prediction step. The annual data for the March monthly average (<b>Left</b>) and September monthly average (<b>Right</b>) are shown for comparison.
 </figure>
 &nbsp;
@@ -164,8 +164,8 @@ The production of each of the n datasets and koopman models will (by default) ha
 Each dataset will have its own number from 0-N and the full plots associated with prediction/training will be found in associated subdirectories. Inside the Original subdirectory are the same diagnostic plots for the koopman model trained on the unperturbed dataset. And finally, inside the 'average' directory, one can find the original model with uncertainty bands based on the full distribution of predictions. Figure 7 shows the sea ice extent predicted for March and September.
 
 <figure>
-<img src="/figs/results/Month_3_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
-<img src="/figs/results/Month_9_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_3_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_9_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
 <figcaption align = "center" style="width:96%"><b>Figure 7:</b> Sea Ice Extent as predicted by the Koopman model as compared to NSIDC observation, Climatalogical Mean, and CESM1 Large Ensemble member 002 with the 2sigma uncertainty bands on the model prediction due to measurement uncertainty. This plot is automatically generated during the prediction step. The annual data for the March monthly average (<b>Left</b>) and September monthly average (<b>Right</b>) are shown for comparison.
 </figure>
 &nbsp;

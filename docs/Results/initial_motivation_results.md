@@ -70,7 +70,7 @@ Figure 7 shows our model’s predictions under two different forcing scenarios: 
 Importantly, we find that the sea ice dynamics are mostly internally driven with little direct impact from the CO2 forcing.
 
 <figure>
-<img src="/figs/results/FKPM_with_forcing_beta.png" alt="CESM" style="width:80%">
+<img src="../../figs/results/FKPM_with_forcing_beta.png" alt="CESM" style="width:80%">
 <figcaption align = "center" style="width:90%"><b>Figure 7:</b> – September sea ice area from 1979 to 2027. (Blue) Predictions from a Koopman model trained from 01/1979 to 12/2009. (Orange) Mean of CESM1 ensemble members’ predictions. (Green) CO2 volume mixing ratio. Two scenarios are shown: constant forcing after 2009 (top) and complete historical forcing (bottom). The red star represents a forecast of the sea ice in September 2022 based on the current sea ice: https://www.arcus.org/sipn/sea-ice-outlook/2022/july</figure>
 &nbsp;  
 
@@ -84,8 +84,8 @@ The two questions of interest are:
    - do we see the exponential mode in the Barents Sea across all models?
 
 <figure>
-<img src="/figs/results/Month_3_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
-<img src="/figs/results/Month_9_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_3_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
+<img src="../../figs/results/Month_9_Sea_Ice_Extent_robustness.png" alt="Robustness Sea Ice Extent March" style="width:48%">
 <figcaption align = "center" style="width:96%"><b>Figure 8:</b> Sea Ice Extent as predicted by the Koopman mode
 l as compared to NSIDC observation, Climatalogical Mean, and CESM1 Large Ensemble member 002 with the 2sigma uncertainty bands on the model prediction due to measurement uncertainty. This plot is automatically generated during the prediction step. The annual data for the March monthly average (<b>Left</b>) and September monthly average (<b>Right</b>) are shown for comparison.
 </figure>
@@ -97,7 +97,7 @@ We plan to extend this analysis to other forms of uncertainty or parameter choic
 We can improve the overall robustness with respect to spatially distributed noise by leveraging sub-region analysis. When we investigated the Barents Sea subregion, the Koopman methods reveal an exponentially decaying Koopman mode as seen in Figure 10. The data from the entire hemisphere is subject to more noise than a small subregion, and can cause the model to pick up extraneous dynamics. We enhance the predictions from our global model by updating with information from local models, such as the model trained on the Barents Sea subregion. By feeding the known dynamics back into the global FKPM, we can average nearby Koopman modes to produce global support for the locally learned dynamics.
 
 <figure>
-<img src="/figs/results/region_analysis.jpg" alt="regional_analysis" style="width:80%">
+<img src="../../figs/results/region_analysis.jpg" alt="regional_analysis" style="width:80%">
 <figcaption align = "center" style="width:90%"><b>Figure 9:</b> <b>Left:</b> Koopman methods are applied to data from the Barents Sea subregion. <b>Right:</b> Koopman methods are applied to the entire northern hemisphere. The red circle on the complex plane is centeredat the exponential decay dynamics learned for the Barents Sea subregion and produces a similar support.
 </figure>
 &nbsp;  
@@ -108,7 +108,7 @@ In the proposed HKCM architecture, the CESM1 is augmented with a Koopman model t
 The coupled Koopman model was trained on the error between the CESM1 simulation and NSIDC observational data. The results from this model are shown in Figure 10, specifically the error that arises in the mean and annual variations.
 
 <figure>
-<img src="/figs/results/hybrid_difference_modes.jpg" alt="hybrid_differences" style="width:95%">
+<img src="../../figs/results/hybrid_difference_modes.jpg" alt="hybrid_differences" style="width:95%">
 <figcaption align = "center" style="width:95%"><b>Figure 10:</b> Koopman modes as part of HKCM. The (left) mean and (right) annual variation Koopman modes trained on the error between CESM1 simulations and NSIDC observational data.
 </figure>
 &nbsp;

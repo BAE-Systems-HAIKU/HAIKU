@@ -7,18 +7,22 @@ FKPM can be trained from observational or simulated data.
 Initial accuracy metric will compare the relative accuracy of the FKPM (trained on observation) to Climate model's accuracy and that of the climatalogical mean.
 At present we compute relative error of each point at each time step for data outside of training set.
 
+<center>
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 1:</b> MSE of a model across all spatial observations at a given time step. </figcaption>
 <img src="../figs/equations/MSE_error.png" alt="MSE error" style="width:35%">
 </figure>
+</center>
 &nbsp;  
 
 An example of this accuracy analysis in action can be seen on some preliminary results comparing forecasting from a FKPM trained only on sea ice concentration data to NSIDC data.
 
+<center>
 <figure>
-<img src="../../figs/results/Sea_ice_only_forecasting.png" alt="FKPM sea ice only monthly accuracy" style="width:80%">
+<img src="../figs/results/Sea_ice_only_forecasting.png" alt="FKPM sea ice only monthly accuracy" style="width:80%">
 <figcaption align = "center" style="width:90%"><b>Figure 1:</b> A FKPM was trained on monthly NSIDC (sea ice concentration only) data from 1997-2000. The Koopman model was then run foreward to forecast monthly predictions from 2001-2004. The pointwise RMSE of the FKPM (blue), CESM1 (orange), and climatalogical mean (green) were then computed from the observed monthly NSIDC data. </figcaption> 
-</figure> 
+</figure>
+</center> 
 &nbsp;  
 
 We plan to average over geographic and temporal step size to better quantify the utility of our models to the longer time scale climate trends as well as to mitigate the potential very small scale noise that the FKPM attempts to simulate.
@@ -39,10 +43,12 @@ Will enable Phase II ability to identify measurements to improve overall accurac
 FKPM models are trained on simulated or observational data, both of these sources have measurement uncertainty in the quantities we aim to model. By quantifying the impact variance on these inputs have in the predictions the koopman model is able to generate, we can define a bounds on the uncertainty of the FKPM predictions.
 Specifically, this is done by training multiple koopman models while varying the training inputs within the bounds of their uncertainty. The speed of the training of the Koopman models allows 10s of models to be trained to get a good estimate of the distribution of Koopman models over the parameters of interest.
 
+<center>
 <figure>
 <img src="../figs/diagrams/robustness_flowchart.png" alt="Robustness diagram" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 2:</b> Software diagram describing the robustness analytic algorithm in action. </figcaption>
 </figure>
+</center>
 &nbsp;  
 
 Analytics of interest include:
@@ -57,17 +63,21 @@ Given an FKPM of interest, we can run the above robustness analytics to estimate
 ##Proxy Model Speedup
 The ability of the FKPM to accurately model the climate system is of primary importance, but in order to provide analytics not possible with current climate models, we must also be able to train and test orders of magnitude faster than the current full physics climate simulations. To that end, we propose a metric called Proxy Model Speedup which is the fraction of the time the CESM model takes to evaluate 50 years of climate forecasting at the fidelity described in our datasets section over the time taken for the Koopman model to do the same.
 
+<center>
 <figure>
 <b>Equation 2:</b> Metric to capture speedup of FKPM over standard climate models </figcaption>
 <figcaption align = "center" style="width:90%">
 <img src="../figs/equations/proxy_model_speedup.png" alt="FKPM speedup metric" style="width:50%">
 </figure>
+</center>
 &nbsp;  
 
+<center>
 <figure>
 Measurement of Proxy Model speedup with HAIKU beta version:</figcaption>
 <img src="../figs/results/timing_study_july.png" alt="FKPM speedup measurements" style="width:100%">
 </figure>
+</center>
 &nbsp;  
 
 The measured speedup when leveraging Koopman models allows HAIKU to quickly run many predictions with modified forcing terms, input values, etc to generate the large number of time-series required for causal discovery
@@ -79,10 +89,12 @@ An important analytic in the HAIKU toolkit is to identify causally linked variab
 
 Our current approach at causal discovery involves rapid what-if analyses using the FKPM to tweak potential causal variables and evaluate the change in potential effect variables. We can also identify the off-diagonal terms in the Koopman matrix to infer causality between modes. While our data is high dimensional, we can restrict potential causal links spatially and based on known physics. Once we’ve identified a set of proposed causal links using granger causality in a specific set of FKPMs we then propose a further set of experiments on the original reference climate model via a counterfactual experiment. The accuracy of causal links discovered by the FKPMs is then the fraction of causal links not refuted by high-fidelity models over the total number of proposed causal links.
 
+<center>
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 3: </b> Metric to capture the accuracy of the causal links predicted by the Semantic Graph Generator</figcaption>
 <img src="../figs/equations/causal_link_accuracy.png" alt="accuracy of causal links" style="width:35%">
 </figure>
+</center>
 &nbsp;  
 
 Where CF is 0 if a causal links disproved by counterfactual evidence or 1 if it is validated and N is the total number of proposed causal links. If we assume that the sampling of CESM model parameters enclose the true observational parameters, measuring the distribution of Causal Link Accuracies of FKPMs trained on various CESM output should provide a reasonable estimate of the Causal Link Accuracy of a FKPM trained to more precisely emulate the observational data.
@@ -102,10 +114,12 @@ Quantitative metrics are preferred, so we also aim to verify the accuracy of as 
 
 For an FKPM trained on climate simulation data, we can go back to the original simulation to verify if a tipping point is present. The FKPM allows us to sample parameter space much more rapidly and the Koopman mode analysis also allows us to identify potential areas to explore. Once we’ve identified potential conditions that trigger a tipping point using our Analysis Toolkit, we return to the original simulations and verify if the predicted tipping point is present in the dynamics of the simulation. This Tipping Point accuracy is the fraction of verified tipping points over the total number of proposed tipping points. 
 
+<center>
 <figure>
 <figcaption align = "center" style="width:90%"><b>Equation 4: </b> Metric to estimate accuracy of tipping points</figcaption>
 <img src="../figs/equations/tipping_point_accuracy.png" alt="accuracy of causal links" style="width:50%">
 </figure>
+</center>
 &nbsp;  
 
 Where VTP (verified tipping point) is 0 if the tipping point is not verified on the current FKPM and 1 if it is. We then range over N FKPMs and over M identified tipping points. 
