@@ -39,7 +39,7 @@ On Ubuntu 20.04, this binary can be downloaded directly from the package reposit
 
 ## Data Download
 
-The data currently used in this system is described in detail in [HAIKU data](/data_models) . We include a `data_downloader.sh` that automates downloading of all the CESM1 (simulation) data and some of the observation/reanalysis data. Unfortunately, much of the reanalysis data must be downloaded by hand, but descriptions of exactly what parameters to use to download the data are listed in the `data_downloader.sh` script. We will release a set of preprocessed data in the near future to reduce user effort and avoid possible issues in configuring the data, but will also maintain description of the full process for reproduceability. 
+The data currently used in this system is described in detail in [HAIKU data](../../data_models) . We include a `data_downloader.sh` that automates downloading of all the CESM1 (simulation) data and some of the observation/reanalysis data. Unfortunately, much of the reanalysis data must be downloaded by hand, but descriptions of exactly what parameters to use to download the data are listed in the `data_downloader.sh` script. We will release a set of preprocessed data in the near future to reduce user effort and avoid possible issues in configuring the data, but will also maintain description of the full process for reproduceability. 
 
 ### NCAR data
 We extract several variables from the NCAR getway hosted [here](https://www.cesm.ucar.edu/projects/community-projects/LENS/data-sets.html).
@@ -50,4 +50,4 @@ is provided to access data hosted by NCAR/earthsystemsgrid.org. You can access t
 ### NSIDC data
 The NSIDC data are hosted [here](ftp://sidads.colorado.edu/pub/DATASETS/NOAA/G02202_V4/) covering 1987-present
 at a monthly temporal resolution. This data is hosted on an ftp server and no additional login information
-is required to download it. However, the coordinate system of the NSIDC data do not align with the CESM1 data. Currently, the preprocessing step will convert coordinate systems using python CDO bindings to (default) polar stereographic or lon-lat coordinates. These steps are described in [Running HAIKU](/Tutorials/running_the_code#data-preprocessing-and-climatedata-objects).
+is required to download it. However, the coordinate system of the NSIDC data do not align with the CESM1 data. Currently, the preprocessing step will convert coordinate systems using python CDO bindings to (default) polar stereographic or lon-lat coordinates. These steps are described in [Running HAIKU](../running_the_code#data-preprocessing-and-climatedata-objects).

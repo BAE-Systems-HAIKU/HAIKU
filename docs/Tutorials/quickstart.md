@@ -1,7 +1,7 @@
 #Quickstart
 
 ##Quickstart: set up HAIKU and python env
-Thesteps below are explained in full detail in [Configure HAIKU](/Tutorial/configure_haiku)
+Thesteps below are explained in full detail in [Configure HAIKU](../../Tutorials/configure_haiku)
 
 ```
 git clone https://github.com/BAE-Systems-HAIKU/HAIKU.git HAIKU
@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ##Quickstart: Data Preprocessing and ClimateData objects
 
-The HAIKU software works with ClimateData objects that are defined [here](/software_framework/#climate-data) for both plotting and modeling.
+The HAIKU software works with ClimateData objects that are defined [here](../../software_framework/#climate-data) for both plotting and modeling.
 To convert the downloaded climate data into ClimateData objects (including formatting, temporal interpolation, etc) execute the following steps for each downloaded dataset of interest:
 
    1. `python scripts/preprocessing/preprocess.py input_directory target_grid_file output_directory`
@@ -46,7 +46,7 @@ Once a user has downloaded either the CESM or NSIDC datasets, they can use HAIKU
 
 ## Quickstart: Evaluating Robustness of Koopman models to noise (and other parameters)
 
-Once a Koopman model has been trained, as in the previous step, we'd like to evaluate it's ability to predict more quantitatively. One way to do this with the limited validation data is to measure the robustness of its predictions to various perturbations or assumptions we made in the data process. We currently have one such robustness analysis defined (robustness to measurement noise), but others are in the works and described in more detail [here](/metrics/#robustness-of-haiku-models).
+Once a Koopman model has been trained, as in the previous step, we'd like to evaluate it's ability to predict more quantitatively. One way to do this with the limited validation data is to measure the robustness of its predictions to various perturbations or assumptions we made in the data process. We currently have one such robustness analysis defined (robustness to measurement noise), but others are in the works and described in more detail [here](../../metrics/#robustness-of-haiku-models).
 
 1. Copy the `configs/example_config.yml` file
 2. Update the new configuration file appropriately for your environment

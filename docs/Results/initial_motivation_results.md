@@ -75,9 +75,9 @@ Importantly, we find that the sea ice dynamics are mostly internally driven with
 &nbsp;  
 
 ## Proof of concept robustness metric
-The speed at which the koopman models can be trained allows for a much more extensive analysis of the model robustness to parameter choices and data uncertainty than with a traditional climate model. Climate is generally a chaotic system, but if the same tipping points or decadal trends are present in a chort of 50 koopman models are trained with slightly varied input data, then we can increase our confidence that those trends or tipping points are real or should be looked into in more depth.
+The speed at which the koopman models can be trained allows for a much more extensive analysis of the model robustness to parameter choices and data uncertainty than with a traditional climate model. Climate is generally a chaotic system, but if the same tipping points or decadal trends are present in a cohort of 50 koopman models are trained with slightly varied input data, then we can increase our confidence that those trends or tipping points are real or should be looked into in more depth.
 
-As an initial proof of concept, we train a koopman model on the NSIDC dataset over the range of 1978-2009 and a prediction/validation range from 2009-2021. We additionally generate 50 datasets by assuming gaussian noise of 5% on the underlying measurements as described in the [NOAA paper](TODO). Each of these datasets is quickly modeled by using Koopman methods to produce 50 models. We then generate a distribution of predictions using all 50 koopman models to understand how much of an impact the specific values of the measurements in the NSIDC data had as compared to a possible alternative set assuming the 5% relative variance in observation described by NOAA.
+As an initial proof of concept, we train a koopman model on the NSIDC dataset over the range of 1978-2009 and a prediction/validation range from 2009-2021. We additionally generate 50 datasets by assuming gaussian noise of 5% on the underlying measurements as described in the [NOAA paper](https://nsidc.org/sites/default/files/cdrp-atbd-final_7.pdf). Each of these datasets is quickly modeled by using Koopman methods to produce 50 models. We then generate a distribution of predictions using all 50 koopman models to understand how much of an impact the specific values of the measurements in the NSIDC data had as compared to a possible alternative set assuming the 5% relative variance in observation described by NOAA.
 
 The two questions of interest are:
    - do we see the flattening of September sea ice extent across all model predictions?
@@ -91,7 +91,7 @@ l as compared to NSIDC observation, Climatalogical Mean, and CESM1 Large Ensembl
 </figure>
 &nbsp;
 
-We plan to extend this analysis to other forms of uncertainty or parameter choice as described in the [robustness section](/metrics/#robustness-of-haiku-models). And it can be used to estimate the [value of new data](/analyses/#value-of-new-data-estimator-vonde), although the infrastructure for that is not yet built out.
+We plan to extend this analysis to other forms of uncertainty or parameter choice as described in the [robustness section](../../metrics/#robustness-of-haiku-models). And it can be used to estimate the [value of new data](../../analyses/#value-of-new-data-estimator-vonde), although the infrastructure for that is not yet built out.
 
 ## Sub-region analysis to improve stability
 We can improve the overall robustness with respect to spatially distributed noise by leveraging sub-region analysis. When we investigated the Barents Sea subregion, the Koopman methods reveal an exponentially decaying Koopman mode as seen in Figure 10. The data from the entire hemisphere is subject to more noise than a small subregion, and can cause the model to pick up extraneous dynamics. We enhance the predictions from our global model by updating with information from local models, such as the model trained on the Barents Sea subregion. By feeding the known dynamics back into the global FKPM, we can average nearby Koopman modes to produce global support for the locally learned dynamics.
@@ -103,7 +103,7 @@ We can improve the overall robustness with respect to spatially distributed nois
 &nbsp;  
 
 ## Initial HKCM results
-In the proposed HKCM architecture, the CESM1 is augmented with a Koopman model to improve predictive ability. This approach is described in more detail in the [Hybrid Koopman-Climate Model](/koopman/#hybrid-ai-koopman-climate-model-hkcm) section.
+In the proposed HKCM architecture, the CESM1 is augmented with a Koopman model to improve predictive ability. This approach is described in more detail in the [Hybrid Koopman-Climate Model](../../koopman/#hybrid-ai-koopman-climate-model-hkcm) section.
 
 The coupled Koopman model was trained on the error between the CESM1 simulation and NSIDC observational data. The results from this model are shown in Figure 10, specifically the error that arises in the mean and annual variations.
 

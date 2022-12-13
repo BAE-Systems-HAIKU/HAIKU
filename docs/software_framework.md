@@ -106,5 +106,5 @@ The initial implementation of the **_analysis_toolkit_** hinges around the **_Ca
 
 The analytics toolkit allows for generation of the causal model class and enables the time-series based what-if analyses that can be conducted on the causal variables themselves.
 
-The analytics toolkit will also enable the metrics described in the [Metrics](metrics) section.  Specifically, a user will be able to select the metric of interest (eg. robustness to training window bounds) and will automatically run the relevant analysis over the specified parameters and present figures and estimates of the metric in question.
+The analytics toolkit will also enable the metrics described in the [Metrics](../metrics) section.  Specifically, a user will be able to select the metric of interest (eg. robustness to training window bounds) and will automatically run the relevant analysis over the specified parameters and present figures and estimates of the metric in question.
 
