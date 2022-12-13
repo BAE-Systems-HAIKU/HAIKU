@@ -120,7 +120,7 @@
               
                 <h1 id="quickstart">Quickstart</h1>
 <h2 id="quickstart-set-up-haiku-and-python-env">Quickstart: set up HAIKU and python env</h2>
-<p>Thesteps below are explained in full detail in <a href="/Tutorial/configure_haiku">Configure HAIKU</a></p>
+<p>Thesteps below are explained in full detail in <a href="../../Tutorials/configure_haiku">Configure HAIKU</a></p>
 <pre><code>git clone https://github.com/BAE-Systems-HAIKU/HAIKU.git HAIKU
 cd HAIKU
 python3.8 -m venv ./haiku-venv
@@ -137,7 +137,7 @@ pip install -r requirements.txt
 <li><code>data_downloader.sh</code> will also spit out text describing urls and rough instructions for any additional observational/reanalysis data that we've used in our analysis</li>
 </ol>
 <h2 id="quickstart-data-preprocessing-and-climatedata-objects">Quickstart: Data Preprocessing and ClimateData objects</h2>
-<p>The HAIKU software works with ClimateData objects that are defined <a href="/software_framework/#climate-data">here</a> for both plotting and modeling.
+<p>The HAIKU software works with ClimateData objects that are defined <a href="../../software_framework/#climate-data">here</a> for both plotting and modeling.
 To convert the downloaded climate data into ClimateData objects (including formatting, temporal interpolation, etc) execute the following steps for each downloaded dataset of interest:</p>
 <ol>
 <li><code>python scripts/preprocessing/preprocess.py input_directory target_grid_file output_directory</code></li>
@@ -165,7 +165,7 @@ To convert the downloaded climate data into ClimateData objects (including forma
 </li>
 </ol>
 <h2 id="quickstart-evaluating-robustness-of-koopman-models-to-noise-and-other-parameters">Quickstart: Evaluating Robustness of Koopman models to noise (and other parameters)</h2>
-<p>Once a Koopman model has been trained, as in the previous step, we'd like to evaluate it's ability to predict more quantitatively. One way to do this with the limited validation data is to measure the robustness of its predictions to various perturbations or assumptions we made in the data process. We currently have one such robustness analysis defined (robustness to measurement noise), but others are in the works and described in more detail <a href="/metrics/#robustness-of-haiku-models">here</a>.</p>
+<p>Once a Koopman model has been trained, as in the previous step, we'd like to evaluate it's ability to predict more quantitatively. One way to do this with the limited validation data is to measure the robustness of its predictions to various perturbations or assumptions we made in the data process. We currently have one such robustness analysis defined (robustness to measurement noise), but others are in the works and described in more detail <a href="../../metrics/#robustness-of-haiku-models">here</a>.</p>
 <ol>
 <li>Copy the <code>configs/example_config.yml</code> file</li>
 <li>Update the new configuration file appropriately for your environment<ul>
