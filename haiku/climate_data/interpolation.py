@@ -1,13 +1,72 @@
 
+import logging
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from typing import List, Tuple
 
 import numpy as np
 import numpy.typing as npt
+from dateutil.relativedelta import relativedelta
+from haiku.climate_data.climate_data import ClimateData
+from scipy import interpolate
+
+from haiku.cdo_wrapper.grid_information import Grid
 
 
 class Interpolator:
+
+    def interpolate_climate_data(self, data: List[ClimateData]) -> List[ClimateData]:
+        L: List[ClimateData] = []
+        index = 1
+        while index < len(data):
+            climate_data_before = data[index - 1]
+            climate_data_after = data[index]
+
+            date_before = climate_data_before.dates[-1]
+            date_after = climate_data_after.dates[0]
+            elapsed_months = self.months_difference(
+                date_before, date_after)
+            if elapsed_months > 1:
+                logging.info("%d months have elapsed between %s and %s",
+                             elapsed_months, date_before, date_after)
+                logging.info("Interpolating the missing months...")
+                # we can interpret 0 as the starting time index
+                # and elapsed_months as the ending time index
+                # NOTE: This is only true since we look at data month by month
+                data_before = climate_data_before.data[-1]
+                data_after = climate_data_after.data[0]
+                missing_data = self._interpolate_missing_months(
+                    data_before,
+                    data_after,
+                    0,
+                    elapsed_months
+                )
+
+                # create new ClimateData objects based on the new data
+                for i, missing_datapoint in enumerate(missing_data):
+                    # +1 here because of the zero indexing...
+                    new_date = date_before + relativedelta(months=1+i)
+
+                    # expand dimensions since this is a single timestep
+                    # and we need to maintain the format (time, lat, lon)
+                    # for ClimateData objects
+                    # here we are adding the time dimension
+                    missing_datapoint = np.expand_dims(
+                        missing_datapoint, axis=0)
+
+                    interpolated_cd = ClimateData(
+                        missing_datapoint,
+                        np.asarray([new_date]),
+                        climate_data_before.latitudes.copy(),
+                        climate_data_before.longitudes.copy(),
+                        climate_data_before.description
+                    )
+                    L.append(interpolated_cd)
+
+                index += elapsed_months - 1
+            else:
+                index += 1
+
+        return L
 
     def interpolate_missing_data(self, data: npt.NDArray,
                                  date_ints: npt.NDArray) \
@@ -144,6 +203,87 @@ class Interpolator:
             AssertionError: If end_time is not greater than start_time
         """
         assert end_time > start_time, \
-            f"end_time ({end_time}) is not before start_time ({start_time})"
+            f"end_time ({end_time}) should not be before start_time ({start_time})"
         return (end_time.year - start_time.year) * 12 \
             + end_time.month - start_time.month
+
+    def interpolate_spatial_grid(self, data: ClimateData,
+                                 target_grid: Grid) -> ClimateData:
+        # arrays_are_equal =\
+        #    (np.array_equal(data.latitudes, target_grid.latitudes)
+        #        and np.array_equal(data.longitudes, target_grid.longitudes))
+        array_shape_equal =\
+            (data.latitudes.shape == target_grid.y.shape
+                and data.longitudes.shape == target_grid.x.shape)
+
+        if array_shape_equal:
+            logging.info("Grid Shapes match: %s. Interpolation not needed.",
+                         target_grid)
+            return data
+        else:
+            logging.info("Different lat/lon than grid. Interpolating...")
+
+            xx, yy = np.meshgrid(target_grid.x, target_grid.y)
+            lat1D = np.reshape(data.latitudes, (data.latitudes.size))
+            lon1D = np.reshape(data.longitudes, (data.longitudes.size))
+            dataInterp = np.zeros(
+                (
+                    len(data.data),
+                    len(target_grid.y),
+                    len(target_grid.x)
+                ), dtype=float)
+
+            # TODO: CURRENTLY A HUGE PERFORMANCE BOTTLENECK
+            # loop over first dimension of data, which is time
+            for itime in range(len(data.data)):
+                dataCur = np.squeeze(data.data[itime, :, :])
+                dataCur1D = np.reshape(dataCur, (dataCur.size))
+                dataInterp[itime, :, :] = interpolate.griddata(
+                    (lon1D, lat1D), dataCur1D, (xx, yy), method='nearest')
+
+            return ClimateData(
+                dataInterp,
+                data.dates,
+                target_grid.y,
+                target_grid.x,
+                data.time_days,
+                data.description,
+                data.date_int)
+
+    def interpolate_spatial_2d(self, data: ClimateData,
+                               target_grid: Grid) -> ClimateData:
+        arrays_are_equal =\
+            (np.array_equal(data.latitudes, target_grid.y)
+                and np.array_equal(data.longitudes, target_grid.x))
+
+        if arrays_are_equal:
+            logging.info("Interpolation not needed.")
+            return data
+        else:
+            logging.info("Different lat/lon than grid. Interpolating...")
+            dataInterp =\
+                np.zeros(
+                    (
+                        len(data.data),
+                        len(target_grid.y),
+                        len(target_grid.x)),
+                    dtype=float)
+            # loop over first dimension of data, which is time
+            for itime in range(len(data.data)):
+                f = interpolate.interp2d(
+                    data.longitudes,
+                    data.latitudes,
+                    np.squeeze(data.data[itime, :, :]))
+
+                dataInterp[itime, :, :] =\
+                    f(target_grid.x, target_grid.y)
+
+            return ClimateData(
+                dataInterp,
+                data.dates,
+                target_grid.y,
+                target_grid.x,
+                data.time_days,
+                data.description,
+                data.date_int
+            )

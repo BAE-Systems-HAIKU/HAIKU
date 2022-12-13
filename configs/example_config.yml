@@ -1,33 +1,76 @@
----
+#### Preprocessing filepaths
 
-# data within these bounds (inclusive)
-# will be included in the training
+# Filepaths to output of scripts/preprocessing/preprocess.py
+# 11/08/2022: Never change these key names, only the path values
+serialized_data_map:
+  # CESM1
+  ICEFRAC: "/home/haiku/repos/good/data/preprocessed/002/ICEFRAC/ICEFRAC_19200201_to_21010101.pkl"
+  SST: "/home/haiku/repos/good/data/preprocessed/002/SST/SST_19200201_to_21010101.pkl"
+  hi: "/home/haiku/repos/good/data/preprocessed/002/hi/hi_19200201_to_21010101.pkl"
+  TS: "/home/haiku/repos/good/data/preprocessed/002/TS/TS_19200201_to_21010101.pkl"
+
+  # NSIDC
+  merged: "/home/haiku/repos/good/data/preprocessed/nsidc/cdr_seaice_conc_monthly/cdr_seaice_conc_monthly_19781101_to_20211201.pkl"
+  sst: /home/haiku/repos/good/data/preprocessed/nsidc/sosstsst/sosstsst_19790116_to_20181216.pkl
+  thickness: /home/haiku/repos/good/data/preprocessed/nsidc/thickness/thickness_19780101_to_20211201.pkl
+  t2m: /home/haiku/repos/good/data/preprocessed/nsidc/t2m/t2m_19790101_to_20101201.pkl
+
+# Filepath to output of scripts/preprocessing/create_mask.py
+mask_filepath: "/home/haiku/repos/good/data/preprocessed/mask/mask.pkl"
+
+
+#### Variable selection
+# These variables will be used for model generation and plotting when set. For training models,
+#one model will be trained for each data source using all variables selected in the associated variableNameVals list
+
+# These parameters must match the "serialized_data_map" keys exactly
+CESM1variableNameVals: ["ICEFRAC", "SST", "hi", "TS"]
+NSIDCvariableNameVals: ["merged", "sst", "thickness", "t2m"]
+data_sources: ["CESM1", "NSIDC"]
+
+
+#### Koopman
+
+# directory where trained models will be saved
+output_directory: "/data/training_output"
+
+#method to sort eigenfunctions. This relevant for plotting order and if you want to predict with the top N eigenmodes instead of the full set.
+# Options: ["eigenfunction", "mode_power"]
+sorting: "eigenfunction"
+
+
+#### Filters
+
+# data within these bounds (inclusive) will be included in the training
+# Format: YYYYMMDD
 start_dateInt: 19790101
 stop_dateInt: 20091201
 
-# Options: ["N", "S"]
-hemiVals: ["N"]
+# Options: N or S or POLAR
+# Note: Some of the preprocessed data only includes N or S anyway, so be careful with this parameter
+# current preference is to use POLAR on the north hemisphere NSIDC data which will automatically mask the southern hemisphere
+hemisphere: "POLAR"
 
-# Options: ["CESM1", "NSIDC", "err"]
-# determines which data files are loaded
-# and used for training
-dataSourceVals: ["CESM1", "NSIDC"]
-
-# Options: ["40memberLargeEnsemble", "CoupledControlRun", "AvgOfLargeEnsemble"]
-runTypeVals: ["40memberLargeEnsemble"]
-
-# Options: ["ICEFRAC", "SST", "HI", "TS"]
-CESM1variableNameVals: ["ICEFRAC", "SST", "HI", "TS"]
-
-# Options: ["merged", "sst", "t2m", "thickness"]
-#NSIDCvariableNameVals: ["merged","sst", "thickness","t2m"]
-NSIDCvariableNameVals: ["merged","sst", "thickness","t2m"]
+# controls how the hemispheres are determined (irrelevant for POLAR)
+north_lat_bound: 40
+south_lat_bound: -40
 
 # sea ice concentration <= this value will be set to zero
+# used with prediction and comparison data
 concentrationToConsiderZero: 15
 
 # round sea ice concentration value to the nearest percent
+# this smooths out the Koopman predictions
 roundConc: True
+
+#### Robustness Settings
+#number of datasets and models to generate for robustness analysis
+n_robustness_samples: 30
+#apply gausssian smearing of this stddev to original dataset to generate robustness datasets
+smearing_factor: 0.05
+
+
+#### Plotting
 
 # save all plots as .png images
 flag_save_plots: True
@@ -55,33 +98,5 @@ Nvalues_to_plot: 50
 # number of Koopman modes to visualize
 Nmodes_to_plot: 50
 
-# Options: ["eigenfunction", "mode_power"]
-sorting: "eigenfunction"
-
-# Options: ["monthly"]
-dataFreq: "monthly"
-
-# set boundaries where the northern hemisphere
-# is defined as above north_lat_bound
-# and the southern hemisphere is defined as below south_lat_bound
-north_lat_bound: 40
-south_lat_bound: -40
-
-# set ensemble members for the Large Ensemble Project
-ensembleNums: [2]
-
 # do not need to plot any bulk variables
 isBulk: False
-
-# directories are organized as follows:
-#
-# store data as    :  baseDir/simdata/CESM1/dataFreq/LargeEnsemble
-# or as            :  baseDir/simdata/CESM1/dataFreq/CoupledControlRun
-# or as            :  baseDir/simdata/NSIDC/dataFreq/north_regrid
-# or as            :  baseDir/simdata/NSIDC/dataFreq/south_regrid
-#
-# results saved in :  baseDir/Results
-#baseDir/DataDirName currently must be the parent directory for CESM1 and NSIDC datasets
-baseDir: "/data"
-dataDirName: "simdata"
-resultsDirName: "refactoredtestresults"

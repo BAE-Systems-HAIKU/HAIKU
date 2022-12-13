@@ -1659,28 +1659,3 @@ else
   # download nsidc data
   download_nsidc
   
-  #load grids for nsidc icefrac alignment with cesm1 lat/lon grid
-  target_grid="configs/target_grid.txt"
-  nh_grid="configs/nh_icefrac_grid.txt"
-  sh_grid="configs/sh_icefrac_grid.txt"
-
-  #create diretory for south hemisphere NSIDC icefrac data
-  regrid_dir="monthly/south_regrid_v4/merged"
-  mkdir -p $regrid_dir
-  #regrid data from polar to lat/lon
-  for file in `ls *_sh_*v04r00.nc`; do
-      local_fname=`echo $file | awk -F/ '{print $NF}'`
-      mkdir -p $regrid_dir/merged
-      $start_dir/build_cdo/install/cdo remapbil,$target_grid -setgrid,$sh_grid $file $regrid_dir/merged/$local_fname
-  done
-
-  #create diretory for north hemisphere NSIDC icefrac data
-  regrid_dir="monthly/north_regrid_v4/merged/"
-  mkdir -p $regrid_dir
-  #regrid data from polar to lat/lon
-  for file in `ls *_nh_*v04r00.nc`; do
-      local_fname=`echo $file | awk -F/ '{print $NF}'`
-      mkdir -p $regrid_dir/merged
-      $start_dir/build_cdo/install/cdo remapbil,$target_grid -setgrid,$sh_grid $file $regrid_dir/merged/$local_fname
-  done
-fi

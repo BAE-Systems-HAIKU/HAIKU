@@ -219,8 +219,8 @@ def read_ERA5_t2m(fnFull: str,
     #                    units     = 'hours since 1900-01-01 00:00:00.0'
     #                    long_name = 'time'
     #                    calendar  = 'gregorian'
-    timeDays = np.array(ncfile.variables['time'])/24
-    
+    timeDays = (np.array(ncfile.variables['time'])/24).astype(int)
+
     ncfile.close()
 
     # Let's calculate the dateInt string from the filename

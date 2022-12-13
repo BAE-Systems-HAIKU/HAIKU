@@ -5,3 +5,10 @@ cdo
 netcdf4
 xarray
 pyyaml
+cdo
+numpy
+netcdf4
+matplotlib
+pyyaml
+scipy
+xarray

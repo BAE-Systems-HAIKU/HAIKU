@@ -16,9 +16,11 @@ including license, rights and distribution.
 
 import numpy as np
 import matplotlib.pyplot as plt
+from typing import Any, Dict, List
 import os
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from haiku.climate_data.climate_data import ClimateData, calcRMSE, calcSpatialCorr, calcCumulative
 
 
 def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNums, lats, lons, outputDir, descStrs):
@@ -62,11 +64,11 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
             alphaMask = mask['alphaMask'][ivar]
 
             # reshape each mode to original snapshot size
-            modes_reshaped = np.reshape(modes[:,:,:,ivar].flatten(), (len(lons[0]),len(lats[0]),-1) , order='F')
+            modes_reshaped = np.reshape(modes[:,:,:,ivar].flatten(), (len(lons[ivar]),len(lats[ivar]),-1) , order='F')
 
             # visualization of a Koopman mode
             fig = plt.figure()
-            fig = plotSnapshot(fig, modes_reshaped[:,:,modeNum-1], title_str, colorbar_label, clims, lats[0], lons[0], alphaMask)
+            fig = plotSnapshot(fig, modes_reshaped[:,:,modeNum-1], title_str, colorbar_label, clims, lats[ivar], lons[ivar], alphaMask)
             if(flag_save_plots):
                 savename_str = os.path.join(outputDir, 'meanMode_mode{}_{}.png'.format( modeNum, descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
                 plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -96,11 +98,11 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
             alphaMask = mask['alphaMask'][ivar]
 
             # reshape each mode to original snapshot size
-            modes_reshaped = np.reshape(modes[:,:,:,ivar].flatten(), (len(lons[0]),len(lats[0]),-1) , order='F')
+            modes_reshaped = np.reshape(modes[:,:,:,ivar].flatten(), (len(lons[ivar]),len(lats[ivar]),-1) , order='F')
 
             # visualization of a Koopman mode
             fig = plt.figure()
-            fig = plotSnapshot(fig, modes_reshaped[:,:,modeNum-1], title_str, colorbar_label, clims, lats[0], lons[0], alphaMask)
+            fig = plotSnapshot(fig, modes_reshaped[:,:,modeNum-1], title_str, colorbar_label, clims, lats[ivar], lons[ivar], alphaMask)
             if(flag_save_plots):
                 savename_str = os.path.join(outputDir, 'annualMode_mode{}_{}.png'.format( modeNum, descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
                 plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -125,11 +127,11 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
             alphaMask = mask['alphaMask'][ivar]
 
             # reshape each mode to original snapshot size
-            summedMeanMode_reshaped = np.reshape(summedMeanMode[:,:,ivar].flatten(), (len(lons[0]),len(lats[0]),-1) , order='F')
+            summedMeanMode_reshaped = np.reshape(summedMeanMode[:,:,ivar].flatten(), (len(lons[ivar]),len(lats[ivar]),-1) , order='F')
 
         # visualization of a Koopman mode
         fig = plt.figure()
-        fig = plotSnapshot(fig, summedMeanMode_reshaped[:,:,0], title_str, colorbar_label, clims, lats[0], lons[0], alphaMask)
+        fig = plotSnapshot(fig, summedMeanMode_reshaped[:,:,0], title_str, colorbar_label, clims, lats[ivar], lons[ivar], alphaMask)
         if(flag_save_plots):
             savename_str = os.path.join(outputDir, 'meanMode_summedModes_{}.png'.format(descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
             plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -138,7 +140,7 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
 
         # plot without specified clim
         fig = plt.figure()
-        fig = plotSnapshot(fig, summedMeanMode_reshaped[:,:,0], title_str, colorbar_label, [], lats[0], lons[0], alphaMask)
+        fig = plotSnapshot(fig, summedMeanMode_reshaped[:,:,0], title_str, colorbar_label, [], lats[ivar], lons[ivar], alphaMask)
         if(flag_save_plots):
             savename_str = os.path.join(outputDir, 'meanMode_summedModes_{}_relScale.png'.format(descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
             plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -167,11 +169,11 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
             alphaMask = mask['alphaMask'][ivar]
 
             # reshape each mode to original snapshot size
-            summedAnnualMode_reshaped = np.reshape(summedAnnualMode[:,:,ivar].flatten(), (len(lons[0]),len(lats[0]),-1) , order='F')
+            summedAnnualMode_reshaped = np.reshape(summedAnnualMode[:,:,ivar].flatten(), (len(lons[ivar]),len(lats[ivar]),-1) , order='F')
 
         # visualization of a Koopman mode
         fig = plt.figure()
-        fig = plotSnapshot(fig, summedAnnualMode_reshaped[:,:,0], title_str, colorbar_label, clims, lats[0], lons[0], alphaMask)
+        fig = plotSnapshot(fig, summedAnnualMode_reshaped[:,:,0], title_str, colorbar_label, clims, lats[ivar], lons[ivar], alphaMask)
         if(flag_save_plots):
             savename_str = os.path.join(outputDir, 'annualMode_summedModes_{}.png'.format(descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
             plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -180,7 +182,7 @@ def plotMeanAndAnnualModes(parameters, Koopman, mask, meanModeNums, annualModeNu
 
         # plot without specified clim
         fig = plt.figure()
-        fig = plotSnapshot(fig, summedAnnualMode_reshaped[:,:,0], title_str, colorbar_label, [], lats[0], lons[0], alphaMask)
+        fig = plotSnapshot(fig, summedAnnualMode_reshaped[:,:,0], title_str, colorbar_label, [], lats[ivar], lons[ivar], alphaMask)
         if(flag_save_plots):
             savename_str = os.path.join(outputDir, 'annualMode_summedModes_{}_relScale.png'.format(descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
             plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -325,7 +327,6 @@ def plotEigenmodes(parameters, Koopman, mask, lats, lons, outputDir, descStrs):
             # do not plot bulk variables
             if(('bulk' not in descStrs[ivar]) and ('forcing' not in descStrs[ivar])):
                 title_str = 'Mode {} ({})\n{}'.format(imode+1, descStrs[ivar], eig_str)
-
                 colorbar_label = parameters['colorbar_label'][ivar]
                 clims = parameters['clims'][ivar]
 
@@ -333,12 +334,12 @@ def plotEigenmodes(parameters, Koopman, mask, lats, lons, outputDir, descStrs):
                 alphaMask = mask['alphaMask'][ivar]
 
                 # reshape each mode to original snapshot size
-                mode_reshaped = np.reshape(modes_s[ivar][:,:,imode].flatten(), (len(lons[0]),len(lats[0]),-1) , order='F')
+                mode_reshaped = np.reshape(modes_s[ivar][:,:,imode].flatten(), (len(lons[ivar]),len(lats[ivar]),-1) , order='F')
                 # mode_reshaped[mode_reshaped>100.0]=100.0
 
                 # visualization of a Koopman mode
                 fig = plt.figure()
-                fig = plotSnapshot(fig, mode_reshaped, title_str, colorbar_label, clims, lats[0], lons[0], alphaMask)
+                fig = plotSnapshot(fig, mode_reshaped, title_str, colorbar_label, clims, lats[ivar], lons[ivar], alphaMask)
                 if(flag_save_plots):
                     savename_str = os.path.join(outputDir, 'mode{}_{}.png'.format( imode+1, descStrs[ivar].replace(' ', '').replace('(','').replace(')','') ) )
                     plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
@@ -446,69 +447,83 @@ def plotPredictions(parameters, mask, lat, lon, preds, outputDir):
             plt.close(fig)
 
 
-def calcRMSE(pred, true):
-    """
-    Calculate RMSE given predicted and true values. Both inputs are 2D gridded points.
-    """
-    rmse = np.sqrt( np.mean( np.square( pred - true ), axis=(0,1) ) )
-    return rmse
+def default_color_dicts(color_dict:dict(), data_keys:List[str],target_key="NSIDC")->dict():
+    #currently setting colors and styles.  [KMD, Climate Mean, CESM1, NSIDC] is tacitly assumed for color consistenty, NSIDC can go anywhere in list
+    #if plotting dicts are empty or improperly defined, update with defaults
+    if color_dict == None or len(color_dict) != len(data_keys):
+        default_colors = ['b','g','darkorange','k']
+        color_dict = dict()
+        for i, key in enumerate(data_keys):
+            if key == target_key:
+                color_dict[key]='r'
+            else:
+                color_dict[key]=default_colors[i]
+    return(color_dict)
+                
+def default_style_dicts(style_dict:dict(), data_keys:List[str],target_key="NSIDC")->dict():
+    if style_dict == None or len(style_dict) != len(data_keys):
+        style_dict =dict()
+        for key in data_keys:
+            if "K" in key: # select koopman for now
+                style_dict[key]='--'
+            else:
+                style_dict[key]='-'
+    return(style_dict)
 
-
-def calcSpatialCorr(pred, true):
-    """
-    Calculate spatial correlation given predicted and true values. Both inputs are 2D gridded points.
-
-    This needs some more refining before results are shown.
-    """
-    scorr = np.corrcoef( pred.flatten(), true.flatten() )[0,1]
-    return scorr
-
-
-def calcCumulative(pred, lat, yearmonth):
-    """
-    Calculate cumulative given 2D gridded points.
-    """
-
-    num_lat = pred.shape[1] #54  # number of latitudes
-    num_lon = pred.shape[0] #288 # number of longitudes
-
-    # lat_inc = 0.9375 # 180/192
-    lat_inc = 0.94240837696 # 180/(192-1)
-    lon_inc = 1.25   # 360/288
-
-    # # latitudes are from -90 to 90 with lat_inc degree as the interval
-    # lat = np.zeros(num_lat)
-    # for ilat in range(num_lat):
-    #     lat[ilat] = -90.0 + lat_inc*ilat
-    # # print(lat) # to delete
-
-    earth_rad = 6371.0  # radius of the Earth in km
-    earth_deg = (2*np.pi*earth_rad)/360  # 1 degree of the Earth in km
-    grid_area = (earth_deg*lat_inc)*(earth_deg*lon_inc)  # area of each lat_inc by lon_inc grid in sq km
-
-    x = 0
-    y = 0
-    miss_val = -9.99e8  # missing value over land grids
-    conc_cutoff = 15    # only consider grids with more that 15% coverage of sea ice
-    for ilon in range(num_lon):
-        for ilat in range(num_lat):
-            if( (pred[ilon,ilat]>=conc_cutoff) and (pred[ilon,ilat]!=miss_val) ):
-                x = x + pred[ilon,ilat] * np.cos( (lat[ilat]-lat_inc) /180*np.pi) * grid_area
-                # x = x + 100 * np.cos( (lat[ilat]-lat_inc) /180*np.pi) * grid_area
-                y = y + 1.0 * np.cos( (lat[ilat]-lat_inc) /180*np.pi) * grid_area
-
-    # 100 is to convert from percent
-    # 1000000 is to convert to million sq km.
-    x = x / 100.0 / 1000000.0
-    y = y / 1000000.0
-
-    return x # sea ice area
-    # return y # sea ice extent
-
-
-def plotAccuracy(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, CESM1data, climMeanData, yearmonth, outputDir):
+def plotTimeSeries(x_dict:dict(), y_dict:dict(), target_key:str, y_axis_label:str, output_directory:str, color_dict=None, style_dict=None, errors:dict()={},plot_title:str=None):
     """
     Visualize accuracy of predictions over the testing interval.
+    data dictionary has keys as series label and array of climate data values ( monthly values)
+    target_key is the key for the training dataset (or the dataset to compare to)
+    yearmonth is the formatted date that matches the elements in the ordered list
+    errors is a dictionary whose keys match any number (including none) of the keys in data.
+    errors values are a list of 3 items: ["error label", -data, +data]. where the error label 
+    is a string that describes the error itelf (eg. 1-sigma) and -data and +data are the upper 
+    and lower bounds with the same shape as the corresponding item in data. 
+    """
+    #currently setting colors and styles.  [KMD, Climate Mean, CESM1, NSIDC] is tacitly assumed for color consistenty, NSIDC can go anywhere in list
+    #if plotting dicts are empty or improperly defined, update with defaults
+    style_dict = default_style_dicts(style_dict, y_dict.keys(),target_key)
+    color_dict = default_color_dicts(color_dict, y_dict.keys(),target_key)
+    os.makedirs(output_directory, exist_ok=True)
+    if plot_title==None:
+        plot_title=y_axis_label
+        # number of date ticks to visualize
+    num_ticks = 11
+    time_ticks = np.linspace(np.min(x_dict[target_key]),np.max(x_dict[target_key]), num=num_ticks).astype(int)
+    #time_labels = [ (start_datetime + relativedelta(years=time_ticks[i])).year for i in range(num_ticks)]
+
+    # visualization of prediction accuracy over time
+    fig = plt.figure(figsize=(8,3))
+    for key in y_dict.keys():
+        plt.plot(x_dict[key],y_dict[key], style_dict[key], color = color_dict[key], label = key )
+    for key in errors.keys():
+        plt.fill_between(x_dict[key],
+                         errors[key][1],
+                         errors[key][2],color=color_dict[key],alpha=0.5)
+
+    plt.grid()
+    plt.xlim([np.min(x_dict[target_key]), np.max(x_dict[target_key])])
+    plt.xlabel('Years')
+    plt.ylabel(y_axis_label)
+    plt.title(plot_title)
+    ax = plt.gca()
+    ax.set_xticks(time_ticks)
+    #ax.set_xticklabels(time_labels)
+    ax.legend([label for label in y_dict.keys()], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
+    plt.locator_params(axis="both", tight=True)
+    savename_str = os.path.join(output_directory, str(plot_title)+'.png' )
+    plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
+    plt.close('all')
+        
+        
+
+def plotRobustness(parameters, mask, lat, lon, data:dict(), target_key:str, yearmonth, outputDir,color_dict=None,style_dict=None):
+    """
+    Visualize accuracy of predictions over the testing interval.
+    data dictionary has keys as series label and array of climate data values ( monthly values)
+    target_key is the key for the training dataset (or the dataset to compare to)
+    yearmonth is the formatted date that matches the elements in the ordered list
     """
 
     print("Generating Accuracy Visualizations")
@@ -522,12 +537,14 @@ def plotAccuracy(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, CESM1dat
     flag_save_plots = parameters['flag_save_plots']
     flag_close_all_plots = parameters['flag_close_all_plots']
 
-    n_pred = preds.shape[2] # number of snapshots
-    n_truth = NSIDCdata.shape[2] # number of NSIDC snapshots
+    #grab
+    n_dict = dict()
+    for key in data.keys():
+        n_dict[key]=data[key].shape[2]
 
-    n = np.minimum(n_pred, n_truth)
+    n_min = np.min(list(n_dict.values()))
+    n_max = np.max(list(n_dict.values()))
 
-    pred_horizon = parameters['pred_horizon']
     start_dateInt = parameters['start_dateInt']
     start_datetime = datetime.strptime(str(start_dateInt), '%Y%m%d')
 
@@ -536,97 +553,80 @@ def plotAccuracy(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, CESM1dat
     # ========================================================= #
 
     # compute RMSE of predictions vs. climatological mean vs. CESM1 over time (without considering highest latitudes)
-    pred_mse = np.zeros(n)
-    ref_mse  = np.zeros(n)
-    clim_mse = np.zeros(n)
-    for iday in range(n):
-        pred_mse[iday] = calcRMSE(preds[:,:,iday],        NSIDCdata[:,:,iday])
-        ref_mse[iday]  = calcRMSE(CESM1data[:,:,iday],    NSIDCdata[:,:,iday])
-        clim_mse[iday] = calcRMSE(climMeanData[:,:,iday], NSIDCdata[:,:,iday])
+    rmses = dict()
+    for key in data.keys():
+        if key == target_key:
+            continue
+        rmses[key]=np.zeros(n_min)
+    for iday in range(n_min):
+        for key in data.keys():
+            if key == target_key:
+                continue
+            rmses[key][iday] = calcRMSE(data[key][:,:,iday], data[target_key][:,:,iday])
 
     # number of date ticks to visualize
     num_ticks = 11
-    time_ticks = np.linspace(0, n-1, num=num_ticks).astype(int)
+    time_ticks = np.linspace(0, n_min-1, num=num_ticks).astype(int)
     time_labels = [ (start_datetime + relativedelta(years=time_ticks[i])).year for i in range(num_ticks)]
 
     # visualization of prediction accuracy over time
     fig = plt.figure(figsize=(8,3))
-    plt.plot( pred_mse )
-    plt.plot( ref_mse  )
-    plt.plot( clim_mse )
+    for key in rmses.keys():
+        plt.plot(rmses[key], label=key)
     plt.grid()
-    plt.xlim([0, n-1])
+    plt.xlim([0, n_min-1])
     plt.xlabel('Years')
     plt.ylabel('RMSE')
     plt.title('RMSE of September Sea Ice')
     ax = plt.gca()
     ax.set_xticks(time_ticks)
     ax.set_xticklabels(time_labels)
-    ax.legend(['KMD Prediction', 'CESM1', 'Climatological Mean'], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
+    ax.legend([label for label in data.keys()], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
     plt.locator_params(axis="both", tight=True)
     if(flag_save_plots):
-        savename_str = os.path.join(outputDir, 'skill_rmse.png' )
+        savename_str = os.path.join(outputDir, 'rmse.png' )
         plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
     if(flag_close_all_plots):
         plt.close(fig)
-
-    # rel_skill = 1 - pred_mse/ref_mse
-
-    # # visualization of prediction skill over time
-    # fig = plt.figure(figsize=(8,3))
-    # plt.plot(rel_skill)
-    # plt.grid()
-    # plt.xlim([0, n-1])
-    # plt.ylim([-1, 1])
-    # plt.xlabel('Months in Future')
-    # plt.ylabel('Relative Skill')
-    # plt.title('KMD Prediction Skill')
-    # ax = plt.gca()
-    # # ax.set_xticks(time_ticks)
-    # # ax.set_xticklabels(time_labels)
-    # ax.legend(['KMD Skill','Prediction Start'], loc='center left', bbox_to_anchor=(1, 0.5))
-    # plt.locator_params(axis="both", integer=True, tight=True)
-    # if(flag_save_plots):
-    #     savename_str = os.path.join(outputDir, 'skill_rel.png' )
-    #     plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
-    # if(flag_close_all_plots):
-    #     plt.close(fig)
 
     # ========================================================= #
     #                   Spatial Correlation                     #
     # ========================================================= #
 
     # compute spatial correlation of predictions vs. climatological mean over time (without considering highest latitudes)
-    pred_scorr = np.zeros(n)
-    ref_scorr  = np.zeros(n)
-    clim_scorr = np.zeros(n)
-    for iday in range(n):
-        pred_scorr[iday] = calcSpatialCorr(preds[:,:,iday],        NSIDCdata[:,:,iday])
-        ref_scorr[iday]  = calcSpatialCorr(CESM1data[:,:,iday],    NSIDCdata[:,:,iday])
-        clim_scorr[iday] = calcSpatialCorr(climMeanData[:,:,iday], NSIDCdata[:,:,iday])
+    scorrs = dict()
+    for key in data.keys():
+        if key == target_key:
+            continue
+        scorrs[key]=np.zeros(n_min)
+    for iday in range(n_min):
+        for key in data.keys():
+            if key == target_key:
+                continue
+            scorrs[key][iday] = calcSpatialCorr(data[key][:,:,iday], data[target_key][:,:,iday])
 
     # number of date ticks to visualize
     num_ticks = 11
-    time_ticks = np.linspace(0, n-1, num=num_ticks).astype(int)
+    time_ticks = np.linspace(0, n_min-1, num=num_ticks).astype(int)
     time_labels = [ (start_datetime + relativedelta(years=time_ticks[i])).year for i in range(num_ticks)]
 
     # visualization of prediction accuracy over time
     fig = plt.figure(figsize=(8,3))
-    plt.plot( pred_scorr )
-    plt.plot( ref_scorr  )
-    plt.plot( clim_scorr )
+    #    plt.plot(scorrs[key])
     plt.grid()
-    plt.xlim([0, n-1])
+    plt.xlim([0, n_min-1])
     plt.xlabel('Years')
     plt.ylabel('Spatial Correlation')
     plt.title('Spatial Correlation of September Sea Ice')
     ax = plt.gca()
+    for key in scorrs.keys():
+        plt.plot( scorrs[key], label = key )
     ax.set_xticks(time_ticks)
     ax.set_xticklabels(time_labels)
-    ax.legend(['KMD Prediction', 'CESM1', 'Climatological Mean'], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
+    ax.legend([label for label in data.keys()], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
     plt.locator_params(axis="both", tight=True)
     if(flag_save_plots):
-        savename_str = os.path.join(outputDir, 'skill_scorr.png' )
+        savename_str = os.path.join(outputDir, 'spatial_correlation.png' )
         plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
     if(flag_close_all_plots):
         plt.close(fig)
@@ -635,22 +635,12 @@ def plotAccuracy(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, CESM1dat
     #                    Sea Ice Area/Extent                    #
     # ========================================================= #
 
-    if(dataSource == 'NSIDC'):
-        pred_nsidc_flag = True
-    elif(dataSource == 'CESM1'):
-        pred_nsidc_flag = False
-
-    # compute cumulative
-    pred_cum = np.zeros(n_pred)
-    cesm_cum = np.zeros(n_pred)
-    true_cum = np.zeros(n_truth)
-    clim_cum = np.zeros(n_pred)
-    for iday in range(n_pred):
-        pred_cum[iday] = calcCumulative(preds[:,:,iday],        lat, yearmonth[iday])
-        cesm_cum[iday] = calcCumulative(CESM1data[:,:,iday],    lat, yearmonth[iday])
-        clim_cum[iday] = calcCumulative(climMeanData[:,:,iday], lat, yearmonth[iday])
-    for iday in range(n_truth):
-        true_cum[iday] = calcCumulative(NSIDCdata[:,:,iday],    lat, yearmonth[iday])
+    cumulatives = dict()
+    for key in data.keys():
+        cumulatives[key]=np.zeros(n_dict[key])
+    for key in data.keys():
+        for iday in range(n_dict[key]):
+            cumulatives[key][iday] = calcCumulative(data[key][:,:,iday], (lon,lat),"POLAR")
 
     # explicitly append 2021 sea ice extent of 4.72 million sq km
     # true_cum = np.append(true_cum,  4.72)
@@ -660,49 +650,42 @@ def plotAccuracy(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, CESM1dat
 
     # number of date ticks to visualize
     num_ticks = 13
-    time_ticks = np.linspace(0, n_pred-1, num=num_ticks).astype(int)
+    time_ticks = np.linspace(0, n_max-1, num=num_ticks).astype(int)
     time_labels = [ (start_datetime + relativedelta(years=time_ticks[i])).year for i in range(num_ticks)]
 
-    fig, ax1 = plt.subplots(figsize=(8,3))
+    fig = plt.figure(figsize=(8,3))
+    for key in cumulatives.keys():
+        plt.plot( cumulatives[key], style_dict[key], color=color_dict[key], label = key )
     plt.grid()
-    ax1.plot( clim_cum, '-', color='g',          label = 'Climatological Mean' )
-    ax1.plot( true_cum, '-', color='r',          label = 'NSIDC' )
+    plt.title('September Sea Ice Area')
     # ax1.plot( esti_cum, ':', color='r')
     # ax1.scatter(n_truth+1, esti_cum[-1], s=70, marker='*', color='r', zorder=999)
-    ax2 = ax1.twinx()
-    ax2.plot( cesm_cum, '-', color='darkorange', label = 'CESM1' )
-    if(pred_nsidc_flag):
-        ax1.plot( pred_cum, '--', color='b',      label = 'KMD Prediction' )
-    else:
-        ax2.plot( pred_cum, '--', color='b',      label = 'KMD Prediction' )
-    plt.xlim([0, n_pred-1])
-    ax1.set_ylim([2.5, 8.0])
-    ax2.set_ylim([2.3, 7.8])
-    ax1.set_xlabel('Years')
-    ax1.set_ylabel('NSIDC Sea Ice (million sq km)', color='r')
-    ax2.set_ylabel('CESM1 Sea Ice (million sq km)', color='darkorange')
-    plt.title('September Sea Ice Area')
+    plt.xlim([0, n_max-1])
     ax = plt.gca()
+    ax.set_ylim([2.5, 8.0])
+    ax.set_xlabel('Years')
+    ax.set_ylabel('Sea Ice (million sq km)')
     ax.set_xticks(time_ticks)
     ax.set_xticklabels(time_labels)
-    lines1, labels1 = ax1.get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels()
-    ax2.legend(lines1 + lines2, labels1 + labels2, loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=4)
+    ax.legend([label for label in data.keys()], loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=3)
+    #lines, labels = ax.get_legend_handles_labels()
+    #ax.legend(lines, labels)
     plt.locator_params(axis="both", tight=True)
     if(flag_save_plots):
-        savename_str = os.path.join(outputDir, 'skill_cum.png' )
+        savename_str = os.path.join(outputDir, 'cumulative_extent_predictions.png' )
         plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
     if(flag_close_all_plots):
         plt.close(fig)
 
 
-def plotPredCompare(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, outputDir):
+
+def plotPredCompare(parameters, mask, lat, lon, data, preds, outputDir):
     """
     Creates a series of snapshots visualizing the predictions compared to the true data.
     """
 
     print("Generating Prediction Comparisons")
-
+    os.makedirs(outputDir, exist_ok=True)
     # pull variables from mask dictionary
     alphaMask = mask['alphaMask']
 
@@ -710,7 +693,7 @@ def plotPredCompare(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, outpu
     flag_close_all_plots = parameters['flag_close_all_plots']
     colorbar_label = 'concentration (percent)'
 
-    n = NSIDCdata.shape[2] # figure out how many snapshots
+    n = data.shape[2] # figure out how many snapshots
 
     # use prediction horizon start to initialize date
     d0 = datetime.strptime(str(parameters['start_dateInt']), '%Y%m%d') + relativedelta(months=0)
@@ -725,8 +708,8 @@ def plotPredCompare(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, outpu
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8,3.5))
         fig.subplots_adjust(wspace=0.3)
 
-        c_1 = ax1.imshow(np.rot90(NSIDCdata[:,:,i], axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='6', interpolation='nearest')
-        # c_1 = ax1.imshow(np.rot90(NSIDCdata[:,:,i], axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='6', interpolation='nearest')
+        c_1 = ax1.imshow(np.rot90(data[:,:,i], axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='6', interpolation='nearest')
+        # c_1 = ax1.imshow(np.rot90(data[:,:,i], axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='6', interpolation='nearest')
         ax1.set_title("Observational Data")
 
         c_2 = ax2.imshow(np.rot90(preds[:,:,i], axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='6', interpolation='nearest')
@@ -741,7 +724,7 @@ def plotPredCompare(parameters, Koopman, mask, lat, lon, NSIDCdata, preds, outpu
             savename_str = os.path.join(outputDir, 'predcomp_%03i.png' % (i+1) )
             plt.savefig(savename_str, bbox_inches='tight', pad_inches=.1)
         if(flag_close_all_plots):
-            plt.close(fig)
+            plt.close("all")
 
 
 def plotSnapshot(fig, data, title_str, colorbar_label, clims, lat, lon, alphaMask):
@@ -750,17 +733,145 @@ def plotSnapshot(fig, data, title_str, colorbar_label, clims, lat, lon, alphaMas
     """
 
     if(len(clims)==2):
-        plt.imshow(np.rot90(data, axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], vmin=clims[0], vmax=clims[1], aspect='auto', interpolation='nearest')
+        plt.imshow(np.flipud(np.rot90(data, k=1, axes=(0,1))), alpha = np.flipud(np.rot90(alphaMask, k=1, axes=(0,1))), extent=[lon.min(), lon.max(), lat.min(), lat.max()], vmin=clims[0], vmax=clims[1], aspect='auto', interpolation='nearest')
     else:
-        plt.imshow(np.rot90(data, axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='auto', interpolation='nearest')
+        plt.imshow(np.flipud(np.rot90(data, k=1, axes=(0,1))), alpha = np.flipud(np.rot90(alphaMask, k=1, axes=(0,1))), extent=[lon.min(), lon.max(), lat.min(), lat.max()], aspect='auto', interpolation='nearest')
 
-    plt.xlabel('Longitude [deg]')
-    plt.ylabel('Latitude [deg]')
+    plt.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=False) # labels along the bottom edge are off
+    plt.tick_params(
+        axis='y',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=False) # labels along the bottom edge are off
     plt.title(title_str)
     cbar = plt.colorbar(fraction=0.018, pad=0.04)  # Adjust the colorbar height
-    cbar.ax.set_ylabel(colorbar_label, rotation=90)
 
     return fig
+
+def plotSnapshotsSideBySide(fig, data1, data2, title_str, colorbar_label, clims, x, y, alphaMask):
+    """
+    Plots a single snapshot of a mode.
+    """
+
+    # visualization of a prediction snapshot
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,3.5))
+    #fig.subplots_adjust(wspace=0.3)
+
+    c_1 = ax1.imshow(np.rot90(data1, axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[x.min(), x.max(), y.min(), y.max()], interpolation='nearest')
+    ax1.set_title("Observational Data")
+
+    c_2 = ax2.imshow(np.rot90(data2, axes=(0,1)), alpha = np.rot90(alphaMask, axes=(0,1)), extent=[x.min(), x.max(), y.min(), y.max()], interpolation='nearest')
+    ax2.set_title("FKPM Predictions")
+
+    plt.suptitle(title_str)
+    plt.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=False) # labels along the bottom edge are off
+    plt.tick_params(
+        axis='y',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=False) # labels along the bottom edge are off
+    #fig.supxlabel('Longitude [deg]')
+    #fig.supylabel('Latitude [deg]')
+    return fig
+
+def plot_robustness_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory,analysis_type:str="coverage",target_key="NSIDC"):
+    if analysis_type=="coverage":
+        ylabel="Sea Ice Extent"
+        ypred = prediction_data.return_coverage()
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_coverage(use_errors=True)
+        yclim = comparison_data["climatological mean"].return_coverage()
+        ynsidc = comparison_data["NSIDC"].return_coverage()
+    elif analysis_type=="spatial_correlation":
+        ylabel = "spatial correlation"
+        ypred = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_spatial_correlation(comparison_data[target_key].data,use_errors=True)
+        yclim = comparison_data["climatological mean"].return_spatial_correlation(comparison_data[target_key].data)
+        ynsidc = comparison_data["NSIDC"].return_spatial_correlation(comparison_data[target_key].data)
+    elif analysis_type=="rmse":
+        ylabel="RMSE"
+        ypred = prediction_data.return_rmse(comparison_data[target_key].data)
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_rmse(comparison_data[target_key].data,use_errors=True)
+        yclim = comparison_data["climatological mean"].return_rmse(comparison_data[target_key].data)
+        ynsidc = comparison_data["NSIDC"].return_rmse(comparison_data[target_key].data)
+
+    xpred = prediction_data.date_int // 10000
+    xnsidc = comparison_data["NSIDC"].date_int // 10000
+
+    for imonth in range(12):
+        pred_filter = ((prediction_data.date_int // 100) %100) -1 == imonth
+        nsidc_filter =((comparison_data["NSIDC"].date_int // 100) %100) -1 == imonth
+        plotTimeSeries({"KMD Prediction":xpred[pred_filter],
+                        "Climatological Mean":xnsidc[nsidc_filter],
+                        "NSIDC":xnsidc[nsidc_filter]},
+                       {"KMD Prediction":ypred[pred_filter],
+                        "Climatological Mean":yclim[nsidc_filter],
+                        "NSIDC":ynsidc[nsidc_filter]},
+                       "NSIDC",
+                       ylabel,
+                       output_directory,
+                       color_dict={},
+                       style_dict={},
+                       errors={"KMD Prediction":["2-sigma",
+                                                 prediction_low_band[pred_filter],
+                                                 prediction_high_band[pred_filter]]},
+                       plot_title="Month_"+str(imonth+1)+"_"+ylabel.replace(" ","_"))
+
+
+
+def plot_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory:str,analysis_type:str="coverage",target_key="NSIDC"):
+
+    data_dict={}
+    xpred = prediction_data.date_int // 10000
+    xnsidc = comparison_data["NSIDC"].date_int // 10000
+    yvals = {}
+    if analysis_type=="coverage":
+        ylabel="Sea Ice Extent"
+        yvals["KMD Prediction"] = prediction_data.return_coverage()
+        for key in comparison_data.keys():
+            yvals[key] = comparison_data[key].return_coverage()
+    elif analysis_type=="spatial_correlation":
+        ylabel = "spatial correlation"
+        yvals["KMD Prediction"] = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
+        for key in comparison_data.keys():
+            yvals[key] = comparison_data[key].return_spatial_correlation(comparison_data[target_key].data)
+    elif analysis_type=="rmse":
+        ylabel="RMSE"
+        yvals["KMD Prediction"] = prediction_data.return_rmse(comparison_data[target_key].data)
+        for key in comparison_data.keys():
+            yvals[key]= comparison_data[key].return_rmse(comparison_data[target_key].data)
+
+    for imonth in range(12):
+        pred_filter = ((prediction_data.date_int // 100) %100) -1 == imonth
+        nsidc_filter =((comparison_data["NSIDC"].date_int // 100) %100) -1 == imonth
+        tempx = {"KMD Prediction":xpred[pred_filter]}
+        tempy = {"KMD Prediction":yvals["KMD Prediction"][pred_filter]}
+        for key in comparison_data.keys():
+            tempx[key] = xnsidc[nsidc_filter]
+            tempy[key] = yvals[key][pred_filter] 
+        plotTimeSeries(tempx,
+                       tempy,
+                       "NSIDC",
+                       ylabel,
+                       output_directory,
+                       color_dict={},
+                       style_dict={},
+                       plot_title="Month_"+str(imonth+1)+"_"+ylabel.replace(" ","_"))
+
 
     '''
     ===============================================================================

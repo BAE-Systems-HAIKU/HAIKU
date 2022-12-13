@@ -43,9 +43,9 @@ class KoopmanModel:
     data_source: str
     observable_name: str
     hemisphere: str
-    data_frequency: str
     ensemble_number: int
-
+    data_frequency: str 
+    
     # training parameters used for prediction
     concentration_to_consider_zero: int
     round_concentration: bool

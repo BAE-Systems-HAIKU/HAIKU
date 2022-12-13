@@ -18,133 +18,171 @@ import os
 from typing import Any, Dict, List
 
 import numpy as np
-from haiku.plotting.plotFunctions import (plotEigenvalues,
-                                          plotPredictions)
-from haiku.prediction.prediction_utilities import (make_predictions,
-                                                   plot_all_comparisons)
+from haiku.plotting.plotFunctions import plotPredictions
+from haiku.climate_data.climate_data import ClimateData
+from haiku.prediction.prediction_utilities import make_predictions
 from haiku.training.dmdR4Haiku import SLS_Spectral_Reconstruct_W_NE
 from haiku.training.koopman_model import KoopmanModel
 
+import datetime
+from haiku.utilities.mask import create_mask_dict
+from haiku.utilities.date_utilities import (n_dates_in_range,
+                                            date_array_for_range)
 
 class Predictor:
 
-    def __init__(self, parameters: Dict[str, Any]):
+    def __init__(self, koopman_model: KoopmanModel):
         """Construct a Predictor object."""
         # TODO: Extract parameters into a configuration object
-        self.parameters = parameters
-
-    def predict(self, model: KoopmanModel, end_date: int,
-                predict_modes: List[int], output_directory: str):
-        """Initiate prediction processes with loaded config."""
-        self.parameters["stop_dateInt"] = end_date
-        self.parameters["predictModes"] = predict_modes
-
-        print('Output directory: {}'.format(output_directory))
-
-        self.parameters['dataSource'] = model.data_source
-        self.parameters['NSIDCvariableName'] = model.observable_name
-        self.parameters['hemisphere'] = model.hemisphere
-        self.parameters['dataFreq'] = model.data_frequency
-        self.parameters['runType'] = '40memberLargeEnsemble'
-        self.parameters['CESM1variableName'] = 'ICEFRAC'
-        self.parameters['ensembleNums'] =\
-            list(range(1, 36))+list(range(101, 106))
-
-        # pull training start and end from koopman model
-        self.parameters['train_start_dateInt'] =\
-            model.training_start_date
-        self.parameters['train_stop_dateInt'] =\
-            model.training_stop_date
-
-        # select time range for prediction
-        self.parameters['start_dateInt'] =\
-            self.parameters['train_start_dateInt']
+        self.parameters = dict()
+        self.model = koopman_model
 
         # determine training horizon
-        train_year_diff = int(str(
-            self.parameters['train_stop_dateInt'])[0:4]) - \
-            int(str(self.parameters['train_start_dateInt'])[0:4])
-        train_month_diff = int(str(
-            self.parameters['train_stop_dateInt'])[4:6]) - \
-            int(str(self.parameters['train_start_dateInt'])[4:6])
-        # add 1 here to include the stop date
-        self.parameters['train_horizon'] =\
-            train_year_diff * 12 + train_month_diff + 1
+        #TODO: shold be defined using self.model.data_frequency;
+        #but for now, we only have 1 option, Monthly, so this is okay
+        self.parameters['train_horizon'] = n_dates_in_range(self.model.training_start_date,
+                                                            self.model.training_stop_date)
+        #This seems to be the only configuration parameter not already in the koopman model itself
+        #If the predict function is going to live on an object and not as a standalone function,
+        #it should be instantiated for a single koopman model at a time
+        
+    def predict(self, start_date: int, end_date: int, predict_modes: List[int],
+                output_directory: str)->ClimateData:
+        """Initiate prediction processes with loaded config.
+        saves prediction output to .csv in output_directory and returns ClimateData object 
+        of the predictions"""
+        # select time range for prediction
+        if self.model.training_start_date > start_date:
+            print("WARNING, start date:", start_date,"is before start date of model training:",self.model.training_start_date)
+            print("Overriding start date with training start date:",self.model.training_start_date,"for prediction")
+            start_date = self.model.training_start_date
+
+        os.makedirs(output_directory, exist_ok=True)
+        print('Output directory: {}'.format(output_directory))
+
 
         # determine prediction horizon
-        pred_year_diff = int(str(self.parameters['stop_dateInt'])[0:4]) - \
-            int(str(self.parameters['start_dateInt'])[0:4])
-        pred_month_diff = int(str(self.parameters['stop_dateInt'])[4:6]) - \
-            int(str(self.parameters['start_dateInt'])[4:6])
-        # add 1 here to include the stop date
-        self.parameters['pred_horizon'] =\
-            pred_year_diff * 12 + pred_month_diff + 1
-
+        pred_horizon = n_dates_in_range(start_date,end_date)
+        
         # ========================================================= #
         # ========================================================= #
 
         print('\nKoopman Mode Decomposition Based Prediction on Sea Ice Data')
         print('Predictions for {} data using {} modes'.format(
-            self.parameters['dataFreq'], len(self.parameters['predictModes'])))
+            self.model.data_frequency, len(predict_modes)))
         print('Training Interval:   {} to {} ({} Snapshots)'.format(
-            self.parameters['train_start_dateInt'],
-            self.parameters['train_stop_dateInt'],
+            self.model.training_start_date,
+            self.model.training_stop_date,
             self.parameters['train_horizon']))
         print('Prediction Interval: {} to {} ({} Snapshots)'.format(
-            self.parameters['start_dateInt'],
-            self.parameters['stop_dateInt'],
-            self.parameters['pred_horizon']))
-
-        # load saved self.parameters
-        self.parameters['concentrationToConsiderZero'] =\
-            model.concentration_to_consider_zero
-        self.parameters['roundConc'] = model.round_concentration
-        self.parameters['north_lat_bound'] = model.north_lat_bound
-        self.parameters['south_lat_bound'] = model.south_lat_bound
-        self.parameters['numSeaIceObsv'] =\
-            model.number_sea_ice_observables
+            start_date,
+            end_date,
+            pred_horizon))
 
         # load all necessary data
         # training data
-        data = model.training_data
-        # latitude coordinates
-        lat = model.latitudes
-        # longitude coordinates
-        lon = model.longitudes
-        self.parameters['nlat'] = len(lat)
-        self.parameters['nlon'] = len(lon)
+                        
+        self.parameters['nlat'] = len(self.model.latitudes)
+        self.parameters['nlon'] = len(self.model.longitudes)
 
         # load mask
-        mask = {}
-        mask['maskedLat'] = model.masked_latitudes
-        mask['maskedLon'] = model.masked_longitudes
+        #TODO: where do we actually want to set/store this?
+        mask = create_mask_dict(self.model.masked_latitudes,
+                                self.model.masked_longitudes,
+                                self.parameters['nlat'],
+                                self.parameters['nlon'])
+                                                            
+        pruned_vtn, pruned_lambda = self.get_pruned_vtn_lambda(predict_modes)
+        
+        # generate KMD-based predictions
+        preds = make_predictions(
+            pred_horizon,
+            pruned_vtn,
+            pruned_lambda)
+        preds[preds <= self.model.concentration_to_consider_zero] = 0
+        preds[preds > 100.0] = 100.0
 
-        # load Koopman model
+        np.savetxt(
+            os.path.join(output_directory, 'KMD_predictions.csv'),
+            preds[:self.model.number_sea_ice_observables, :],
+            delimiter=",")
+        n_pred = preds.shape[1]
+
+        # reshape predictions to original longitude-latitude coordinates
+        full_preds = np.zeros(
+            (self.parameters['nlon'], self.parameters['nlat'], n_pred))
+        for ipred in range(n_pred):
+            full_preds[mask['maskedLon'], mask['maskedLat'], ipred] =\
+                preds[:self.model.number_sea_ice_observables, ipred]
+
+        dates = date_array_for_range(datetime.datetime.strptime(str(start_date),'%Y%m%d'),
+                                     datetime.datetime.strptime(str(end_date), '%Y%m%d'))
+
+        prediction_data = ClimateData(full_preds,
+                                      dates,
+                                      self.model.latitudes,
+                                      self.model.longitudes,
+                                      description=self.model.observable_name)
+        #only needed if using CESM1 grid (leave off for polar stereographic)
+        #prediction_data.fill_arctic_top_hole()
+        return(prediction_data)
+    
+    def plot_snapshots(self, predictions: ClimateData,
+                       mask: dict,
+                       end_date: int,
+                       output_directory: str):
+        
+        #TODO: return predictions
+        
+        # visualize predictios
+        prediction_output_directory = os.path.join(
+            output_directory, "predictions")
+        os.makedirs(prediction_output_directory, exist_ok=True)
+        plotPredictions(
+            self.parameters,
+            mask,
+            predictions.latitudes,
+            predictions.longitudes,
+            predictions.data,
+            prediction_output_directory)
+    
+    def select_modes_for_prediction(self, n_max: int = -1)->List[int]:
+        #not 100% sure how/where I want this to live
+        if n_max is not None and n_max == -1:
+            predict_modes = list(range(0, self.model.modes[0].shape[2]))
+        elif n_max > self.model[0].shape[2]:
+            predict_modes = list(range(0, self.model.modes[0].shape[2]))
+        else:
+            predict_modes = list(range(0, n_max))
+        return(predict_modes)
+              
+    def get_pruned_vtn_lambda(self,predict_modes):        
+        #TODO: this might make more sense as a member of the koopman model itself.
         Koopman = {}
-        Koopman['Vtn_real'] = model.vtn_real
-        Koopman['Vtn_imag'] = model.vtn_imaginary
-        Koopman['relambda'] = model.relambda
-        Koopman['imlambda'] = model.imlambda
-        Koopman['mode_imp'] = model.mode_imp
+        Koopman['Vtn_real'] = self.model.vtn_real
+        Koopman['Vtn_imag'] = self.model.vtn_imaginary
+        Koopman['relambda'] = self.model.relambda
+        Koopman['imlambda'] = self.model.imlambda
+        Koopman['mode_imp'] = self.model.mode_imp
 
         # trim Koopman modes and eigenvalues based on predictModes
         Koopman['Vtn_real'] =\
-            Koopman['Vtn_real'][:, self.parameters['predictModes']]
+            Koopman['Vtn_real'][:, predict_modes]
         Koopman['Vtn_imag'] =\
-            Koopman['Vtn_imag'][:, self.parameters['predictModes']]
+            Koopman['Vtn_imag'][:, predict_modes]
         Koopman['relambda'] =\
-            Koopman['relambda'][self.parameters['predictModes']]
+            Koopman['relambda'][predict_modes]
         Koopman['imlambda'] =\
-            Koopman['imlambda'][self.parameters['predictModes']]
+            Koopman['imlambda'][predict_modes]
         Koopman['mode_imp'] =\
-            Koopman['mode_imp'][self.parameters['predictModes']]
+            Koopman['mode_imp'][predict_modes]
 
         # complex valued Koopman modes
         Koopman['Vtn'] = Koopman['Vtn_real'] + Koopman['Vtn_imag']*1j
         # complex valued Koopman eigenvalues
         Koopman['Lambda'] = Koopman['relambda'] + Koopman['imlambda']*1j
 
-        m = data.shape[1]
+        m = self.model.training_data.shape[1]
 
         # set weights for spectral reconstruction
         W = np.ones((m, 1))
@@ -155,76 +193,6 @@ class Predictor:
             SLS_Spectral_Reconstruct_W_NE(
                 Koopman['Vtn'],
                 Koopman['Lambda'],
-                data.astype(complex),
+                self.model.training_data.astype(complex),
                 W)
-
-        # generate KMD-based predictions
-        preds = make_predictions(
-            self.parameters["pred_horizon"],
-            Koopman["Vtn"],
-            Koopman["Lambda"])
-        preds[preds <= self.parameters['concentrationToConsiderZero']] = 0
-        preds[preds > 100.0] = 100.0
-
-        np.savetxt(
-            os.path.join(output_directory, 'KMD_predictions.csv'),
-            preds[:self.parameters['numSeaIceObsv'], :],
-            delimiter=",")
-        n_pred = preds.shape[1]
-
-        # reshape predictions to original longitude-latitude coordinates
-        full_preds = np.zeros(
-            (self.parameters['nlon'], self.parameters['nlat'], n_pred))
-        for ipred in range(n_pred):
-            full_preds[mask['maskedLon'], mask['maskedLat'], ipred] =\
-                preds[:self.parameters['numSeaIceObsv'], ipred]
-
-        # apply mask for plotting
-        alphaMask = np.zeros(
-            (self.parameters['nlon'], self.parameters['nlat']))
-        alphaMask[mask['maskedLon'], mask['maskedLat']] = 1.0
-        mask['alphaMask'] = alphaMask
-
-        # visualize Koopman eigenvalues used for prediction
-        dt = 1.0
-        omega = np.log(Koopman['Lambda'])/dt
-        Koopman['reomega'] = omega.real*dt
-        Koopman['imomega'] = (omega.imag)/(2*np.pi)
-
-        # visualize predictions
-        if self.parameters['flag_plot_predictions']:
-            prediction_output_directory = os.path.join(
-                output_directory, "predictions")
-            os.makedirs(prediction_output_directory, exist_ok=True)
-            plotPredictions(
-                self.parameters,
-                mask,
-                lat,
-                lon,
-                full_preds,
-                prediction_output_directory)
-
-        # visualize comparisons (need to pull NSIDC data)
-        if self.parameters['flag_plot_comparisons']:
-            comparisons_output_directory = os.path.join(
-                output_directory, "comparisons")
-            os.makedirs(comparisons_output_directory, exist_ok=True)
-
-            # NSIDC data doesn't have an ensemble num
-            # so we set it to 1 for compatability with
-            # CESM1 data (first CESM1 ensemble will be loaded)
-            if model.data_source == "CESM1":
-                ensemble_number = model.ensemble_number
-            else:
-                ensemble_number = 1
-
-            plot_all_comparisons(
-                self.parameters,
-                full_preds,
-                mask,
-                lat,
-                lon,
-                Koopman,
-                ensemble_number,
-                comparisons_output_directory
-            )
+        return(Koopman['Vtn'], Koopman['Lambda'])
