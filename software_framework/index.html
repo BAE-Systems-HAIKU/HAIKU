@@ -120,10 +120,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="software-framework">Software Framework</h1>
-<p>This is a summary of the structure of the python-based HAIKU software system currently in development.
-As the system is developed, a beta version will be available on our public <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">github page</a>.
-This page will include steps required to download and preprocess training data,
+<p>This is a summary of the originally planned structure of the python-based HAIKU software system currently in development.
+A beta version is available on our public <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">github page</a>.
+<a href="../Tutorials/configure_haiku/">This page</a> includes steps required to download and preprocess training data, 
 and to get HAIKU operational on your system.</p>
+<p><i> The following is somewhat out-of-date, but provides a general description of the overall HAIKU architecture. </i></p>
 <p>* <strong><em>classes</em></strong> and <em>member functions</em> are denoted as such section.</p>
 <p><font size="5"><strong>Overall structure</strong> </font></p>
 <figure>
@@ -172,12 +173,14 @@ Input to this system are two <strong><em>ClimateData</em></strong> time-series w
 A <strong><em>KoopmanModel</em></strong> object is trained on each of the <strong><em>ClimateData</em></strong> objects constraining them to have the same eigenvalues so that they can be compared directly to one another.  The final result is a <strong><em>KoopmanModel</em></strong> which is the difference of these two.</p>
 <p>This <strong><em>KoopmanModel</em></strong> can then be used directly to provide a correction factor to <strong><em>ClimateData</em></strong> used as input through the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function.  Alternatively, it enables analytics (currently done manually) to better understand the causal differences between the two models. It is possible to generate a <strong><em>CausalModel</em></strong> object from this data, which may further enable understanding of the physical difference between the original datasets, but further study is required.</p>
 <h3 id="causal-model">Causal Model</h3>
+<p><i>The Causal Model code is not yet publicly available.</i></p>
 <p>This class requires <strong><em>ClimateData</em></strong> as well as its own member <strong><em>parameters</em></strong> (which helps define variable transformation from more fine-grained to user oriented causal variables).
 The <strong><em>CausalModel</em></strong>._transform_data(<strong><em>ClimateData</em></strong>) function generates a user oriented <strong><em>ClimateData</em></strong> time-series with many fewer variables.
 This time-series can then be used as input to train the <strong><em>CausalModel</em></strong> where it uses pairwise Granger Causality coupled with LASSO to limit number of edges, remove edges explained by other pathways.</p>
 <p>This <strong><em>CausalModel</em></strong> can then be viewed via a <strong><em>CausalModel</em></strong>.<em>print()</em> method.</p>
 <p>Other analytics are still being considered that may do things like allow a user to request the variable or pathway with the greatest impact on another variable.</p>
 <h2 id="analytics-toolkit">Analytics Toolkit</h2>
+<p><i>The Analytics toolkit currently includes only a script to generate the robustness analysis and several analytics plots as described in the <a href="../Tutorials/running_the_code/">tutorial</a>.</i></p>
 <p>The initial implementation of the <strong><em>analysis_toolkit</em></strong> hinges around the <strong><em>CausalModel</em></strong> class. The <strong><em>analysis_toolkit</em></strong> class is envisioned to hold many various analysis method, but not to hold any objects itself.</p>
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
