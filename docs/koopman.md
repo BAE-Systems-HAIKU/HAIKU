@@ -2,7 +2,7 @@
 
 The Hybrid AI Koopman-Climate Model (HKCM) aims to augment the ability of current climate models (CICE5 to start) to more accurately model real world measurements by training a Koopman model in series with the climate model to apply missing dynamics at each time step.  But from the programmatic level, we have two other components which should fall under this category as well, the Fast Koopman Proxy Model (FKPM) and our Analysis Toolkit.  These work together leveraging a Koopman proxy model of the full climate system that can be trained and run in minutes instead of days.  This enables our analysis toolkit and allows users to quickly test hypothesis and automatically determine uncertainty on forecasts as well as driving causal factors and potential interventions to avoid tipping points.
 
-Across both the HKCM and the FKPM, we will map from the inputs described in Section 3 into Koopman observables space and back.  We will also specify the mapping between model parameters (or Koopman observables) and variables of interest described in the same section.  By leveraging pregenerated data from the models of interest, we reduce the initial computational cost considerably, while hopefully maintaining sufficient diversity of model parameters to properly train the Koopman operators.  Once we’ve validated this approach, we will revisit running the full climate models with specific parameter values as necessary to explore potential tipping points and causal factors.
+Across both the HKCM and the FKPM, we map the inputs described in Section 3 into Koopman observables space and back.  We also specify the mapping between model parameters (or Koopman observables) and variables of interest described in the same section.  By leveraging pregenerated data from the models of interest, we reduce the initial computational cost considerably, while hopefully maintaining sufficient diversity of model parameters to properly train the Koopman operators.  Once we’ve validated this approach, we will revisit running the full climate models with specific parameter values as necessary to explore potential tipping points and causal factors.
 
 The FKPM and mapping to factors of interest are required for us to present an understandable result and allow for expert interaction through the Analysis Toolkit, which consists of a semantic graph of those factors, an explainer that shows pathways that drive specific factors (like rapid sea ice loss), and an identification of which variables will reach a tipping point (along with further statistics of when, how, and why).
 
@@ -46,7 +46,7 @@ We plan to train a Koopman operator-based model to learn the dynamics of the dif
 <center>
 <figure>
 <img src="../figs/diagrams/HKCM_diagram.png" alt="HKCM Diagram" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Hybrid AI Koopman-Climate Model (HKCM)—The Koopman Operator will predict the dynamics of the system given climate model output for the current step and the estimate of observables from the previous one. HKCM leverages modeled physics in the climate model while accounting for un-modeled physics.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 2:</b> Hybrid AI Koopman-Climate Model (HKCM)—The Koopman Operator predicts the dynamics of the system given climate model output for the current step and the estimate of observables from the previous one. HKCM leverages modeled physics in the climate model while accounting for un-modeled physics.</figcaption>
 </figure>
 </center>
 &nbsp;  
@@ -65,7 +65,7 @@ A preliminary investigation (Figure 4) shows the eigenfunctions of the Mean, Ann
 
 <center>
 <figure>
-<img src="../figs/results/Koopman_missing_physics_modes.png" alt="FKPM difference example" style="width:30%">
+<img src="../figs/results/Koopman_missing_physics_modes.png" alt="FKPM difference example" style="width:90%">
 <figcaption align = "center" style="width:90%"><b>Figure 4:</b> The resultant modes from a preliminary FKPM to apply a correction to the CESM1 model. The Berents and Kara sea are the main region of discrepancy. We find a missing exponential component with a decay time of 20 years. </figcaption>
 </figure>
 </center>
@@ -75,16 +75,16 @@ This is a very preliminary result and is meant simply to be illustrative of how 
 
 
 ##Fast Koopman Proxy Model (FKPM)
-We will also train a full Koopman model to create a fast proxy model of the full climate simulation.  This will enable a suite of analytics that can extract causality and better characterize tipping points and their associated uncertainty that would take months or years to do with the current best climate models alone. This is shown below (Figure 3).
+We also train full Koopman models to create fast proxy models of the full climate simulation.  This enables a suite of analytics that can extract causality and better characterize tipping points and their associated uncertainty that would take months or years to do with the current best climate models alone. This is shown below (Figure 3).
 <center>
 <figure>
 <img src="../figs/diagrams/FKPM_diagram.png" alt="FKPM Diagram" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Fast Koopman Proxy Model (FKPM)—The FKPM learns the full dynamics of the HKCM or stand-alone climate model, but is able to operate much faster than the either, enabling the analytic toolkit. Analysis of the eigenfunctions and eigenvalues will help identify tipping points and regions of interest for deeper analysis.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 3:</b> Fast Koopman Proxy Model (FKPM)—The FKPM learns the full dynamics of the HKCM or stand-alone climate model, but is able to operate much faster than the either, enabling the analytic toolkit. Analysis of the eigenfunctions and eigenvalues help identify tipping points and regions of interest for deeper analysis.</figcaption>
 </figure>
 </center>
 &nbsp;  
 
-Initially, we will train a FKPM using the climate model on its own so we can begin developing the Analysis Toolkit, but as the HKCM becomes more capable, we will train an improved FKPM that leverages it as well and compare the analytics for robustness.
+Initially, we train a FKPM using the climate model on its own so we can begin developing the Analysis Toolkit, but as the HKCM becomes more capable, we will train an improved FKPM that leverages it as well and compare the analytics for robustness.
 
 
 <sup>1</sup>Arbabi, H., & Mezic, I. (2017). Ergodic theory, dynamic mode decomposition, and computation of spectral properties of the Koopman operator. SIAM Journal on Applied Dynamical Systems, 16(4):2096–2126.

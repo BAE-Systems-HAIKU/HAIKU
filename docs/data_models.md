@@ -1,13 +1,11 @@
 # Data and Climate models
 The HAIKU program will focus on analyzing decade-scale predictions of Arctic sea ice concentrations. 
-We plan to initially use the pre-generated data across a variety of CICE4 parameters to initially construct the HAIKU models, but expect to need to run the CICE4 model eventually before transitioning to the full CESM model. 
+We leverage the CESM1 simulation datasets for initial analysis and Koopman model training.
 We also plan to leverage real measurement data to train our Hybrid Koopman-Climate Model which will learn to model dynamics present in real data that is not present in the models and their associated pre-generated data. 
 
 To enable rapid early results and validate our approach, we begin with a stand-alone sea ice model: the Los Alamos sea ice model [CICE4](https://www.cesm.ucar.edu/models/cesm1.0/cice/) and associated [documentation](http://www.ccpo.odu.edu/~klinck/Reprints/PDF/cicedoc2015.pdf).
 
-At the midpoint of Phase 1, we plan to move to the full Community Earth System Model (CESM2) to better model the coupled climate variability. CESM2 integrates CICE5 along with atmosphere (CAM6), ocean (POP2), land (CLM5), and ice sheet (CISM2) models of the NCAR modeling framework.
-
-##Initial Climate Models and Datasets
+##Climate Models and Datasets
 
 The CICE5 model requires atmospheric data, including: monthly downward shortwave radiation data at the surface, precipitation, cloud fraction, and four times daily data of 2m air temperature, 2m specific humidity, 10m wind, and 10m air density. 
 Most of the atmospheric data will be derived from the ERA5 reanalysis accessible via the ECWMF data portal ([ERA5](https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5)).
@@ -18,7 +16,7 @@ In addition, the CICE5 model requires data for vertical heat transport from the 
 
 The first step is to confirm sensitivity observations concluded by the climatology community. 
 Before investigative sensitivity, we will first need to find a correspondence between model outputs and observational data for validation. Observational data for sea ice concentration can be obtained from the [National Snow and Ice Data Center](https://nsidc.org/data/NSIDC-0051/versions/1)  (NSIDC).
-We will need to work in a common projection and resolution to avoid interpolation.
+We need to make sure the simulation and observational data are in a common projection and resolution to avoid interpolation.
 
 
 ##Model Prediction - CESM Large Ensemble Project

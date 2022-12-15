@@ -27,20 +27,19 @@ An example of this accuracy analysis in action can be seen on some preliminary r
 
 We plan to average over geographic and temporal step size to better quantify the utility of our models to the longer time scale climate trends as well as to mitigate the potential very small scale noise that the FKPM attempts to simulate.
 
-We plan for this metric to evolve as we continue evaluating the HAIKU system:
+This metric will evolve as we continue evaluating the HAIKU system:
 
    1. Aggregate spatially before computing the RMSE
    2. Compare accuracy of larger scale dynamics to higher resolution
    3. Aggregate temporally (or remove annual variation directly)
 
 
-Main goal is to assess decadal scale trends and tipping points, we don’t want model to focus on modeling annual variation when overall trend is more important
-Compute accuracy per variable/spatial/temporal grids
-Will enable Phase II ability to identify measurements to improve overall accuracy
+The main goal is to assess decadal scale trends and tipping points, we don’t want model to focus on modeling annual variation when overall trend is more important.
+Computing accuracy per variable/spatial/temporal grids will enable to identify measurements to improve overall accuracy via the Value of New Data Analysis.
 
 
 ##Robustness of HAIKU models
-FKPM models are trained on simulated or observational data, both of these sources have measurement uncertainty in the quantities we aim to model. By quantifying the impact variance on these inputs have in the predictions the koopman model is able to generate, we can define a bounds on the uncertainty of the FKPM predictions.
+FKPM models are trained on simulated or observational data, both of these sources have measurement uncertainty of the magnitudes we aim to model. By quantifying the impact variance on these inputs have in the predictions the koopman model is able to generate, we can define a bounds on the uncertainty of the FKPM predictions.
 Specifically, this is done by training multiple koopman models while varying the training inputs within the bounds of their uncertainty. The speed of the training of the Koopman models allows 10s of models to be trained to get a good estimate of the distribution of Koopman models over the parameters of interest.
 
 <center>

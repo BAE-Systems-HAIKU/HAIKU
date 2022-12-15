@@ -786,86 +786,89 @@ def plotSnapshotsSideBySide(fig, data1, data2, title_str, colorbar_label, clims,
     #fig.supylabel('Latitude [deg]')
     return fig
 
-def plot_robustness_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory,analysis_type:str="coverage",target_key="NSIDC"):
-    if analysis_type=="coverage":
-        ylabel="Sea Ice Extent"
-        ypred = prediction_data.return_coverage()
-        prediction_low_band, prediction_high_band = \
-            prediction_data.return_coverage(use_errors=True)
-        yclim = comparison_data["climatological mean"].return_coverage()
-        ynsidc = comparison_data["NSIDC"].return_coverage()
-    elif analysis_type=="spatial_correlation":
-        ylabel = "spatial correlation"
-        ypred = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
-        prediction_low_band, prediction_high_band = \
-            prediction_data.return_spatial_correlation(comparison_data[target_key].data,use_errors=True)
-        yclim = comparison_data["climatological mean"].return_spatial_correlation(comparison_data[target_key].data)
-        ynsidc = comparison_data["NSIDC"].return_spatial_correlation(comparison_data[target_key].data)
-    elif analysis_type=="rmse":
-        ylabel="RMSE"
-        ypred = prediction_data.return_rmse(comparison_data[target_key].data)
-        prediction_low_band, prediction_high_band = \
-            prediction_data.return_rmse(comparison_data[target_key].data,use_errors=True)
-        yclim = comparison_data["climatological mean"].return_rmse(comparison_data[target_key].data)
-        ynsidc = comparison_data["NSIDC"].return_rmse(comparison_data[target_key].data)
+def plot_robustness_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory,analysis_type:str="coverage",target_key="NSIDC",prediction_key="KMD Prediction"):
 
     xpred = prediction_data.date_int // 10000
-    xnsidc = comparison_data["NSIDC"].date_int // 10000
+    xnsidc = comparison_data[target_key].date_int // 10000
+    yvals = {}
+    
+    if analysis_type=="coverage":
+        ylabel="Sea Ice Extent"
+        yvals[prediction_key] = prediction_data.return_coverage()
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_coverage(use_errors=True)
+        for key in comparison_data.keys():
+            vals[key] = comparison_data[key].return_coverage()
+
+    elif analysis_type=="spatial_correlation":
+        ylabel = "spatial correlation"
+        yvals[prediction_key] = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_spatial_correlation(comparison_data[target_key].data,use_errors=True)
+        for key in comparison_data.keys():
+            yvals[key] = comparison_data[key].return_spatial_correlation(comparison_data[target_key].data)
+
+    elif analysis_type=="rmse":
+        ylabel="RMSE"
+        yvals[prediction_key] = prediction_data.return_rmse(comparison_data[target_key].data)
+        prediction_low_band, prediction_high_band = \
+            prediction_data.return_rmse(comparison_data[target_key].data,use_errors=True)
+        for key in comparison_data.keys():
+            yvals[key] = comparison_data[key].return_rmse(comparison_data[target_key].data)
+
 
     for imonth in range(12):
         pred_filter = ((prediction_data.date_int // 100) %100) -1 == imonth
-        nsidc_filter =((comparison_data["NSIDC"].date_int // 100) %100) -1 == imonth
-        plotTimeSeries({"KMD Prediction":xpred[pred_filter],
-                        "Climatological Mean":xnsidc[nsidc_filter],
-                        "NSIDC":xnsidc[nsidc_filter]},
-                       {"KMD Prediction":ypred[pred_filter],
-                        "Climatological Mean":yclim[nsidc_filter],
-                        "NSIDC":ynsidc[nsidc_filter]},
-                       "NSIDC",
+        nsidc_filter =((comparison_data[target_key].date_int // 100) %100) -1 == imonth
+        tempx = {prediction_key:xpred[pred_filter]}
+        tempy = {prediction_key:yvals[prediction_key][pred_filter]}
+        plotTimeSeries(tempx,
+                       tempy,
+                       target_key,
                        ylabel,
                        output_directory,
                        color_dict={},
                        style_dict={},
-                       errors={"KMD Prediction":["2-sigma",
+                       errors={prediction_key:["2-sigma",
                                                  prediction_low_band[pred_filter],
                                                  prediction_high_band[pred_filter]]},
                        plot_title="Month_"+str(imonth+1)+"_"+ylabel.replace(" ","_"))
 
 
 
-def plot_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory:str,analysis_type:str="coverage",target_key="NSIDC"):
+def plot_timeseries(comparison_data:dict(), prediction_data:ClimateData,output_directory:str,analysis_type:str="coverage",target_key="NSIDC",prediction_key="KMD Prediction"):
 
     data_dict={}
     xpred = prediction_data.date_int // 10000
-    xnsidc = comparison_data["NSIDC"].date_int // 10000
+    xnsidc = comparison_data[target_key].date_int // 10000
     yvals = {}
     if analysis_type=="coverage":
         ylabel="Sea Ice Extent"
-        yvals["KMD Prediction"] = prediction_data.return_coverage()
+        yvals[prediction_key] = prediction_data.return_coverage()
         for key in comparison_data.keys():
             yvals[key] = comparison_data[key].return_coverage()
     elif analysis_type=="spatial_correlation":
         ylabel = "spatial correlation"
-        yvals["KMD Prediction"] = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
+        yvals[prediction_key] = prediction_data.return_spatial_correlation(comparison_data[target_key].data)
         for key in comparison_data.keys():
             yvals[key] = comparison_data[key].return_spatial_correlation(comparison_data[target_key].data)
     elif analysis_type=="rmse":
         ylabel="RMSE"
-        yvals["KMD Prediction"] = prediction_data.return_rmse(comparison_data[target_key].data)
+        yvals[prediction_key] = prediction_data.return_rmse(comparison_data[target_key].data)
         for key in comparison_data.keys():
             yvals[key]= comparison_data[key].return_rmse(comparison_data[target_key].data)
 
     for imonth in range(12):
         pred_filter = ((prediction_data.date_int // 100) %100) -1 == imonth
-        nsidc_filter =((comparison_data["NSIDC"].date_int // 100) %100) -1 == imonth
-        tempx = {"KMD Prediction":xpred[pred_filter]}
-        tempy = {"KMD Prediction":yvals["KMD Prediction"][pred_filter]}
+        nsidc_filter =((comparison_data[target_key].date_int // 100) %100) -1 == imonth
+        tempx = {prediction_key:xpred[pred_filter]}
+        tempy = {prediction_key:yvals[prediction_key][pred_filter]}
         for key in comparison_data.keys():
             tempx[key] = xnsidc[nsidc_filter]
             tempy[key] = yvals[key][pred_filter] 
         plotTimeSeries(tempx,
                        tempy,
-                       "NSIDC",
+                       target_key,
                        ylabel,
                        output_directory,
                        color_dict={},

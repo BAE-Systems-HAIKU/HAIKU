@@ -1,9 +1,11 @@
 # Software Framework
 
-This is a summary of the structure of the python-based HAIKU software system currently in development.
-As the system is developed, a beta version will be available on our public [github page](https://github.com/BAE-Systems-HAIKU/HAIKU).
-This page will include steps required to download and preprocess training data,
+This is a summary of the originally planned structure of the python-based HAIKU software system currently in development.
+A beta version is available on our public [github page](https://github.com/BAE-Systems-HAIKU/HAIKU).
+[This page](../Tutorials/configure_haiku/) includes steps required to download and preprocess training data, 
 and to get HAIKU operational on your system.
+
+The following is somewhat out-of-date, but provides a general description of the overall HAIKU architecture.
 
  \* **_classes_** and _member functions_ are denoted as such section.
 
@@ -84,6 +86,8 @@ This **_KoopmanModel_** can then be used directly to provide a correction factor
 
 
 ###Causal Model
+<i>The Causal Model code is not yet publicly available.</i>
+
 
 This class requires **_ClimateData_** as well as its own member **_parameters_** (which helps define variable transformation from more fine-grained to user oriented causal variables).
 The **_CausalModel_**._transform_data(**_ClimateData_**) function generates a user oriented **_ClimateData_** time-series with many fewer variables.
@@ -95,7 +99,7 @@ Other analytics are still being considered that may do things like allow a user 
 
 
 ##Analytics Toolkit
-
+<i>The Analytics toolkit currently includes only a script to generate the robustness analysis and several analytics plots as described in the [tutorial](../Tutorials/running_the_code/).</i>
 The initial implementation of the **_analysis_toolkit_** hinges around the **_CausalModel_** class. The **_analysis_toolkit_** class is envisioned to hold many various analysis method, but not to hold any objects itself.
 
 <figure>
