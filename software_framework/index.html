@@ -63,17 +63,21 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Software Framework</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#climate-data">Climate Data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#preprocessing-module">Preprocessing Module</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#koopman-models">Koopman Models</a>
+    <li class="toctree-l2"><a class="reference internal" href="#training-module">Training Module</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hybrid-modeling">Hybrid Modeling</a>
+    <li class="toctree-l2"><a class="reference internal" href="#prediction-module">Prediction Module</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#envisioned-haiku-system">Envisioned HAIKU System</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#hybrid-modeling">Hybrid Modeling</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#causal-model">Causal Model</a>
     </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#analytics-toolkit">Analytics Toolkit</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#analytics-toolkit">Analytics Toolkit</a>
+        </ul>
     </li>
     </ul>
                 </li>
@@ -120,75 +124,94 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="software-framework">Software Framework</h1>
-<p>This is a summary of the originally planned structure of the python-based HAIKU software system currently in development.
-A beta version is available on our public <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">github page</a>.
-<a href="../Tutorials/configure_haiku/">This page</a> includes steps required to download and preprocess training data, 
+<p>This is a summary of the structure of the python-based HAIKU software system currently in development.
+As the system is developed, a beta version will be available on our public <a href="https://github.com/BAE-Systems-HAIKU/HAIKU">github page</a>.
+This page will include steps required to download and preprocess training data,
 and to get HAIKU operational on your system.</p>
-<p><i> The following is somewhat out-of-date, but provides a general description of the overall HAIKU architecture. </i></p>
-<p>* <strong><em>classes</em></strong> and <em>member functions</em> are denoted as such section.</p>
-<p><font size="5"><strong>Overall structure</strong> </font></p>
+<p>* <strong><em>classes</em></strong> and <em>member functions</em> are denoted as in this such section.</p>
+<p><font size="5"><strong>General HAIKU Software Flowchart</strong></font></p>
 <figure>
-<img src="../figs/diagrams/haiku-core-classes-diagram.png" alt="Software capability summary" style="width:95%">
-<figcaption align = "center" style="width:80%"><b>Figure 1:</b> Classes representing core functionality in the HAIKU software system.</figcaption>
+<center>
+<img src="../figs/diagrams/software_process_flowchart.png" alt="Software Process Flowcart">
+<figcaption align="center"><b>Figure 1</b>: Software Process Flowchart</figcaption>
+</center>
 </figure>
 <p>&nbsp;</p>
-<p>We generate a <strong><em>ClimateData</em></strong> object that encapsulates CESM, NSIDC, or Koopman generated data and converts them all to consistent representations (the same coordinate grid and sets of variables) while storing the provenance as a member.</p>
+<p>The HAIKU Software Architecture encapsulates each of the above flow elements into software modules. These modules decouple logic and enable distributed processing.</p>
+<p>Each of the below sections provides a high-level overview of the following HAIKU modules:</p>
+<ul>
+<li><a href="../../software_framework/#preprocessing-module">Preprocessing</a></li>
+<li><a href="../../software_framework/#training-module">Training</a></li>
+<li><a href="../../software_framework/#prediction-module">Prediction</a></li>
+</ul>
+<h2 id="preprocessing-module">Preprocessing Module</h2>
+<p>The purpose of the preprocessing module is to generate a <strong><em>ClimateData</em></strong> object that encapsulates CESM1 or NSIDC data. This data is converted into consistent representations (e.g., same coordinate grid, matching sets of variables, interpolated missing data) and serialized to disk for later use in the pipeline.</p>
 <figure>
-<img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
-<figcaption align = "center" style="width:80%"><b>Figure 2:</b> Central objects to the HAIKU system.  The analytics causal analysis and analysis toolkit are still being built out and are not present in the current release.</figcaption>
+<img src="../figs/diagrams/preprocessing_class_diagram.png" alt="Preprocessing Class Diagram">
+<figcaption align="center"><b>Figure 2</b>: Classes in the Preprocessing Module</figcaption>
 </figure>
 <p>&nbsp;</p>
-<p>The <strong><em>KoopmanModel</em></strong> class contains a trained Koopman model as well as any training parameters associated with the stored data. During training, it takes a single <strong><em>ClimateData</em></strong> object and learns the dynamics of this system.</p>
-<p>The <strong><em>Predictor</em></strong> object is used to operate on <strong><em>KoopmanModel</em></strong> objects and generate <strong><em>ClimateData</em></strong> with a range of parameters.</p>
-<p>The <strong><em>Plotter</em></strong> object takes either a <strong><em>KoopmanModel</em></strong> or <strong><em>ClimateData</em></strong> as input, along with runtime parameters, and generates visualizations representing the stored data. As such, this object is also used to visualize predictions.</p>
-<figure>
-<img src="../figs/diagrams/model_generation_flowchart.png" alt="Model generation software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 3:</b> The HAIKU framework ingests data and generates a series of models to enable Tipping Point and other analytics on the climate system.</figcaption>
-</figure>
-<p>&nbsp;</p>
-<p>Finally, the <strong><em>KoopmanModel</em></strong> itself or the time-series data contained in a <strong><em>ClimateData</em></strong> object can be passed into the Analytics Toolkit. A <strong><em>CausalModel</em></strong> object is instantiated and can learn a causal structure from time-series data (<strong><em>ClimateData</em></strong> object) using its internal methods or from the structure of the <strong><em>KoopmanModel</em></strong> itself. Similarly, the <strong><em>CausalModel</em></strong>, <strong><em>ClimateData</em></strong>, or <strong><em>KoopmanModel</em></strong> objects are used as input to different tipping-point analyses inside the toolkit.</p>
-<figure>
-<img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 4:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
-</figure>
-<p>&nbsp;</p>
-<p>Rounding out the system, there are a variety of metrics that are evaluated either as member functions of the systems or as standalone code.</p>
-<h2 id="climate-data">Climate Data</h2>
-<p><strong><em>ClimateData</em></strong> objects are instantiated by the <strong><em>ClimateDataLoader</em></strong> class which reads in CESM or NSIDC time-series data and converts it to consistent representations (the same coordinate grid and sets of variables). Similarly, <strong><em>ClimateData</em></strong> can also be produced from a <strong><em>KoopmanModel</em></strong> object by running the model through the <strong><em>Predictor</em></strong> object.
+<p>The specific data loading class hierarchy of the Preprocessing module is separated to avoid clutter. Each of the below classes is utilized to extract data for a specific data source.</p>
+<p><strong><em>ClimateData</em></strong> objects are instantiated by the <strong><em>DataLoader</em></strong> class which reads in CESM or NSIDC time-series data and converts it to consistent representations (the same coordinate grid and sets of variables). Later in the pipline, <strong><em>ClimateData</em></strong> can also be produced from a <strong><em>KoopmanModel</em></strong> object by running the model through the <strong><em>Predictor</em></strong> object.
 The time-series data is stored in a numpy array and is by default monthly climate variable data.
 Internal processing converts between polar and lat-lon coordinates, interpolates missing datapoints, and produces time-series matching the lifted Koopman observables (given a <strong><em>KoopmanModel</em></strong>).</p>
-<p><strong><em>Plotter</em></strong> operates on <strong><em>ClimateData</em></strong> to visually investigate the temporal and spatial behavior of the data.</p>
-<h2 id="koopman-models">Koopman Models</h2>
+<p><strong><em>PlotFunctions</em></strong> further down the pipeline operates on <strong><em>ClimateData</em></strong> to visually investigate the temporal and spatial behavior of the data.</p>
+<figure>
+<img src="../figs/diagrams/data_loading_class_diagram.png" alt="Data Loading Class Diagram">
+<figcaption align="center"><b>Figure 3</b>: Data Loading Classes in the Preprocessing Module</figcaption>
+</figure>
+<p>&nbsp;</p>
+<h2 id="training-module">Training Module</h2>
+<p>The purpose of the Training Module is to use ingest a single ClimateData object and learn the dynamics of the represented system using Koopman. The KoopmanModel class contains a trained Koopman model as well as any training parameters associated with the stored data.</p>
+<figure>
+<img src="../figs/diagrams/training_class_diagram.png" alt="Training Class Diagram">
+<figcaption align="center"><b>Figure 4</b>: Classes in the Training Module</figcaption>
+</figure>
+<p>&nbsp;</p>
 <p>The <strong><em>KoopmanModel</em></strong> class contains a trained Koopman model. The <strong><em>KoopmanModelTrainer</em></strong> class contains functions necessary for training a Koopman model based on provided <strong><em>ClimateData</em></strong>. It is used in conjunction with the <strong><em>Predictor</em></strong> class to generate prediction time-series data in the form of <strong><em>ClimateData</em></strong>.</p>
+<h2 id="prediction-module">Prediction Module</h2>
+<p>The purpose of the Prediction Module is to use a single Koopman model to generate Climate Data predictions and produce human-readable analytics (e.g., visualizations).</p>
+<figure>
+<img src="../figs/diagrams/prediction_class_diagram.png" alt="Prediction Class Diagram">
+<figcaption align="center"><b>Figure 5</b>: Classes in the Prediction Module</figcaption>
+</figure>
+<p>&nbsp;</p>
 <p>Several model hyperparameters are set at instantiation through the configuration file.</p>
-<p>The <strong><em>Predictor</em></strong> has a member function, <strong><em>Predictor</em></strong>.predict(<strong>_KoopmanModel</strong>,dt), which returns the predicted <strong><em>climate_state</em></strong> after the <strong><em>KoopmanModel</em></strong> has run the original state, x, forward by time dt. This function lifts the original climate state into the Koopman Observables space before propagating the state forward using matrix multiplication, reversing the lifting function, and producing the predicted state in the original <strong><em>climate_state</em></strong> format.  There is an associated function for bulk processing of the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function which can provide a full <strong><em>ClimateData</em></strong> object as output.  This is more commonly used in most analytics.  Currently, the lifting function is a relatively straightforward aggregation of the <strong><em>ClimateData</em></strong>, but we are investigating other approaches as the development continues.</p>
+<p>The <strong><em>Predictor</em></strong> class returns the predicted <strong><em>climate_state</em></strong> after the <strong><em>KoopmanModel</em></strong> has run the original state, x, forward by time dt. This function lifts the original climate state into the Koopman Observables space before propagating the state forward using matrix multiplication, reversing the lifting function, and producing the predicted state in the original <strong><em>climate_state</em></strong> format.  There is an associated function for bulk processing of the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function which can provide a full <strong><em>ClimateData</em></strong> object as output.  This is more commonly used in most analytics.  Currently, the lifting function is a relatively straightforward aggregation of the <strong><em>ClimateData</em></strong>, but we are investigating other approaches as the development continues.</p>
 <p>The <strong><em>KoopmanModel</em></strong> also has external plotting functions to summarize the model structure including plots of eigenfunctions of selected modes and the distribution of eigenvalues for the <strong><em>KoopmanModel</em></strong>.</p>
 <p>The forecasting done by the Koopman Models enables the Analytics Toolkit or can produce stand-alone climate forecasts for public consumption.</p>
-<h2 id="hybrid-modeling">Hybrid Modeling</h2>
-<p>We're still designing the structure of the Hybrid Koopman-Climate Model (HKPM) implementation.
-For the scope of this project we intend to apply a correction on top of pregenerated data from CESM or another climate model rather than running the full CESM climate model locally and applying the correction in place.
-This will likely be sufficient to test the HKCM as a proof-of-concept.</p>
+<h2 id="envisioned-haiku-system">Envisioned HAIKU System</h2>
+<p>The current software implementation of HAIKU supports <strong><em>ClimateData</em></strong> objects, <strong><em>KoopmanModel</em></strong> objects, as well as various plotting functions and analysis scripts.
+The intended structure isn't fully implemented, many components planned to live in the <strong><em>AnalysisToolkit</em></strong> currently live in a scripts/ directory (<em>robustness_analysis()</em>) or aren't yet implemented (<strong><em>CausalModel</em></strong>). 
+A high level picture for the planned final HAIKU software suite are shown in Figure 6 and described in more detail in this section.</p>
+<figure>
+<img src="../figs/diagrams/software_capability_summary.png" alt="Software capability summary" style="width:95%">
+<figcaption align = "center" style="width:80%"><b>Figure 6:</b> Central objects to the HAIKU system.  The analytics causal analysis and analysis toolkit are still being built out and are not present in the current release.</figcaption>
+</figure>
+<p>&nbsp;</p>
+<h3 id="hybrid-modeling">Hybrid Modeling</h3>
+<p>The final structure of the Hybrid Koopman-Climate Model (HKPM) is still being developed.
+We intend to apply a correction on top of pregenerated data from CESM or another climate model rather than running the full CESM climate model locally and applying the correction in place.
+Some proof of concept results and thoughts on how this can enhance understanding of the climate system and improve future models can be seen in the <a href="../../Results/initial_motivation_results/#initial-hkcm-results">results/HKCM</a> section.</p>
 <p>The HKPM itself is the correction to apply at each time-step of a climate model.
 Input to this system are two <strong><em>ClimateData</em></strong> time-series with the same variables and over the same time-period.
 A <strong><em>KoopmanModel</em></strong> object is trained on each of the <strong><em>ClimateData</em></strong> objects constraining them to have the same eigenvalues so that they can be compared directly to one another.  The final result is a <strong><em>KoopmanModel</em></strong> which is the difference of these two.</p>
-<p>This <strong><em>KoopmanModel</em></strong> can then be used directly to provide a correction factor to <strong><em>ClimateData</em></strong> used as input through the <strong><em>KoopmanModel</em></strong>.<em>predict_state()</em> function.  Alternatively, it enables analytics (currently done manually) to better understand the causal differences between the two models. It is possible to generate a <strong><em>CausalModel</em></strong> object from this data, which may further enable understanding of the physical difference between the original datasets, but further study is required.</p>
+<p>This <strong><em>KoopmanModel</em></strong> can then be used directly to provide a correction factor to <strong><em>ClimateData</em></strong> used as input through the <strong><em>KoopmanModel</em></strong>.<em>predict()</em> function.  Alternatively, it enables analytics (currently done manually) to better understand the causal differences between the two models. It is possible to generate a <strong><em>CausalModel</em></strong> object from this data, which may further enable understanding of the physical difference between the original datasets, but further study is required.</p>
 <h3 id="causal-model">Causal Model</h3>
-<p><i>The Causal Model code is not yet publicly available.</i></p>
-<p>This class requires <strong><em>ClimateData</em></strong> as well as its own member <strong><em>parameters</em></strong> (which helps define variable transformation from more fine-grained to user oriented causal variables).
+<p>The HAIKU system has no implementation of Causal Modeling in the currently released codebase. But the approach has been designed to support causal models in the future.
 The <strong><em>CausalModel</em></strong>._transform_data(<strong><em>ClimateData</em></strong>) function generates a user oriented <strong><em>ClimateData</em></strong> time-series with many fewer variables.
 This time-series can then be used as input to train the <strong><em>CausalModel</em></strong> where it uses pairwise Granger Causality coupled with LASSO to limit number of edges, remove edges explained by other pathways.</p>
-<p>This <strong><em>CausalModel</em></strong> can then be viewed via a <strong><em>CausalModel</em></strong>.<em>print()</em> method.</p>
 <p>Other analytics are still being considered that may do things like allow a user to request the variable or pathway with the greatest impact on another variable.</p>
-<h2 id="analytics-toolkit">Analytics Toolkit</h2>
-<p><i>The Analytics toolkit currently includes only a script to generate the robustness analysis and several analytics plots as described in the <a href="../Tutorials/running_the_code/">tutorial</a>.</i></p>
-<p>The initial implementation of the <strong><em>analysis_toolkit</em></strong> hinges around the <strong><em>CausalModel</em></strong> class. The <strong><em>analysis_toolkit</em></strong> class is envisioned to hold many various analysis method, but not to hold any objects itself.</p>
+<h3 id="analytics-toolkit">Analytics Toolkit</h3>
+<p>The current Analytics Toolkit capabilities are implemented in the scripts/ directory in the current software implementation.
+As more workflows are defined and automated, the Analytics Toolkit class will be implemented to contain several analyses some of which are already completed (initial robustness and tipping point analyses) and others (causal model supported analytics) are not yet supported.</p>
 <figure>
 <img src="../figs/diagrams/toolkit_flowchart.png" alt="Analytics Toolkit software flowchart" style="width:90%">
-<figcaption align = "center" style="width:90%"><b>Figure 5:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
+<figcaption align = "center" style="width:90%"><b>Figure 7:</b> Leveraging the generated models and time-series data, several analyses are enabled in the Analytics Toolkit.</figcaption>
 </figure>
 <p>&nbsp;</p>
 <p>The analytics toolkit allows for generation of the causal model class and enables the time-series based what-if analyses that can be conducted on the causal variables themselves.</p>
-<p>The analytics toolkit will also enable the metrics described in the <a href="../metrics">Metrics</a> section.  Specifically, a user will be able to select the metric of interest (eg. robustness to training window bounds) and will automatically run the relevant analysis over the specified parameters and present figures and estimates of the metric in question.</p>
+<p>The analytics toolkit will also enable the metrics described in the <a href="../../metrics">Metrics</a> section.  Specifically, a user will be able to select the metric of interest (eg. robustness to training window bounds) and will automatically run the relevant analysis over the specified parameters and present figures and estimates of the metric in question.</p>
               
             </div>
           </div><footer>
